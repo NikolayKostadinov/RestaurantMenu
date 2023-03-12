@@ -1365,18 +1365,26 @@
                     businessDays: '7:00 - 22:00',
                     fridayAndSaturday: '9:00 - Полунощ',
                     sunday: '12:00 - 22:00'
-                }
+                },
+                imagesUrls:[
+                    "https://firebasestorage.googleapis.com/v0/b/menuimages-c16e0.appspot.com/o/restaurants%2Fabout-1.jpg?alt=media&token=d280979e-0c43-43de-9508-439c553f9f7e",
+                    "https://firebasestorage.googleapis.com/v0/b/menuimages-c16e0.appspot.com/o/restaurants%2Fabout-2.jpg?alt=media&token=c277622f-b22c-475b-97b9-3fc4394cdf5d"
+                ]
             },
             "668ac358-8b0b-4962-8c4c-98006272eb6b": {
                 _ownerId: "c3588470-6b84-405b-a3b5-5ee4e553b450",
-                title: "Шамшпанско & звезди",
+                title: "Шампанско & звезди",
                 _createdOn: 1678624474951,
                 _id: "668ac358-8b0b-4962-8c4c-98006272eb6b",
                 workindHours: {
                     businessDays: '7:00 - 22:00',
                     fridayAndSaturday: '9:00 - Полунощ',
                     sunday: '12:00 - 22:00'
-                }
+                },
+                imagesUrls:[
+                    "https://firebasestorage.googleapis.com/v0/b/menuimages-c16e0.appspot.com/o/restaurants%2Fabout-3.jpg?alt=media&token=e584809d-0ccd-447b-a045-e4b6df527d25",
+                    "https://firebasestorage.googleapis.com/v0/b/menuimages-c16e0.appspot.com/o/restaurants%2Fabout-4.jpg?alt=media&token=deb595d3-19f9-48f8-af1e-3945b464d38c"
+                ]
             }
         },
         comments: {

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import RestaurantImage from './RestaurantImage';
 
 const Restaurant = ({ restaurant }) => {
     return (
@@ -34,54 +35,11 @@ const Restaurant = ({ restaurant }) => {
                         </Link>
                     </div>
                     <div className="col-md-6">
-                        <div className="row">
-                            <div className="col">
-                                <img
-                                    alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, Pigga Landing page"
-                                    src="./imgs/about-1.jpg"
-                                    className="w-100 rounded shadow"
-                                />
-                            </div>
-                            <div className="col">
-                                <img
-                                    alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, Pigga Landing page"
-                                    src="./imgs/about-2.jpg"
-                                    className="w-100 rounded shadow"
-                                />
-                            </div>
+                        <div className="row justify-content-around">
+                            {restaurant.imagesUrls.map((img, ix) => <RestaurantImage imageUrl={img} altText={`${restaurant.title} ${ix + 1}`} />)}
                         </div>
                     </div>
                 </div>
-                {/* <div className="section-devider my-6 transparent" /> */}
-                {/* <div className="row align-items-center">
-                    <div className="col-md-6">
-                        <h6 className="section-subtitle">The Great Story</h6>
-                        <h3 className="section-title">Our Culinary Journey</h3>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic illo
-                            a, aut, eum nesciunt obcaecati deserunt ipsam nostrum voluptate
-                            recusandae?
-                        </p>
-                    </div>
-                    <div className="col-md-6 order-1 order-sm-first">
-                        <div className="row">
-                            <div className="col">
-                                <img
-                                    alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, Pigga Landing page"
-                                    src="./imgs/about-3.jpg"
-                                    className="w-100 rounded shadow"
-                                />
-                            </div>
-                            <div className="col">
-                                <img
-                                    alt="Download free bootstrap 4 landing page, free boootstrap 4 templates, Download free bootstrap 4.1 landing page, free boootstrap 4.1.1 templates, Pigga Landing page"
-                                    src="./imgs/about-4.jpg"
-                                    className="w-100 rounded shadow"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div> */}
             </div>
         </section>
     )

@@ -173,7 +173,7 @@ const Register = () => {
                             name="repass"
                             id="confirm-password"
                             className="form-control"
-                            placeholder="Повторете паролате"
+                            placeholder="Повторете паролата"
                             onChange={onChange}
                             onBlur={samePasswordsValidator}
                             value={formState.name}
