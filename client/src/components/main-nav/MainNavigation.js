@@ -1,10 +1,11 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import { useAuthContext } from "../../contexts/AuthContext";
 import FirstNavigation from "./FirstNavigation";
 
 import styles from "./MainNavigation.module.css";
 
 const MainNavigation = () => {
-    const { user } = { user: { fullName: 'Nikolay Kostadinov' } };
+    const {user, isAuthenticated} = useAuthContext();
     return (
         <>
             <FirstNavigation />
@@ -28,7 +29,7 @@ const MainNavigation = () => {
                                     Начало
                                 </NavLink>
                             </li>
-                            {user
+                            {isAuthenticated
                                 ? <> <li className="nav-item">
                                     <NavLink className="nav-link" to="/management">
                                         Управление
@@ -42,36 +43,31 @@ const MainNavigation = () => {
                                 </>
                                 : null
                             }
-                            <li className="nav-item">
-                                <NavLink className="nav-link" to="/menu">
-                                    Меню
-                                </NavLink>
-                            </li>
                         </ul>
-                        {user
+                        {isAuthenticated
                             ? <ul className="navbar-nav ml-auto">
                                 <li className="nav-item">
-                                    <a href="components.html" className={`btn btn-sm text-primary ${styles.profile}`}>
-                                        <i className="fa-regular fa-circle-user"></i> {user.fullName}
-                                    </a>
+                                    {/* <a href="components.html" className={`btn btn-sm text-primary ${styles.profile}`}> */}
+                                       <p className={`text-primary ${styles.profile}`}><i className="fa-regular fa-circle-user"></i> {user.fullname}</p>
+                                    {/* </a> */}
                                 </li>
                                 <li className="nav-item">
-                                    <a href="components.html" className="btn btn-primary btn-sm ml-4 ">
+                                    <Link to="/logout" className="btn btn-primary btn-sm ml-4 ">
                                         <i className="fa-solid fa-arrow-right-to-bracket"></i> Изход
-                                    </a>
+                                    </Link>
                                 </li>.
 
                             </ul>
                             : <ul className="navbar-nav ml-auto">
                                 <li className="nav-item">
-                                    <a href="components.html" className="btn btn-primary btn-sm ">
+                                    <Link to="/login" className="btn btn-primary btn-sm ">
                                         <i className="fa-solid fa-arrow-right-to-bracket"></i> Вход
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a href="components.html" className="btn btn-primary btn-sm btn-round ml-4">
+                                    <Link to="/register" className="btn btn-primary btn-sm btn-round ml-4">
                                         <i className="fa-solid fa-registered"></i> Регистрация
-                                    </a>
+                                    </Link>
                                 </li>
                             </ul>
                         }

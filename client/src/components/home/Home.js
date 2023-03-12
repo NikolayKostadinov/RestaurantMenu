@@ -15,11 +15,11 @@ const Home = () => {
                     <div className="bg-primary delimiter"></div>
                 </div>
             </header>
+            {/* <Restaurant/>
             <Restaurant/>
             <Restaurant/>
             <Restaurant/>
-            <Restaurant/>
-            <Restaurant/>
+            <Restaurant/> */}
         </>);
 }
 export default Home;

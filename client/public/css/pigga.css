@@ -11337,9 +11337,9 @@ hr {
 
 .transparent {
   position: relative;
-  min-height: 650px;
-  background: url(../imgs/header.jpg) no-repeat center center fixed;
-  background-size: cover;
+  min-height: calc(100vh - 211px);
+  background: url(../imgs/header.jpg) no-repeat center center fixed !important;
+  background-size: cover !important;
 }
 
 .transparent .overlay {

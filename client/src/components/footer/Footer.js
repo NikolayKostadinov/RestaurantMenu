@@ -4,29 +4,9 @@ const Footer = () => {
             <div className="container">
                 <div className="row align-items-center text-center text-md-left">
                     <div className="col">
-                        <p className="mb-0 small">
-                            © ,{" "}
-                            <a href="https://www.devcrud.com" target="_blank">
-                                DevCrud
-                            </a>{" "}
-                            All rights reserved{" "}
+                        <p className="mb-0 small text-center">
+                            &copy; 2023 Николай Костадинов
                         </p>
-                    </div>
-                    <div className="d-none d-md-block">
-                        <h6 className="small mb-0">
-                            <a href="#" className="px-2">
-                                <i className="ti-facebook" />
-                            </a>
-                            <a href="#" className="px-2">
-                                <i className="ti-twitter" />
-                            </a>
-                            <a href="#" className="px-2">
-                                <i className="ti-instagram" />
-                            </a>
-                            <a href="#" className="px-2">
-                                <i className="ti-google" />
-                            </a>
-                        </h6>
                     </div>
                 </div>
             </div>

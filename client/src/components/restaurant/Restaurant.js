@@ -1,33 +1,37 @@
-import styles from './Restaurant.module.css';
-const Restaurant = ({restaurant}) => {
+import { Link } from 'react-router-dom';
+
+const Restaurant = ({ restaurant }) => {
     return (
         <section className="restaurant">
             <div className="container">
                 <div className="row align-items-center">
                     <div className="col-md-6">
                         <h6 className="section-subtitle">Работно време</h6>
-                        <h3 className="section-title">Сладкия кокъл</h3>
+                        <h3 className="section-title">{restaurant.title}</h3>
                         <p className="mb-1 text-primary font-weight-bold">
-                            Понеделник - Четвъртък :{" "}
+                            Понеделник - Четвъртък :
                             <span className="font-weight-normal pl-2 text-dark">
-                                7:00 am - 12:00 pm
+                                {restaurant.workindHours.businessDays}
                             </span>
                         </p>
                         <p className="mb-1 text-primary font-weight-bold">
                             Петък - Събота :{" "}
                             <span className="font-weight-normal pl-2 text-dark">
-                                7:00 am - Midnight
+                                {restaurant.workindHours.fridayAndSaturday}
                             </span>
                         </p>
                         <p className="mb-1 text-primary font-weight-bold">
                             Неделя :{" "}
                             <span className="font-weight-normal pl-2 text-dark">
-                                9:00 am - 12:00 pm
+                                {restaurant.workindHours.sunday}
                             </span>
                         </p>
-                        <a href="#book-table" className="btn btn-primary btn-sm w-md mt-4">
-                            Направи резервация
-                        </a>
+                        <Link to={`/reservetion/${restaurant._id}`} className="btn btn-primary btn-sm w-md mt-4 mr-2">
+                            Направете резервация
+                        </Link>
+                        <Link to={`/menu/${restaurant._id}`} className="btn btn-outline-primary btn-sm w-md mt-4">
+                            Разгледайте менюто
+                        </Link>
                     </div>
                     <div className="col-md-6">
                         <div className="row">
