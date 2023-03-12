@@ -11,7 +11,9 @@
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
-@import url("https://fonts.googleapis.com/css?family=Fira+Sans:100,100i,200,200i,300,300i,400,400i,500,600,700,700i,800,800i,900");
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 :root {
   --blue: #79A9F5;
   --indigo: #C45F90;
@@ -62,7 +64,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
 body {
   margin: 0;
-  font-family: "Fira Sans", sans-serif;
+  font-family: var(--font-family-sans-serif);
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -83,7 +85,8 @@ hr {
 
 h1, h2, h3, h4, h5, h6 {
   margin-top: 0;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0;
+  font-family: var(--font-family-sans-serif) !important;
 }
 
 p {
@@ -6557,7 +6560,7 @@ a.close.disabled {
   z-index: 1070;
   display: block;
   margin: 0;
-  font-family: "Fira Sans", sans-serif;
+  font-family: var(--font-family-sans-serif);
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -6670,7 +6673,7 @@ a.close.disabled {
   z-index: 1060;
   display: block;
   max-width: 276px;
-  font-family: "Fira Sans", sans-serif;
+  font-family: var(--font-family-sans-serif);
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -10657,7 +10660,7 @@ button.bg-dark:focus {
 }
 
 .text-monospace {
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+  font-family: var(--font-family-monospace) !important;
 }
 
 .text-justify {
@@ -11332,14 +11335,14 @@ hr {
   border-width: 0;
 }
 
-.header {
+.transparent {
   position: relative;
   min-height: 650px;
   background: url(../imgs/header.jpg) no-repeat center center fixed;
   background-size: cover;
 }
 
-.header .overlay {
+.transparent .overlay {
   position: absolute;
   left: 0;
   top: 0;
@@ -11366,42 +11369,42 @@ hr {
           justify-content: center;
 }
 
-.header .overlay .logo {
+.transparent .overlay .logo {
   width: 200px;
   margin-bottom: 30px;
   -webkit-filter: drop-shadow(0 0 40px rgba(206, 212, 218, 0.4));
           filter: drop-shadow(0 0 40px rgba(206, 212, 218, 0.4));
 }
 
-.header .overlay .subtitle {
+.transparent .overlay .subtitle {
   font-size: calc(15px + (18 - 15) * ((100vw - 320px) / (1200 - 320)));
   font-weight: 700;
   margin-bottom: 0;
 }
 
-.header .overlay .title {
+.transparent .overlay .title {
   font-size: calc(30px + (70 - 30) * ((100vw - 320px) / (1200 - 320)));
   font-weight: bold;
 }
 
-.header.components {
+.transparent.components {
   min-height: 450px !important;
   background-position: center bottom;
 }
 
-.header.components .title {
+.transparent.components .title {
   font-size: calc(40px + (90 - 40) * ((100vw - 320px) / (1200 - 320)));
   font-weight: bold;
 }
 
-.header-title {
+.transparent-title {
   font-size: 2.4rem;
   font-weight: bold;
   opacity: .8;
   color: #212529;
 }
 
-.header-mini {
+.transparent-mini {
   min-height: 24rem;
   height: 24rem;
   display: -webkit-box;
@@ -11424,6 +11427,12 @@ hr {
   text-align: center;
   padding: 1rem;
   background: #dfc8a9 !important;
+}
+
+.transparent .dark-overlay{
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 1rem 4rem;
+  border-radius: 10px;
 }
 
 section {
@@ -11553,4 +11562,27 @@ section.has-img-bg:after {
   font-size: 17px;
   opacity: .7;
   margin-bottom: 15px;
+}
+
+.delimiter{
+  width: 300px;
+  height: 0.5rem;
+  margin-top: 4rem;
+}
+
+.restaurant{
+  background-color: white;
+}
+
+.restaurant:nth-child(2n+1){
+  background-color: #f2e8db;
+}
+
+.restaurant:nth-child(2n+1) .row{
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
+.restaurant:nth-child(2n+1) .row div:first-child{
+  text-align: end;
 }
