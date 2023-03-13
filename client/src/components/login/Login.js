@@ -5,7 +5,7 @@ import styles from './Login.module.css';
 
 import * as authService from "../../services/authService";
 import { useAlertContext } from "../../contexts/AlertContext";
-import { getFormControlClass, hasError } from "../common/utils";
+import { getFormControlClass, hasError } from "../common/utils.js";
 
 const Login = () => {
     const [errors, setError] = useState([]);

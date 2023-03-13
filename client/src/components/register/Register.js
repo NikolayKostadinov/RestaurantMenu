@@ -4,7 +4,7 @@ import { useAlertContext } from "../../contexts/AlertContext";
 import { useAuthContext } from "../../contexts/AuthContext";
 
 import * as authService from "../../services/authService";
-import { getFormControlClass, hasError } from "../common/utils";
+import { getFormControlClass, hasError } from "../common/utils.js";
 
 import styles from './Register.module.css';
 
@@ -74,7 +74,7 @@ const Register = () => {
         addErrorState(e.target.name, !isValid);
     }
 
-    
+
     return (
         <section id="register-page" className="transparent">
             <div className="overlay">
@@ -89,7 +89,7 @@ const Register = () => {
                                 className={getFormControlClass(errors.username)}
                                 placeholder="Потребител"
                                 onChange={onChange}
-                                onBlur={(e)=>{minLenghtValidator(e,3)}}
+                                onBlur={(e) => { minLenghtValidator(e, 3) }}
                                 value={formState.username}
                             />
                             {errors.username &&
@@ -98,7 +98,7 @@ const Register = () => {
                                 </p>
                             }
                         </div>
-                        
+
                         <div className="form-group">
                             <input
                                 type="text"
@@ -107,7 +107,7 @@ const Register = () => {
                                 className={getFormControlClass(errors.firstname)}
                                 placeholder="Име"
                                 onChange={onChange}
-                                onBlur={(e)=>{minLenghtValidator(e,2)}}
+                                onBlur={(e) => { minLenghtValidator(e, 2) }}
                                 value={formState.firstname}
                             />
                             {errors.firstname &&
@@ -125,7 +125,7 @@ const Register = () => {
                                 className={getFormControlClass(errors.lastname)}
                                 placeholder="Фамилия"
                                 onChange={onChange}
-                                onBlur={(e)=>{minLenghtValidator(e,3)}}
+                                onBlur={(e) => { minLenghtValidator(e, 3) }}
                                 value={formState.lastname}
                             />
                             {errors.lastname &&
@@ -172,24 +172,29 @@ const Register = () => {
                         </div>
 
                         <div className="form-group">
-                        <input
-                            type="password"
-                            name="repass"
-                            id="confirm-password"
-                            className={getFormControlClass(errors.repass)}
-                            placeholder="Повторете паролата"
-                            onChange={onChange}
-                            onBlur={samePasswordsValidator}
-                            value={formState.repass}
-                        />
-                        {errors.repass &&
-                            <p className="invalid-feedback">
-                                Паролите трябва да бъдат еднакви!
-                            </p>
-                        }
+                            <input
+                                type="password"
+                                name="repass"
+                                id="confirm-password"
+                                className={getFormControlClass(errors.repass)}
+                                placeholder="Повторете паролата"
+                                onChange={onChange}
+                                onBlur={samePasswordsValidator}
+                                value={formState.repass}
+                            />
+                            {errors.repass &&
+                                <p className="invalid-feedback">
+                                    Паролите трябва да бъдат еднакви!
+                                </p>
+                            }
                         </div>
                         <div className="d-flex justify-content-end">
-                            <button type="submit" className="btn btn-primary" disabled = {hasError(errors)}>Регистрация</button>
+                            <button type="submit"
+                                className="btn btn-primary"
+                                disabled={hasError(errors)}
+                                >
+                                Регистрация
+                                </button>
                         </div>
                         <p className="mt-2 mb-0">
                             <span>
