@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAlertContext } from "../../contexts/AlertContext";
 import { useAuthContext } from "../../contexts/AuthContext";
 
 import * as authService from "../../services/authService";
+import { getFormControlClass, hasError } from "../common/utils";
 
 import styles from './Register.module.css';
 
 const Register = () => {
+    const alertContext = useAlertContext();
     const [errors, setError] = useState([]);
     const [formState, setFormState] = useState(
         {
@@ -26,10 +29,11 @@ const Register = () => {
             authService.register(formState)
                 .then(authData => {
                     userLogin(authData);
+                    alertContext.showAlert('Вие се регистрирахте успешно в системата!', 'success', true);
                     navigate('/');
                 })
                 .catch(() => {
-                    navigate('/')
+                    alertContext.showAlert('Възникна грешка при рагистрация!', 'danger');
                 })
         }
     }
@@ -82,14 +86,14 @@ const Register = () => {
                                 type="text"
                                 id="username"
                                 name="username"
-                                className="form-control"
+                                className={getFormControlClass(errors.username)}
                                 placeholder="Потребител"
                                 onChange={onChange}
                                 onBlur={(e)=>{minLenghtValidator(e,3)}}
                                 value={formState.username}
                             />
                             {errors.username &&
-                                <p className="text-danger font-weight-bold ml-4 mt-2">
+                                <p className="invalid-feedback">
                                     Потребителското име требва да бъде поне 3 символа!
                                 </p>
                             }
@@ -100,14 +104,14 @@ const Register = () => {
                                 type="text"
                                 id="firstname"
                                 name="firstname"
-                                className="form-control"
+                                className={getFormControlClass(errors.firstname)}
                                 placeholder="Име"
                                 onChange={onChange}
                                 onBlur={(e)=>{minLenghtValidator(e,2)}}
                                 value={formState.firstname}
                             />
                             {errors.firstname &&
-                                <p className="text-danger font-weight-bold ml-4 mt-2">
+                                <p className="invalid-feedback">
                                     Името требва да бъде поне 2 символа!
                                 </p>
                             }
@@ -118,14 +122,14 @@ const Register = () => {
                                 type="text"
                                 id="lastname"
                                 name="lastname"
-                                className="form-control"
+                                className={getFormControlClass(errors.lastname)}
                                 placeholder="Фамилия"
                                 onChange={onChange}
                                 onBlur={(e)=>{minLenghtValidator(e,3)}}
                                 value={formState.lastname}
                             />
                             {errors.lastname &&
-                                <p className="text-danger font-weight-bold ml-4 mt-2">
+                                <p className="invalid-feedback">
                                     Фамилията трябва да бъде поне 3 символа!
                                 </p>
                             }
@@ -136,14 +140,14 @@ const Register = () => {
                                 type="email"
                                 id="email"
                                 name="email"
-                                className="form-control"
+                                className={getFormControlClass(errors.email)}
                                 placeholder="maria@email.com"
                                 onChange={onChange}
                                 onBlur={emailValidator}
                                 value={formState.email}
                             />
                             {errors.email &&
-                                <p className="text-danger font-weight-bold ml-4 mt-2">
+                                <p className="invalid-feedback">
                                     Невалидна електронна поща!
                                 </p>
                             }
@@ -154,14 +158,14 @@ const Register = () => {
                                 type="password"
                                 name="password"
                                 id="register-password"
-                                className="form-control"
+                                className={getFormControlClass(errors.password)}
                                 placeholder="Парола"
                                 onChange={onChange}
                                 onBlur={requiredValidator}
-                                value={formState.name}
+                                value={formState.password}
                             />
                             {errors.password &&
-                                <p className="text-danger font-weight-bold ml-4 mt-2">
+                                <p className="invalid-feedback">
                                     Въвеждането на парола е задължително!
                                 </p>
                             }
@@ -172,20 +176,20 @@ const Register = () => {
                             type="password"
                             name="repass"
                             id="confirm-password"
-                            className="form-control"
-                            placeholder="Повторете паролате"
+                            className={getFormControlClass(errors.repass)}
+                            placeholder="Повторете паролата"
                             onChange={onChange}
                             onBlur={samePasswordsValidator}
-                            value={formState.name}
+                            value={formState.repass}
                         />
                         {errors.repass &&
-                            <p className="text-danger font-weight-bold ml-4 mt-2">
+                            <p className="invalid-feedback">
                                 Паролите трябва да бъдат еднакви!
                             </p>
                         }
                         </div>
                         <div className="d-flex justify-content-end">
-                            <button type="submit" className="btn btn-primary">Регистрация</button>
+                            <button type="submit" className="btn btn-primary" disabled = {hasError(errors)}>Регистрация</button>
                         </div>
                         <p className="mt-2 mb-0">
                             <span>

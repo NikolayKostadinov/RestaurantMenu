@@ -1,6 +1,18 @@
+import { useState, useEffect } from "react";
+
+import * as restaurantService from '../../services/restaurantService';
 import Restaurant from "../restaurant/Restaurant";
 
 const Home = () => {
+    const [restaurants, setRestaurants] = useState([]);
+
+    useEffect(() => {
+        restaurantService.getAll()
+            .then(result => {
+                setRestaurants(Object.values(result));
+            });
+    }, []);
+
     return (
         <>
             <header className="transparent">
@@ -15,11 +27,7 @@ const Home = () => {
                     <div className="bg-primary delimiter"></div>
                 </div>
             </header>
-            {/* <Restaurant/>
-            <Restaurant/>
-            <Restaurant/>
-            <Restaurant/>
-            <Restaurant/> */}
-        </>);
+            {restaurants.map(restaurant => <Restaurant key={restaurant._id} restaurant={restaurant} />)}
+        </>)
 }
 export default Home;

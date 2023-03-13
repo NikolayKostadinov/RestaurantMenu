@@ -18,21 +18,19 @@ import { AlertProvider } from './contexts/AlertContext';
 function App() {
   return (
     <AlertProvider>
-      <AuthProvider>
-        <div className="App">
-          <MainNavigation />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/menu" element={<Menu />} />
-
+     <AuthProvider>
+      <div className="App">
+        <MainNavigation />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/menu/*" element={<Menu />} />
             <Route element={<Authenticated />}>
               <Route path="/logout" element={<Logout />} />
               <Route path="/profile" element={<Logout />} />
               {/* <Route path="/restaurant/:restaurantId" element={<RestaurantDetails />} /> */}
             </Route>
-
           </Routes>
           {/* <Prefooter /> */}
           <Footer />

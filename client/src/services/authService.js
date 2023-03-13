@@ -7,13 +7,13 @@ const urls = {
 }
 
 export const login = (username, password) => {
-    return fetchApi.post('/users/login', { username, password})
+    return fetchApi.post(urls.login, { username, password})
 }
 
 export const logout = (user) => {
-    return fetchApi.get('/users/logout', undefined, user);
+    return fetchApi.get(urls.logout, undefined, user);
 }
 
 export const register = (userData) => {
-    return fetchApi.post('/users/register', userData)
+    return fetchApi.post(urls.register, userData)
 }

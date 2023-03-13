@@ -25,10 +25,15 @@ export const AlertProvider = ({
         setType(type)
     };
 
-    const showAlert = (message, type) => {
+    const showAlert = (message, type, isAutohide = false) => {
         setMessage(message);
-        setType(type||'success');
+        setType(type || 'success');
         setShow(true);
+        if (isAutohide) {
+            setTimeout(() => {
+                setShow(false);
+            }, 3000);
+        };
     }
 
 
