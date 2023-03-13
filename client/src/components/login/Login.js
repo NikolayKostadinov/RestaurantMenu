@@ -4,11 +4,13 @@ import { useAuthContext } from "../../contexts/AuthContext";
 import styles from './Login.module.css';
 
 import * as authService from "../../services/authService";
+import { useAlertContext } from "../../contexts/AlertContext";
 
 const Login = () => {
     const [errors, setError] = useState([]);
     const [formState, setFormState] = useState({ username: '', password: '' });
     const authContext = useAuthContext();
+    const alertContext = useAlertContext();
     const navigate = useNavigate();
 
     function requiredValidator(e, minLenght) {
@@ -31,8 +33,14 @@ const Login = () => {
                     authContext.userLogin(authData);
                     navigate('/');
                 })
-                .catch(() => {
-                    navigate('/')
+                .catch((err) => {
+                    if(err.code && ( err.code === 401 || err.code === 403)){
+                    alertContext.showAlert('Невалидно потребителско име или парола', 'danger');
+                }else{
+                    alertContext.showAlert('Неуспешна операция', 'danger');
+                }
+
+                    // navigate('/')
                 })
         }
     }

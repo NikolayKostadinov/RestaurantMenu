@@ -28,7 +28,17 @@ async function request(method, url, data) {
         if (response.status === 403) {
             // todo: this must be removed!!!
             clearUserData();
-            window.location = '/';
+            const err = Error('Forbidden');
+            err.code = response.status;
+            throw err ;
+        } 
+        
+        if (response.status === 401) {
+            // todo: this must be removed!!!
+            clearUserData();
+            const err = Error('Unauthorized');
+            err.code = response.status;
+            throw err;
         }
 
         const responseData = await response.json();
