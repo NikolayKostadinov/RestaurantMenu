@@ -28,7 +28,9 @@ const Login = () => {
 
     const onSubmit = (ev) => {
         ev.preventDefault();
-        if (Object.values(errors).every(v => !v)) {
+        alertContext.setShowAlert(false);
+        if (!hasError(errors)) {
+            console.log('no errors!');
             authService.login(formState.username, formState.password)
                 .then(authData => {
                     authContext.userLogin(authData);

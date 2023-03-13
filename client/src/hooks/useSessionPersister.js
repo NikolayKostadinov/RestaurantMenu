@@ -5,7 +5,6 @@ const useSessionPersister = (defaultValue) => {
     const [user, setUser] = useState(() => userStore.getUserData() || defaultValue);
 
     const persistUser = (newUser) => {
-        console.log('Session persisted!');
         userStore.setUserData(newUser);
         setUser(newUser);
     }

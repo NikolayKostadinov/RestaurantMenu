@@ -17,7 +17,8 @@ const Register = () => {
             firstname: '',
             lastname: '',
             email: '',
-            password: ''
+            password: '',
+            repass:''
         });
 
     const { userLogin } = useAuthContext()
@@ -25,15 +26,20 @@ const Register = () => {
 
     const onSubmit = (ev) => {
         ev.preventDefault();
-        if (Object.values(errors).every(v => !v)) {
+        alertContext.setShowAlert(false);
+        if (!hasError(errors)) {
             authService.register(formState)
                 .then(authData => {
                     userLogin(authData);
                     alertContext.showAlert('Вие се регистрирахте успешно в системата!', 'success', true);
                     navigate('/');
                 })
-                .catch(() => {
-                    alertContext.showAlert('Възникна грешка при рагистрация!', 'danger');
+                .catch(err => {
+                    let message = "Възникна грешка при рагистрация!";
+                    if(err.message){
+                        message = (<><strong>Възникна грешка при рагистрация!</strong> "{err.message||''}"</>);
+                    }
+                    alertContext.showAlert(message, 'danger');
                 })
         }
     }

@@ -25,26 +25,24 @@ async function request(method, url, data) {
             return response;
         }
 
-        if (response.status === 403) {
-            // todo: this must be removed!!!
+        if (response.status === 401 || response.status === 401) {
             clearUserData();
-            const err = Error('Forbidden');
-            err.code = response.status;
-            throw err ;
-        } 
-        
-        if (response.status === 401) {
-            // todo: this must be removed!!!
-            clearUserData();
-            const err = Error('Unauthorized');
+        }
+
+        if (!response.ok) {
+            const err = new Error();
+            err.message = response.message;
+
+            if (response.status === 409) {
+                const resData = await response.json();
+                err.message = resData.message;
+            }
+            
             err.code = response.status;
             throw err;
         }
 
         const responseData = await response.json();
-        if (!response.ok) {
-            throw new Error(responseData.message);
-        }
 
         return responseData;
     } catch (err) {
