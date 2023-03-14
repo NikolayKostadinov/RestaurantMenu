@@ -14,6 +14,7 @@ import Authenticated from './components/common/Authenticated';
 import Register from './components/register/Register';
 import Alert from './components/alert/Alert';
 import { AlertProvider } from './contexts/AlertContext';
+import RestaurantManagement from './components/restaurant-management/RestaurantManagement';
 
 function App() {
   return (
@@ -29,7 +30,7 @@ function App() {
             <Route element={<Authenticated />}>
               <Route path="/logout" element={<Logout />} />
               <Route path="/profile" element={<Logout />} />
-              {/* <Route path="/restaurant/:restaurantId" element={<RestaurantDetails />} /> */}
+              <Route path="/management" element={<RestaurantManagement/>}/>
             </Route>
           </Routes>
           {/* <Prefooter /> */}

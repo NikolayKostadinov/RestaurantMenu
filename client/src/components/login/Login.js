@@ -55,8 +55,8 @@ const Login = () => {
     }
 
     return (
-        <section id="login-page" className={`transparent ${styles.extended}`}>
-            <div className={`overlay ${styles.extended}`}>
+        <section id="login-page" className= "transparent extended">
+            <div className="overlay extended">
                 <div className="container">
                     <form className={styles.login} onSubmit={onSubmit} autoComplete="new-password">
                         <div className="brand-logo" />
