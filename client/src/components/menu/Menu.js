@@ -1,13 +1,14 @@
-import DesertList from "./deserts/DesertList";
-import MainList from "./mains/MainList";
-import SaladList from "./salads/SaladList";
+import { useParams } from "react-router-dom";
+import MealList from "./meal-list/MealList";
+
 
 const Menu = () => {
+    const{restaurantId} = useParams();
     return(
         <>
-            <SaladList/>
-            <MainList/>
-            <DesertList/>
+            <MealList mealType="salad" restaurantId={restaurantId}/>
+            <MealList mealType="main" restaurantId={restaurantId} transparent={true}/>
+            <MealList mealType="desert" restaurantId={restaurantId}/>
         </>
     )
 }

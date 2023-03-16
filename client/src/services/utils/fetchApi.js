@@ -25,7 +25,7 @@ async function request(method, url, data) {
             return response;
         }
 
-        if (response.status === 401 || response.status === 401) {
+        if (response.status === 401 || response.status === 403) {
             clearUserData();
         }
 
@@ -37,7 +37,7 @@ async function request(method, url, data) {
                 const resData = await response.json();
                 err.message = resData.message;
             }
-            
+
             err.code = response.status;
             throw err;
         }

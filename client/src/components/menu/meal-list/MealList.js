@@ -1,6 +1,19 @@
-const DesertList = () => {
+const MealList = ({
+  restaurantId,
+  mealType,
+  transparent,
+  title,
+  subtitle
+}) => {
+  let overlayed = '';
+  if(transparent){
+    overlayed ="overlay";
+  }
+  console.log(restaurantId, mealType, transparent);
+
     return(
-    <section id="service" className="pattern-style-4 has-overlay">
+    <section className={`${transparent?'transperent':'pattern-style-4 has-overlay'}`}>
+    <div className={overlayed}>
       <div className="container raise-2">
         <h6 className="section-subtitle text-center">Без <span className="text-primary font-weight-bold">|</span> Угризения</h6>
         <h3 className="section-title mb-6 pb-3 text-center">Десерти</h3>
@@ -139,6 +152,7 @@ const DesertList = () => {
           </div>
         </div>
       </div>
+      </div>
     </section>)
 }
-export default DesertList;
+export default MealList;
