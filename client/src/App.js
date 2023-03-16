@@ -14,6 +14,7 @@ import Authenticated from './components/common/Authenticated';
 import Register from './components/register/Register';
 import Alert from './components/alert/Alert';
 import { AlertProvider } from './contexts/AlertContext';
+import MainList from './components/menu/mains/MainList';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <div className="App">
           <MainNavigation />
           <Routes>
+            <Route path="/main" element={<MainList />} />
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
