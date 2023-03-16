@@ -43,15 +43,15 @@
 .restaurant-content .links{
     list-style: none;
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     margin-top: 1rem;
     gap: 1rem;
-    justify-content: start;
+    justify-content: flex-start;
     padding-left: 0;
 }
 
 #restaurant-management .overlay{
-    justify-content: start;
+    justify-content: flex-start;
 }
 
 

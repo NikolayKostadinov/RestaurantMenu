@@ -18,7 +18,7 @@ const RestaurantList = () => {
         .catch(()=>{
             alertContext.showAlert("Данните за ресторантите немогат да бъдат прочетени!", 'danger')
         })
-    }, [user]);
+    }, [user, alertContext]);
     return (
         <ul className="restaurant-list">
             {restaurants.map(r=><RestaurantListItem key={r._id} restaurant={r}/>)}

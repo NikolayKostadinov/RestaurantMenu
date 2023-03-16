@@ -19,7 +19,7 @@ const Home = () => {
                 alertContext.showAlert("Неуспешна операция!");
                 navigate('/', {replace:true})
             });
-    }, []);
+    }, [alertContext, navigate]);
 
     return (
         <>

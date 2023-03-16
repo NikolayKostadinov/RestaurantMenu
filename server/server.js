@@ -1401,7 +1401,7 @@
             },
             "643a8727-5a03-4e23-ae69-c9e53e1b007f": {
                 _ownerId: "c3588470-6b84-405b-a3b5-5ee4e553b450",
-                title: "Салата спанак и рукола със запечено козе сирене",
+                title: "Салата спанак, рукола и запечено козе сирене",
                 imageUrl: "https://firebasestorage.googleapis.com/v0/b/menuimages-c16e0.appspot.com/o/meals%2Fzapecheno-sirene-rukola.jpg?alt=media&token=90acbbb0-1a56-494e-bd73-f0ad04b9844",
                 ingredients: "козе сирене, зехтин, панировка, мащерка, розмарин, рукола, спанак, семена, балсамов оцет, горчица",
                 mealType: "salad",

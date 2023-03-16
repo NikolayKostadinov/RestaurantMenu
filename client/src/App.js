@@ -5,7 +5,7 @@ import MainNavigation from './components/main-nav/MainNavigation';
 
 import './App.css';
 import Footer from './components/footer/Footer';
-import Prefooter from './components/prefooter/Prefooter';
+// import Prefooter from './components/prefooter/Prefooter';
 import Menu from './components/menu/Menu';
 import { AuthProvider } from './contexts/AuthContext';
 import Login from './components/login/Login';
