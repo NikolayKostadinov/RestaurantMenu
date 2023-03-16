@@ -14,19 +14,21 @@ import Authenticated from './components/common/Authenticated';
 import Register from './components/register/Register';
 import Alert from './components/alert/Alert';
 import { AlertProvider } from './contexts/AlertContext';
+import MainList from './components/menu/mains/MainList';
 import RestaurantManagement from './components/restaurant-management/RestaurantManagement';
 
 function App() {
   return (
     <AlertProvider>
-     <AuthProvider>
-      <div className="App">
-        <MainNavigation />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/menu/*" element={<Menu />} />
+      <AuthProvider>
+        <div className="App">
+          <MainNavigation />
+          <Routes>
+            <Route path="/main" element={<MainList />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/menu/:restaurantId" element={<Menu />} />
             <Route element={<Authenticated />}>
               <Route path="/logout" element={<Logout />} />
               <Route path="/profile" element={<Logout />} />
@@ -38,7 +40,7 @@ function App() {
         </div>
         <Alert />
       </AuthProvider>
-      </AlertProvider>
+    </AlertProvider>
   );
 }
 

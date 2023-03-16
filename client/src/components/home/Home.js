@@ -1,15 +1,23 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAlertContext } from "../../contexts/AlertContext";
 
 import * as restaurantService from '../../services/restaurantService';
 import Restaurant from "../restaurant/Restaurant";
 
 const Home = () => {
     const [restaurants, setRestaurants] = useState([]);
+    const alertContext = useAlertContext();
+    const navigate = useNavigate();
 
     useEffect(() => {
         restaurantService.getAll()
             .then(result => {
                 setRestaurants(Object.values(result));
+            })
+            .catch(err=>{
+                alertContext.showAlert("Неуспешна операция!");
+                navigate('/', {replace:true})
             });
     }, []);
 
