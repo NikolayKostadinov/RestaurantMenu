@@ -46,29 +46,30 @@ const MealList = ({
     return (
         <section className={`menu ${transparent ? 'transparent' : 'pattern-style-4 has-overlay'}`}>
             <div className={overlayed}>
-                <div className='container-fluid'>
+                <div className="container raise-2">
+                    <h6 className="section-subtitle text-center">{subtitle}</h6>
+                    <h3 className="section-title mb-2 pb-3 text-center">{title}</h3>
+                    <ul className="pagination pagination-lg mb-4 justify-content-center">
+                        <li className="page-item active">
+                            <button className="page-link page-link-borderless" disabled={page === 0} onClick={prevHandler} >
+                                <i class="ti-angle-double-left"></i>
+                            </button>
+                        </li>
+                        <li className="page-item d-flex">
+                        <h6 className="section-subtitle text-center align-self-center">Страница {page + 1} от {pages}</h6>
+                        </li>
+                        <li className="page-item active" >
+                            <button className="page-link page-link-borderless" onClick={nextHandler} disabled={page + 1 === pages}>
+                                <i class="ti-angle-double-right"></i>
+                            </button>
+                        </li>
+                    </ul>
                     <div className='row'>
-                        <div className='col-md-1'></div>
-                        <div className="col-md-1 ">
-                            <button className="prev float-left"  disabled={page === 0} onClick={prevHandler}> &lt; </button>
-                        </div>
-                        <div className='col-md-1'></div>
-                        <div className="col-6 raise-2">
-                            <h6 className="section-subtitle text-center">{subtitle}</h6>
-                            <h3 className="section-title mb-2 pb-3 text-center">{title}</h3>
-                            <h6 className="section-subtitle text-center mb-4">Страница {page+1} от {pages}</h6>
-
-                            <div className='row'>
-                                {meals.map(m => <MealListItem key={m._id} meal={m} />)}
-                            </div>
-                        </div>
-                        <div className='col-md-1'></div>
-                        <div className="col-md-1">
-                            <button className="next float-right" onClick={nextHandler} disabled={page + 1 === pages}> &gt; </button>
-                        </div>
+                        {meals.map(m => <MealListItem key={m._id} meal={m} />)}
                     </div>
                 </div>
             </div>
+
         </section>)
 }
 export default MealList;

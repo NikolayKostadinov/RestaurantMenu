@@ -11994,29 +11994,6 @@ section.has-img-bg:after {
   object-fit: cover;
 }
 
-.menu .prev,
-.menu .next {
-  background-color: transparent;
-  border: none;
-  font-weight: 400;
-  font-stretch: condensed;
-  font-family: sans-serif, "Helvetica Neue", "Lucida Grande", Arial;
-  color: #494f54;
-  line-height: 580px;
-  font-size: 200px;
-}
-
-.menu.transparent .prev,
-.menu.transparent .next {
-  color: #fff;
-}
-
-.menu .prev:disabled,
-.menu .next:disabled{
-    color: lightgrey;
-} 
-
-.menu.transparent .prev:disabled,
-.menu.transparent .next:disabled {
-  color: grey;
+.page-link-borderless{
+  border:none;
 }
