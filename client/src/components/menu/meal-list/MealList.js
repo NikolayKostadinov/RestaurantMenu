@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useAlertContext } from '../../../contexts/AlertContext';
 
 import { usePager } from '../../../hooks/usePager';
 import * as mealService from '../../../services/mealService';
@@ -15,6 +16,7 @@ const MealList = ({
 }) => {
     const [meals, setMeals] = useState([]);
     const pagerContext = usePager(PAGE_SIZE);
+    const alertContext = useAlertContext();
 
     useEffect(() => {
         mealService.getAllByRestaurantIdAndMealTypeCount(restaurantId, mealType)
@@ -27,7 +29,24 @@ const MealList = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [restaurantId, mealType, pagerContext.offset]);
 
+    const onDelete = (mealId) => {
+        mealService.del(mealId)
+            .then(() => setMeals(meals.filter(m => m._id !== mealId)))
+            .catch(err => {
+                console.log(err.message);
+                alertContext.showAlert('Неуспешно изтриване!', 'danger')
+            });
+    }
 
+    const onUpdate = (meal) => {
+        meal.price = Number(meal.price);
+        mealService.update(meal)
+            .then(changed => setMeals(meals.map(m => m._id !== meal._id ? m : changed)))
+            .catch(err => {
+                console.log(err.message);
+                alertContext.showAlert('Неуспешнa промяна!', 'danger')
+            });
+    }
 
     let overlayed = '';
 
@@ -57,7 +76,7 @@ const MealList = ({
                         </li>
                     </ul>
                     <div className='row'>
-                        {meals.map(m => <MealListItem key={m._id} meal={m} />)}
+                        {meals.map(m => <MealListItem key={m._id} meal={m} onDeleteHandler={onDelete} onUpdateHandler={onUpdate} />)}
                     </div>
                 </div>
             </div>

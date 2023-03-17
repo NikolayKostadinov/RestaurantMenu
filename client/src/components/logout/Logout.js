@@ -5,7 +5,6 @@ import { AuthContext } from "../../contexts/AuthContext";
 import * as authService from "../../services/authService";
 
 const Logout = () => {
-    console.log('logout');
     const navigate = useNavigate();
     const {user, userLogout} = useContext(AuthContext);
     authService.logout(user)

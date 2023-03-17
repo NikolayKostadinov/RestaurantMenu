@@ -5,7 +5,8 @@ const urls = {
     getAllByRestaurantIdAndMealType: (restaurantId, mealType, offset, pageSize)=>`${urls.getAll}?${createQueryString(restaurantId, mealType)}&offset=${offset}&pageSize=${pageSize}`,
     countByRestaurantIdAndMealType: (restaurantId, mealType)=>`${urls.getAll}?${createQueryString(restaurantId, mealType)}&count`,
     create: '/data/meals',
-    update: (mealId) => `/data/users/${mealId}`,
+    delete: (mealId) => `/data/meals/${mealId}`,
+    update: (mealId) => `/data/meals/${mealId}`,
 }
 
 export const getAll = () => {
@@ -22,6 +23,14 @@ export const getAllByRestaurantIdAndMealTypeCount = (restaurantId, mealType) => 
 
 export const create = (meal) => {
     return fetchApi.post(urls.create, meal);
+}
+
+export const update = (meal) => {
+    return fetchApi.put(urls.update(meal._id), meal);
+}
+
+export const del = (mealId) => {
+    return fetchApi.del(urls.delete(mealId));
 }
 
 const createQueryString = (restaurantId, mealType) => {

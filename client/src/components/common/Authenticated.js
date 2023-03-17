@@ -3,7 +3,6 @@ import { useAuthContext } from '../../contexts/AuthContext';
 
 const Authenticated = () => {
     const { isAuthenticated } = useAuthContext();
-    console.log(`isAuthenticated: ${isAuthenticated}`);
     if (!isAuthenticated) {
         return <Navigate to="/login" replace />
     }

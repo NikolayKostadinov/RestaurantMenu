@@ -11997,3 +11997,10 @@ section.has-img-bg:after {
 .page-link-borderless{
   border:none;
 }
+
+.meal-management{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}

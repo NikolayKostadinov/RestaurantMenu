@@ -30,7 +30,6 @@ const Login = () => {
         ev.preventDefault();
         alertContext.setShowAlert(false);
         if (!hasError(errors)) {
-            console.log('no errors!');
             authService.login(formState.username, formState.password)
                 .then(authData => {
                     authContext.userLogin(authData);
@@ -55,7 +54,7 @@ const Login = () => {
     }
 
     return (
-        <section id="login-page" className= "transparent extended">
+        <section id="login-page" className="transparent extended">
             <div className="overlay extended">
                 <div className="container">
                     <form className={styles.login} onSubmit={onSubmit} autoComplete="new-password">
@@ -95,7 +94,7 @@ const Login = () => {
                             }
                         </div>
                         <div className="d-flex justify-content-end">
-                            <button type="submit" className="btn btn-primary" disabled = {hasError(errors)}>Вход</button>
+                            <button type="submit" className="btn btn-primary" disabled={hasError(errors)}>Вход</button>
                         </div>
                         <p className="mt-2 mb-0">
                             <span>
