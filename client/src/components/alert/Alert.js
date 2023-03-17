@@ -12,10 +12,7 @@ const Alert = () => {
 
     const onClickHandler = () => {
         setShowAlert(false);
-        console.log('has to be closed!');
     }
-
-    console.log('show', show, 'isShown', isShown);
 
     if (!isShown) return null;
     return (

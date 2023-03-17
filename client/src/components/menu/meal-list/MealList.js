@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
+
+import { usePager } from '../../../hooks/usePager';
 import * as mealService from '../../../services/mealService';
+
 import MealListItem from './MealListItem';
 const PAGE_SIZE = 6;
 
@@ -10,22 +13,19 @@ const MealList = ({
     title,
     subtitle
 }) => {
-    const [page, setPage] = useState(0);
-    const [pages, setPages] = useState(1);
     const [meals, setMeals] = useState([]);
+    const pagerContext = usePager(PAGE_SIZE);
 
     useEffect(() => {
         mealService.getAllByRestaurantIdAndMealTypeCount(restaurantId, mealType)
             .then(count => {
-                setPages(Math.ceil(count / PAGE_SIZE))
+                pagerContext.setRecordsCount(count);
             });
-
-        const offset = page * PAGE_SIZE;
-
-        mealService.getAllByRestaurantIdAndMealTypePaged(restaurantId, mealType, offset, PAGE_SIZE)
+        mealService.getAllByRestaurantIdAndMealTypePaged(restaurantId, mealType, pagerContext.offset, PAGE_SIZE)
             .then(res => setMeals(Object.values(res)));
 
-    }, [restaurantId, mealType, page]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [restaurantId, mealType, pagerContext.offset]);
 
 
 
@@ -35,14 +35,6 @@ const MealList = ({
         overlayed = "overlay";
     }
 
-    const prevHandler = () => {
-        setPage(p => p - 1);
-    }
-
-    const nextHandler = () => {
-        setPage(p => p + 1);
-    }
-
     return (
         <section className={`menu ${transparent ? 'transparent' : 'pattern-style-4 has-overlay'}`}>
             <div className={overlayed}>
@@ -50,17 +42,17 @@ const MealList = ({
                     <h6 className="section-subtitle text-center">{subtitle}</h6>
                     <h3 className="section-title mb-2 pb-3 text-center">{title}</h3>
                     <ul className="pagination pagination-lg mb-4 justify-content-center">
-                        <li className="page-item active">
-                            <button className="page-link page-link-borderless" disabled={page === 0} onClick={prevHandler} >
-                                <i class="ti-angle-double-left"></i>
+                        <li className={`page-item ${pagerContext.prevEnabled ? 'active' : 'disabled'} `}>
+                            <button className="page-link page-link-borderless" disabled={!pagerContext.prevEnabled} onClick={pagerContext.prevClickHandler} >
+                                <i className="ti-angle-double-left"></i>
                             </button>
                         </li>
                         <li className="page-item d-flex">
-                        <h6 className="section-subtitle text-center align-self-center">Страница {page + 1} от {pages}</h6>
+                            <h6 className="section-subtitle text-center align-self-center">Страница {pagerContext.page + 1} от {pagerContext.pages}</h6>
                         </li>
-                        <li className="page-item active" >
-                            <button className="page-link page-link-borderless" onClick={nextHandler} disabled={page + 1 === pages}>
-                                <i class="ti-angle-double-right"></i>
+                        <li className={`page-item ${pagerContext.nextEnabled ? 'active' : 'disabled'} `} >
+                            <button className="page-link page-link-borderless" onClick={pagerContext.nextClickHandler} disabled={!pagerContext.nextEnabled}>
+                                <i className="ti-angle-double-right"></i>
                             </button>
                         </li>
                     </ul>
@@ -69,7 +61,7 @@ const MealList = ({
                     </div>
                 </div>
             </div>
-
-        </section>)
+        </section>
+    )
 }
 export default MealList;

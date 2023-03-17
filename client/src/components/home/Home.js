@@ -26,7 +26,7 @@ const Home = () => {
             <header className="transparent">
                 <div className="overlay">
                     <img
-                        src="./imgs/navbar-brand.svg"
+                        src="/imgs/navbar-brand.svg"
                         alt="Logo"
                         className="logo"
                     />
