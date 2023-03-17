@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import { getFormControlClass, hasError } from "../../common/utils.js";
+import { storage } from "../../../services/utils/firbase"
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+import { v4 } from 'uuid';
+import { useAlertContext } from "../../../contexts/AlertContext";
+
 
 const MealListItem = ({
     meal,
@@ -12,6 +17,7 @@ const MealListItem = ({
     const [formState, setFormState] = useState({ ...meal });
 
     const userContext = useAuthContext();
+    const alertContext = useAlertContext();
 
     const onChange = (ev) => {
         setFormState(state =>
@@ -37,7 +43,6 @@ const MealListItem = ({
     function requiredValidator(e) {
         addErrorState(e.target.name,
             formState[e.target.name].length < 1);
-        console.log(errors);
     }
 
     function positivValidator(e) {
@@ -52,6 +57,32 @@ const MealListItem = ({
         }));
     }
 
+    const prepareFile = (event) => {
+        uploadFile(event.target.files[0])
+    }
+
+    const uploadFile = (file) => {
+        if (file == null) return;
+        const imageRef = ref(storage, `meals/${file.name + v4()}`);
+        uploadBytes(imageRef, file)
+            .then((snapshot) => {
+                getDownloadURL(snapshot.ref).then(
+                    url => {
+                        setFormState(state =>
+                        ({
+                            ...state,
+                            imageUrl: url
+                        }));
+                    });
+                    alertContext.showAlert('Вие качихте  на изображение!','success', true);
+            })
+            .catch(err=>{
+                console.log(err);
+                alertContext.showAlert('Неуспешно качване на изображение!', 'danger');
+            })
+            ;
+    };
+
     return (isEdit
         ?
         <div className="col-md-6 mb-4">
@@ -59,17 +90,11 @@ const MealListItem = ({
                 <div className="custom-list">
                     <div className="img-holder">
                         <img
-                            src={meal.imageUrl}
+                            src={formState.imageUrl}
                             className="img-responsive"
-                            alt={meal.title}
+                            alt={formState.title}
                         />
-
-                        <input
-                            name=""
-                            type="imageUrl"
-                            value={formState.imageUrl}
-                            onChange={onChange}
-                        />
+                        <input type="file" onChange={prepareFile} />
                     </div>
                     <div className="info">
                         <div className="head clearfix pb-0">
@@ -127,7 +152,7 @@ const MealListItem = ({
                         <div className="body pt-0">
                             <div className="meal-management">
                                 <button type="submit" className="btn btn-sm btn-primary" disabled={hasError(errors)}>
-                                    <i class="fa-solid fa-floppy-disk"></i>
+                                    <i className="fa-solid fa-floppy-disk"></i>
                                 </button>
                                 <button className="btn btn-sm btn-primary" onClick={onCancel}>
                                     <i className="fa-solid fa-xmark"></i>

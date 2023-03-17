@@ -13,6 +13,7 @@ import Logout from './components/logout/Logout';
 import Authenticated from './components/common/Authenticated';
 import Register from './components/register/Register';
 import Alert from './components/alert/Alert';
+import Reservation from './components/reservation/Reservation';
 import { AlertProvider } from './contexts/AlertContext';
 import RestaurantManagement from './components/restaurant-management/RestaurantManagement';
 
@@ -26,6 +27,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/reservation/:restaurantId" element={<Reservation />} />
             <Route path="/menu/:restaurantId" element={<Menu />} />
             <Route element={<Authenticated />}>
               <Route path="/logout" element={<Logout />} />

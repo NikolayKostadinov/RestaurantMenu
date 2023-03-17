@@ -27,7 +27,7 @@ const Restaurant = ({ restaurant }) => {
                                 {restaurant.workindHours.sunday}
                             </span>
                         </p>
-                        <Link to={`/reservetion/${restaurant._id}`} className="btn btn-primary btn-sm w-md mt-4 mr-2">
+                        <Link to={`/reservation/${restaurant._id}`} className="btn btn-primary btn-sm w-md mt-4 mr-2">
                             Направете резервация
                         </Link>
                         <Link to={`/menu/${restaurant._id}`} className="btn btn-outline-primary btn-sm w-md mt-4">
