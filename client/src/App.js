@@ -12,10 +12,11 @@ import Login from './components/login/Login';
 import Logout from './components/logout/Logout';
 import Authenticated from './components/common/Authenticated';
 import Register from './components/register/Register';
-import Alert from './components/alert/Alert';
+import Alert from './components/common/alert/Alert';
 import Reservation from './components/reservation/Reservation';
 import { AlertProvider } from './contexts/AlertContext';
 import RestaurantManagement from './components/restaurant-management/RestaurantManagement';
+import Spinner from './components/common/spinner/Spinner';
 
 function App() {
   return (
@@ -32,12 +33,13 @@ function App() {
             <Route element={<Authenticated />}>
               <Route path="/logout" element={<Logout />} />
               <Route path="/profile" element={<Logout />} />
-              <Route path="/management" element={<RestaurantManagement/>}/>
+              <Route path="/management" element={<RestaurantManagement />} />
             </Route>
           </Routes>
           {/* <Prefooter /> */}
           <Footer />
         </div>
+        <Spinner />
         <Alert />
       </AuthProvider>
     </AlertProvider>

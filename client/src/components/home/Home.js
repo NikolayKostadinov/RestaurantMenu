@@ -11,15 +11,20 @@ const Home = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+    alertContext.showLoading();
         restaurantService.getAll()
             .then(result => {
                 setRestaurants(Object.values(result));
             })
-            .catch(err=>{
-                alertContext.showAlert("Неуспешна операция!");
-                navigate('/', {replace:true})
-            });
-    }, [alertContext, navigate]);
+            .catch(err => {
+                alertContext.showAlert('Неуспешна операция!', 'danger');
+                navigate('/', { replace: true })
+            })
+            .finally(() => {
+                alertContext.hideLoading();
+            }
+            );
+    }, []);
 
     return (
         <>

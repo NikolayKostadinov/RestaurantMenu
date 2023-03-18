@@ -1,87 +1,61 @@
 import { useState } from "react";
 import { useAuthContext } from "../../../contexts/AuthContext";
-import { getFormControlClass, hasError } from "../../common/utils.js";
-import { storage } from "../../../services/utils/firbase"
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
-import { v4 } from 'uuid';
 import { useAlertContext } from "../../../contexts/AlertContext";
-
+import useValidator from "../../../hooks/useValidator";
+import useUploadImg from "../../../hooks/useUploadImg";
 
 const MealListItem = ({
     meal,
     onDeleteHandler,
     onUpdateHandler
 }) => {
-    const [errors, setError] = useState([]);
+
     const [isEdit, setIsEdit] = useState(false);
     const [formState, setFormState] = useState({ ...meal });
 
     const userContext = useAuthContext();
+    const validator = useValidator();
     const alertContext = useAlertContext();
+    const { uploadImage } = useUploadImg();
 
-    const onChange = (ev) => {
+    const setResult = (fieldName, value) => {
         setFormState(state =>
         ({
             ...state,
-            [ev.target.name]: ev.target.value
+            [fieldName]: value
         }));
+        console.log("NewURL: ", value);
     }
 
-    const onCancel = () => {
+    const onChange = (ev) => {
+        setResult(ev.target.name, ev.target.value);
+    }
+
+    const onCancel = (ev) => {
+        ev.preventDefault();
         setFormState({ ...meal });
-        setError([]);
+        validator.clearErrors();
         setIsEdit(false);
     }
 
-    const onSubmit = () => {
-        if (!hasError(errors)) {
+    const onSubmit = (ev) => {
+        ev.preventDefault();
+        if (!validator.hasErrors()) {
             onUpdateHandler(formState);
             setIsEdit(false);
         }
     }
 
-    function requiredValidator(e) {
-        addErrorState(e.target.name,
-            formState[e.target.name].length < 1);
-    }
-
-    function positivValidator(e) {
-        addErrorState(e.target.name,
-            Number(formState[e.target.name].length) <= 0);
-    }
-
-    function addErrorState(field, errorState) {
-        setError(err => ({
-            ...err,
-            [field]: errorState
-        }));
-    }
-
-    const prepareFile = (event) => {
-        uploadFile(event.target.files[0])
-    }
-
-    const uploadFile = (file) => {
-        if (file == null) return;
-        const imageRef = ref(storage, `meals/${file.name + v4()}`);
-        uploadBytes(imageRef, file)
-            .then((snapshot) => {
-                getDownloadURL(snapshot.ref).then(
-                    url => {
-                        setFormState(state =>
-                        ({
-                            ...state,
-                            imageUrl: url
-                        }));
-                    });
-                    alertContext.showAlert('Вие качихте  на изображение!','success', true);
-            })
-            .catch(err=>{
+    const uploadMealImage = (e) => {
+        alertContext.showLoading();
+        uploadImage('meals', e)
+            .then(url => { setResult('imageUrl', url); })
+            .catch(err => {
                 console.log(err);
-                alertContext.showAlert('Неуспешно качване на изображение!', 'danger');
+                alertContext.showAlert('Неуспешна операция!', 'danger');
             })
-            ;
-    };
+            .finally(() => alertContext.hideLoading());
+    }
 
     return (isEdit
         ?
@@ -94,7 +68,8 @@ const MealListItem = ({
                             className="img-responsive"
                             alt={formState.title}
                         />
-                        <input type="file" onChange={prepareFile} />
+                        <label for="file" class="btn btn-sm btn-primary mt-1 w-100">Промени</label>
+                        <input id="file" type="file" accept="image/*" onChange={uploadMealImage} style={{ "display": "none" }} />
                     </div>
                     <div className="info">
                         <div className="head clearfix pb-0">
@@ -103,33 +78,29 @@ const MealListItem = ({
                                     <input
                                         type="text"
                                         name="title"
-                                        className={getFormControlClass(errors.title, true)}
+                                        className={validator.getFormControlValidClass("title", true)}
                                         placeholder="Название"
                                         value={formState.title}
                                         onChange={onChange}
-                                        onBlur={requiredValidator}
+                                        onBlur={validator.requiredValidator}
                                     />
-                                    {errors.title &&
-                                        <p className="invalid-feedback">
-                                            Полето название е задължително!
-                                        </p>
-                                    }
+                                    <p className="invalid-feedback">
+                                        Полето название е задължително!
+                                    </p>
                                 </div>
                                 <div className="form-group col-sm-3 mb-0">
                                     <input
                                         type="text"
                                         name="price"
-                                        className={getFormControlClass(errors.price, true)}
+                                        className={validator.getFormControlValidClass("price", true)}
                                         value={formState.price}
                                         onChange={onChange}
-                                        onBlur={positivValidator}
+                                        onBlur={validator.positivValidator}
                                         placeholder="Цена"
                                     />
-                                    {errors.price &&
-                                        <p className="invalid-feedback">
-                                            Полето цена трябва да е полoжително!
-                                        </p>
-                                    }
+                                    <p className="invalid-feedback">
+                                        Полето цена трябва да е полoжително!
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -137,21 +108,20 @@ const MealListItem = ({
                             <textarea rows="3"
                                 type="text"
                                 name="ingredients"
-                                className={`w-100 ${getFormControlClass(errors.ingredients, true)}`}
+                                className={`w-100 ${validator.getFormControlValidClass("ingredients", true)}`}
                                 value={formState.ingredients}
                                 onChange={onChange}
-                                onBlur={requiredValidator}
+                                onBlur={validator.requiredValidator}
                                 placeholder="Съставки"
-                            ></textarea>
-                            {errors.ingredients &&
-                                <p className="invalid-feedback">
-                                    Въвеждането на съставки е задължително!
-                                </p>
-                            }
+                            >
+                            </textarea>
+                            <p className="invalid-feedback">
+                                Въвеждането на съставки е задължително!
+                            </p>
                         </div>
                         <div className="body pt-0">
                             <div className="meal-management">
-                                <button type="submit" className="btn btn-sm btn-primary" disabled={hasError(errors)}>
+                                <button type="submit" className="btn btn-sm btn-primary" disabled={validator.hasErrors()}>
                                     <i className="fa-solid fa-floppy-disk"></i>
                                 </button>
                                 <button className="btn btn-sm btn-primary" onClick={onCancel}>
@@ -178,7 +148,7 @@ const MealListItem = ({
                         <p className="float-right text-primary">{meal.price.toFixed(2)} лв.</p>
                     </div>
                     <div className="body">
-                        <p>{meal.ingredients}</p>
+                        <p className="text-muted">{meal.ingredients}</p>
                         {userContext.isAuthenticated && userContext.user._id === meal._ownerId &&
                             <div className="meal-management">
                                 <button className="btn btn-sm btn-primary" onClick={() => setIsEdit(true)}>

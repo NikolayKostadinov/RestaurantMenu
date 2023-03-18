@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAlertContext } from "../../contexts/AlertContext";
+import { useAlertContext } from "../../../contexts/AlertContext";
 
 import styles from './Alert.module.css';
 const Alert = () => {

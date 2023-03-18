@@ -5,31 +5,20 @@ import styles from './Login.module.css';
 
 import * as authService from "../../services/authService";
 import { useAlertContext } from "../../contexts/AlertContext";
-import { getFormControlClass, hasError } from "../common/utils.js";
+import useValidator from "../../hooks/useValidator";
 
 const Login = () => {
-    const [errors, setError] = useState([]);
     const [formState, setFormState] = useState({ username: '', password: '' });
     const authContext = useAuthContext();
     const alertContext = useAlertContext();
     const navigate = useNavigate();
-
-    function requiredValidator(e) {
-        addErrorState(e.target.name,
-            formState[e.target.name].length < 1);
-    }
-
-    function addErrorState(field, errorState) {
-        setError(err => ({
-            ...err,
-            [field]: errorState
-        }));
-    }
+    const validator = useValidator();
 
     const onSubmit = (ev) => {
         ev.preventDefault();
         alertContext.setShowAlert(false);
-        if (!hasError(errors)) {
+        if (!validator.hasErrors()) {
+            alertContext.showLoading();
             authService.login(formState.username, formState.password)
                 .then(authData => {
                     authContext.userLogin(authData);
@@ -42,6 +31,7 @@ const Login = () => {
                         alertContext.showAlert('Неуспешна операция', 'danger');
                     }
                 })
+                .finally(()=>alertContext.hideLoading())
         }
     }
 
@@ -65,36 +55,34 @@ const Login = () => {
                                 type="text"
                                 id="username"
                                 name="username"
-                                className={getFormControlClass(errors.username)}
+                                className={validator.getFormControlValidClass('username')}
                                 placeholder="Потребител"
                                 onChange={onChange}
-                                onBlur={requiredValidator}
+                                onBlur={validator.requiredValidator}
                             />
-                            {errors.username &&
-                                <p className="invalid-feedback">
-                                    Полето потребител е задължително!
-                                </p>
-                            }
+
+                            <p className="invalid-feedback">
+                                Полето потребител е задължително!
+                            </p>
+
                         </div>
                         <div className="form-group">
                             <input
                                 type="password"
                                 id="login-password"
                                 name="password"
-                                className={getFormControlClass(errors.password)}
+                                className={validator.getFormControlValidClass("password")}
                                 placeholder="Парола"
                                 onChange={onChange}
-                                onBlur={requiredValidator}
+                                onBlur={validator.requiredValidator}
                                 value={formState.name}
                             />
-                            {errors.password &&
-                                <p className="invalid-feedback">
-                                    Полето парола е задължително!
-                                </p>
-                            }
+                            <p className="invalid-feedback">
+                                Полето парола е задължително!
+                            </p>
                         </div>
                         <div className="d-flex justify-content-end">
-                            <button type="submit" className="btn btn-primary" disabled={hasError(errors)}>Вход</button>
+                            <button type="submit" className="btn btn-primary" disabled={validator.hasErrors()}>Вход</button>
                         </div>
                         <p className="mt-2 mb-0">
                             <span>

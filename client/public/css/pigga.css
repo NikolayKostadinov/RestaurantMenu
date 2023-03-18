@@ -185,8 +185,9 @@ a {
 }
 
 a:hover,
-div.custom-list:hover {
-  color: #886433;
+div.custom-list:hover,
+div.custom-list:hover .text-muted {
+  color: #886433 !important;
   text-decoration: none;
   cursor: pointer;
 }
@@ -11568,6 +11569,7 @@ hr {
   -ms-flex-positive: 1;
   flex-basis: 80%;
   flex-grow: 1;
+  position: relative;
 }
 
 .custom-list .info .head {
@@ -11591,6 +11593,10 @@ hr {
   font-size: 14px;
   opacity: 0.7;
 }
+
+.custom-list .info .head p.invalid-feedback{
+  font-weight: normal;
+} 
 
 .custom-list .info .body p {
   font-size: 14px;
@@ -12004,3 +12010,69 @@ section.has-img-bg:after {
   justify-content: flex-end;
   gap: 0.5rem;
 }
+
+.menu{
+  position: relative;
+}
+
+.menu .custom-list .info .body,
+.create-form-wrapper .custom-list .info .body
+{
+  opacity: 1;
+}
+
+.menu .create-meal{
+  position: absolute;
+  right:0;
+}
+
+.dark-form-overlay{
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 50000;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all ease-in-out 350ms;
+}
+
+.create-form-wrapper{
+  border-radius: 4px;
+}
+
+.create-form{
+  padding-top: 2rem;
+  padding-bottom: 1rem;
+}
+
+.create-form .img-wrapper{
+  background-color: #ddd;
+  width: 120px;
+  height: 140px;
+  margin-bottom: 1rem;
+}
+
+.create-form .img-holder{
+  min-width: 126px;
+}
+
+.create-form .img-holder label{
+  width: 120px;
+  margin-bottom: 0;
+}
+
+.create-form-wrapper{
+  background-color: #fff;
+}
+
+.create-form-wrapper .meal-management{
+  position: absolute;
+  bottom: 0;
+}
+

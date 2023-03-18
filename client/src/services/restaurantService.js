@@ -2,13 +2,18 @@ import * as fetchApi from './utils/fetchApi';
 
 const urls = {
     getAll: '/data/restaurants',
-    getAllByQuery: (query)=>`/data/restaurants?${query}`,
+    getById: (id) => `/data/restaurants/${id}`,
+    getAllByQuery: (query) => `/data/restaurants?${query}`,
     create: '/data/restaurants',
-    update: (restaurantId)=>`/data/users/${restaurantId}`,
+    update: (restaurantId) => `/data/users/${restaurantId}`,
 }
 
 export const getAll = () => {
     return fetchApi.get(urls.getAll);
+}
+
+export const getById = (id) => {
+    return fetchApi.get(urls.getById(id));
 }
 
 export const getAllByUser = (user) => {

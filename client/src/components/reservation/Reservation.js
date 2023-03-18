@@ -39,7 +39,7 @@ const Reservation = () => {
                   type="tel"
                   className="form-control"
                   name="phone"
-                  placeholder="Вашия телефон"
+                  placeholder="Вашият телефон"
                 />
               </div>
               <div className="form-group">
