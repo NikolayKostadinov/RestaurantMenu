@@ -17,7 +17,22 @@ const useValidator = () => {
             Number(e.target?.value) <= 0);
     }
 
-    const clearErrors = ()=>{
+    const minLenghtValidator = (e, minLenght) => {
+        addErrorState(e.target.name,
+            e.target.value.length < minLenght);
+    }
+
+    const samePasswordsValidator = (e, otherPassword) => {
+        addErrorState(e.target.name, e.target.value !== otherPassword);
+    }
+
+    const emailValidator = (e) => {
+        var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        let isValid = e.target.value.match(validRegex);
+        addErrorState(e.target.name, !isValid);
+    }
+
+    const clearErrors = () => {
         setErrors([]);
     }
 
@@ -28,7 +43,16 @@ const useValidator = () => {
         }));
     }
 
-    return ({clearErrors, hasErrors, getFormControlValidClass, requiredValidator, positivValidator})
+    return ({
+        clearErrors,
+        hasErrors,
+        getFormControlValidClass,
+        requiredValidator,
+        positivValidator,
+        minLenghtValidator,
+        samePasswordsValidator,
+        emailValidator
+    })
 }
 
 

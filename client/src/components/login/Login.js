@@ -60,11 +60,9 @@ const Login = () => {
                                 onChange={onChange}
                                 onBlur={validator.requiredValidator}
                             />
-
                             <p className="invalid-feedback">
                                 Полето потребител е задължително!
                             </p>
-
                         </div>
                         <div className="form-group">
                             <input
