@@ -5,7 +5,8 @@ const urls = {
     getById: (id) => `/data/restaurants/${id}`,
     getAllByQuery: (query) => `/data/restaurants?${query}`,
     create: '/data/restaurants',
-    update: (restaurantId) => `/data/users/${restaurantId}`,
+    update: (restaurantId) => `/data/restaurants/${restaurantId}`,
+    delete: (restaurantId) => `/data/restaurants/${restaurantId}`,
 }
 
 export const getAll = () => {
@@ -19,6 +20,18 @@ export const getById = (id) => {
 export const getAllByUser = (user) => {
     const parameter = encodeURIComponent(`_ownerId="${user._id}"`);
     return fetchApi.get(urls.getAllByQuery(`where=${parameter}`));
+}
+
+export const create = (restaurant) => {
+    return fetchApi.post(urls.create, restaurant);
+}
+
+export const update = (restaurant) => {
+    return fetchApi.put(urls.update(restaurant._id), restaurant);
+}
+
+export const del = (restaurantId) => {
+    return fetchApi.del(urls.delete(restaurantId));
 }
 
 

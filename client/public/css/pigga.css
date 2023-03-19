@@ -11594,9 +11594,9 @@ hr {
   opacity: 0.7;
 }
 
-.custom-list .info .head p.invalid-feedback{
+.custom-list .info .head p.invalid-feedback {
   font-weight: normal;
-} 
+}
 
 .custom-list .info .body p {
   font-size: 14px;
@@ -12000,33 +12000,33 @@ section.has-img-bg:after {
   object-fit: cover;
 }
 
-.page-link-borderless{
-  border:none;
+.page-link-borderless {
+  border: none;
 }
 
-.meal-management{
+.meal-management {
   width: 100%;
   display: flex;
   justify-content: flex-end;
   gap: 0.5rem;
 }
 
-.menu{
+.menu,
+#restaurant-management {
   position: relative;
 }
 
 .menu .custom-list .info .body,
-.create-form-wrapper .custom-list .info .body
-{
+.create-form-wrapper .custom-list .info .body {
   opacity: 1;
 }
 
-.menu .create-meal{
+.menu .create-meal {
   position: absolute;
-  right:0;
+  right: 0;
 }
 
-.dark-form-overlay{
+.dark-form-overlay {
   margin: 0;
   padding: 0;
   position: fixed;
@@ -12042,37 +12042,160 @@ section.has-img-bg:after {
   transition: all ease-in-out 350ms;
 }
 
-.create-form-wrapper{
+.create-form-wrapper {
   border-radius: 4px;
 }
 
-.create-form{
+.create-form {
   padding-top: 2rem;
   padding-bottom: 1rem;
 }
 
-.create-form .img-wrapper{
+.create-form .img-wrapper {
   background-color: #ddd;
   width: 120px;
   height: 140px;
   margin-bottom: 1rem;
 }
 
-.create-form .img-holder{
+.create-form .img-holder {
   min-width: 126px;
 }
 
-.create-form .img-holder label{
+.create-form .img-holder label {
   width: 120px;
   margin-bottom: 0;
 }
 
-.create-form-wrapper{
+.create-form-wrapper {
   background-color: #fff;
 }
 
-.create-form-wrapper .meal-management{
+.create-form-wrapper .meal-management {
   position: absolute;
   bottom: 0;
 }
 
+.restaurant .img-wrapper {
+  width: 233px;
+  height: 344px;
+}
+
+.restaurant .img-wrapper img{
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* Restaurant management form */
+
+.restaurant-list-wrapper {
+  max-width: 1440px;
+  position: relative;
+}
+
+#restaurant-management .create-restaurant {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.restaurant-list {
+  margin-top: 3rem;
+  color: black;
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.restaurant-list-item {
+  background-color: white;
+  border: 1px solid #bc8c4c;
+  border-radius: 5px;
+  overflow: hidden;
+  max-width: 540px;
+  max-height: 20vh;
+  display: flex;
+  align-items: center;
+}
+
+.restaurant-img {
+  flex-basis: 28%;
+  height: 230px;
+  width: 150px;
+}
+
+.restaurant-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.restaurant-content {
+  flex-basis: 72%;
+  padding-inline: 2rem;
+}
+
+.restaurant-content p {
+  margin-bottom: 0;
+}
+
+.restaurant-content .section-subtitle {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.restaurant-content .actions {
+  list-style: none;
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 1rem;
+  gap: 1rem;
+  padding-left: 0;
+}
+
+/* Restaurant modify form */
+
+.restaurant-modify .overlay {
+  justify-content: flex-start;
+}
+
+#restaurant-management .create-form-wrapper {
+  padding: 2rem 2rem 1rem 2rem;
+}
+
+.restaurant-modify .image-inputs {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.restaurant-modify .img-holder label {
+  width: 120px;
+}
+
+.restaurant-modify .img-wrapper {
+  background-color: #ddd;
+  width: 120px;
+  height: 180px;
+  margin-bottom: 1rem;
+}
+
+.restaurant-modify .form-inline {
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.restaurant-modify .form-inline label {
+  justify-content: flex-end;
+  flex-basis: 32%;
+}
+
+.restaurant-modify .form-inline input {
+  flex-basis: 66%;
+}
+
+.restaurant-modify .form-buttons-end {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}

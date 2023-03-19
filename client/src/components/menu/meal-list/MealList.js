@@ -74,9 +74,10 @@ const MealList = ({
 
     const onCreate = (meal) => {
         alertContext.showLoading();
-        meal.price = Number(meal.price);
+        meal.price = Number(meal.price.replace(',', '.'));
 
         mealService.create(meal)
+            .then(newMeal => setMeals(stat => [...stat, newMeal]))
             .catch(err => {
                 console.log(err);
                 alertContext.showAlert('Неуспешна операция!', 'danger');
@@ -128,7 +129,7 @@ const MealList = ({
                     </div>
                 </div>
             </section>
-            <CreateMeal isCreate={isCreate} restaurantId={restaurantId} mealType={mealType} onCreateHandler={onCreate} unloadCreate={()=>setIsCreate(false)}/>
+            <CreateMeal isCreate={isCreate} restaurantId={restaurantId} mealType={mealType} onCreateHandler={onCreate} unloadCreate={() => setIsCreate(false)} />
         </>
     )
 }

@@ -12,19 +12,19 @@ const Restaurant = ({ restaurant }) => {
                         <p className="mb-1 text-primary font-weight-bold">
                             Понеделник - Четвъртък :
                             <span className="font-weight-normal pl-2 text-dark">
-                                {restaurant.workindHours.businessDays}
+                                {restaurant.workingHours.businessDays}
                             </span>
                         </p>
                         <p className="mb-1 text-primary font-weight-bold">
                             Петък - Събота :{" "}
                             <span className="font-weight-normal pl-2 text-dark">
-                                {restaurant.workindHours.fridayAndSaturday}
+                                {restaurant.workingHours.fridayAndSaturday}
                             </span>
                         </p>
                         <p className="mb-1 text-primary font-weight-bold">
                             Неделя :{" "}
                             <span className="font-weight-normal pl-2 text-dark">
-                                {restaurant.workindHours.sunday}
+                                {restaurant.workingHours.sunday}
                             </span>
                         </p>
                         <Link to={`/reservation/${restaurant._id}`} className="btn btn-primary btn-sm w-md mt-4 mr-2">

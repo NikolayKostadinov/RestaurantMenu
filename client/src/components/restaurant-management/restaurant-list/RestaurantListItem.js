@@ -1,8 +1,15 @@
-import { Link } from "react-router-dom";
+const RestaurantListItem = ({
+    restaurant,
+    onEditHandler,
+    onDeleteHandler
+}) => {
+    const onEdit = (e)=>{
+        e.preventDefault();
+        onEditHandler(restaurant);
+    }
 
-const RestaurantListItem = ({ restaurant }) => {
     return (
-        <div className="restaurant-list-item" >
+        <li className="restaurant-list-item" >
             <div className="restaurant-img">
                 <img src={restaurant.imagesUrls[0]} alt={`${restaurant.title}`} />
             </div>
@@ -13,37 +20,37 @@ const RestaurantListItem = ({ restaurant }) => {
                 <p className="text-primary font-weight-bold">
                     Понеделник - Четвъртък :
                     <span className="font-weight-normal pl-2 text-dark">
-                        {restaurant.workindHours.businessDays}
+                        {restaurant.workingHours.businessDays}
                     </span>
                 </p>
                 <p className="text-primary font-weight-bold">
                     Петък - Събота :{" "}
                     <span className="font-weight-normal pl-2 text-dark">
-                        {restaurant.workindHours.fridayAndSaturday}
+                        {restaurant.workingHours.fridayAndSaturday}
                     </span>
                 </p>
                 <p className="text-primary font-weight-bold">
                     Неделя :{" "}
                     <span className="font-weight-normal pl-2 text-dark">
-                        {restaurant.workindHours.sunday}
+                        {restaurant.workingHours.sunday}
                     </span>
                 </p>
 
-                <ul className="links">
+                <ul className="actions">
                     <li>
-                        <Link to={`/edit/${restaurant._id}`} className="btn btn-primary btn-sm w-md ">
-                            <i class="fa-regular fa-pen-to-square"></i> Промяна
-                        </Link>
+                        <button onClick={onEdit} className="btn btn-primary btn-sm w-md ">
+                            <i className="fa-regular fa-pen-to-square"></i> Промяна
+                        </button>
                     </li>
                     <li>
-                        <Link to={`/delete/${restaurant._id}`} className="btn btn-outline-primary btn-sm w-md ">
-                            <i class="fa-regular fa-trash-can"></i> Изтриване
-                        </Link>
+                        <button className="btn btn-outline-primary btn-sm w-md" onClick={() => onDeleteHandler(restaurant._id)}>
+                            <i className="fa-regular fa-trash-can"></i> Изтриване
+                        </button>
                     </li>
                 </ul>
 
             </div>
-        </div>
+        </li>
 
     )
 }

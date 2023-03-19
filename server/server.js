@@ -1361,7 +1361,7 @@
                 title: "Сладкия Кокъл",
                 _createdOn: 1678624419487,
                 _id: "b1e4d18a-ad3c-4050-b1d4-6104550aa98e",
-                workindHours: {
+                workingHours: {
                     businessDays: '7:00 - 22:00',
                     fridayAndSaturday: '9:00 - Полунощ',
                     sunday: '12:00 - 22:00'
@@ -1376,7 +1376,7 @@
                 title: "Шампанско & звезди",
                 _createdOn: 1678624474951,
                 _id: "668ac358-8b0b-4962-8c4c-98006272eb6b",
-                workindHours: {
+                workingHours: {
                     businessDays: '7:00 - 22:00',
                     fridayAndSaturday: '9:00 - Полунощ',
                     sunday: '12:00 - 22:00'

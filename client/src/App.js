@@ -17,6 +17,7 @@ import Reservation from './components/reservation/Reservation';
 import { AlertProvider } from './contexts/AlertContext';
 import RestaurantManagement from './components/restaurant-management/RestaurantManagement';
 import Spinner from './components/common/spinner/Spinner';
+import { ReataurantManagementContext, ReataurantManagementContextProvider } from './contexts/RestaurantManagementContext';
 
 function App() {
   return (
@@ -24,18 +25,20 @@ function App() {
       <AuthProvider>
         <div className="App">
           <MainNavigation />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/reservation/:restaurantId" element={<Reservation />} />
-            <Route path="/menu/:restaurantId" element={<Menu />} />
-            <Route element={<Authenticated />}>
-              <Route path="/logout" element={<Logout />} />
-              <Route path="/profile" element={<Logout />} />
-              <Route path="/management" element={<RestaurantManagement />} />
-            </Route>
-          </Routes>
+          <ReataurantManagementContextProvider>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/reservation/:restaurantId" element={<Reservation />} />
+              <Route path="/menu/:restaurantId" element={<Menu />} />
+              <Route element={<Authenticated />}>
+                <Route path="/logout" element={<Logout />} />
+                <Route path="/profile" element={<Logout />} />
+                <Route path="/management" element={<RestaurantManagement />} />
+              </Route>
+            </Routes>
+          </ReataurantManagementContextProvider>
           {/* <Prefooter /> */}
           <Footer />
         </div>
