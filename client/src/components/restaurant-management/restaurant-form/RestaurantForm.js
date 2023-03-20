@@ -21,7 +21,8 @@ const RestaurantForm = ({
             setFormTitle('Регистрация на ресторант');
         } else if (managementContex.isEdit) {
             setFormTitle('Редакция на ресторант');
-            setFormState(managementContex.restaurant);
+            const restaurantModel = mapToEditModel(managementContex);
+            setFormState(restaurantModel);
         }
     }, [managementContex]);
 
@@ -189,3 +190,12 @@ const RestaurantForm = ({
     )
 }
 export default RestaurantForm;
+
+const mapToEditModel = (managementContex)=>{
+    return {
+        ...managementContex.restaurant,
+        "workingHours.businessDays": managementContex.restaurant.workingHours.businessDays,
+        "workingHours.fridayAndSaturday": managementContex.restaurant.workingHours.fridayAndSaturday,
+        "workingHours.sunday": managementContex.restaurant.workingHours.sunday
+    };
+}
