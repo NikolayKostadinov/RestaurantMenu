@@ -65,7 +65,7 @@ const MainNavigation = () => {
                                     </Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/register" className="btn btn-primary btn-sm btn-round ml-4">
+                                    <Link to="/register" className="btn btn-primary btn-sm btn-round ml-4 ml-md-0">
                                         <i className="fa-solid fa-registered"></i> Регистрация
                                     </Link>
                                 </li>

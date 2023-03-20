@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAlertContext } from "../../../contexts/AlertContext";
 import { useRestaurantManagementContext } from "../../../contexts/RestaurantManagementContext";
 import useUploadImg from "../../../hooks/useUploadImg";
@@ -7,9 +7,8 @@ import useValidator from "../../../hooks/useValidator";
 const RestaurantForm = ({
     onSubmitHandler,
 }) => {
-    const [formState, setFormState] = useState({
-        title: '',
-    });
+    const [formState, setFormState] = useState({});
+    const [formTitle, setFormTitle] = useState('');
 
     const managementContex = useRestaurantManagementContext();
     const formVisible = managementContex.isCreate || managementContex.isEdit;
@@ -17,7 +16,15 @@ const RestaurantForm = ({
     const alertContext = useAlertContext();
     const { uploadImage } = useUploadImg();
 
-    let formTitle = managementContex.isCreate ? "Регистрация на ресторант" : "Редакция на ресторант";
+    useEffect(() => {
+        if (managementContex.isCreate) {
+            setFormTitle('Регистрация на ресторант');
+        } else if (managementContex.isEdit) {
+            setFormTitle('Редакция на ресторант');
+            setFormState(managementContex.restaurant);
+        }
+    }, [managementContex]);
+
 
     const setResult = (fieldName, value, index = null) => {
 
@@ -32,7 +39,6 @@ const RestaurantForm = ({
             ...state,
             [fieldName]: value
         }));
-        console.log("NewURL: ", value);
     }
 
     const onChange = (ev) => {
@@ -124,7 +130,7 @@ const RestaurantForm = ({
                                     name="workingHours.businessDays"
                                     className={`${validator.getFormControlValidClass("workingHours.businessDays", true)} `}
                                     placeholder="7:00 - 22:00"
-                                    value={formState?.workingHours?.businessDays}
+                                    value={formState["workingHours.businessDays"]}
                                     onChange={onChange}
                                     onBlur={validator.requiredValidator}
                                 />
@@ -142,7 +148,7 @@ const RestaurantForm = ({
                                     name="workingHours.fridayAndSaturday"
                                     className={`${validator.getFormControlValidClass("workingHours.fridayAndSaturday", true)} `}
                                     placeholder="7:00 - 22:00"
-                                    value={formState?.workingHours?.fridayAndSaturday}
+                                    value={formState["workingHours.fridayAndSaturday"]}
                                     onChange={onChange}
                                     onBlur={validator.requiredValidator}
                                 />
@@ -159,7 +165,7 @@ const RestaurantForm = ({
                                     name="workingHours.sunday"
                                     className={`${validator.getFormControlValidClass("workingHours.sunday", true)}`}
                                     placeholder="7:00 - 22:00"
-                                    value={formState?.workingHours?.sunday}
+                                    value={formState["workingHours.sunday"]}
                                     onChange={onChange}
                                     onBlur={validator.requiredValidator}
                                 />

@@ -4,7 +4,7 @@ import { createContext, useContext, useState } from "react";
 export const ReataurantManagementContext = createContext({
     isCreate: false,
     isEdit: false,
-    restaurantId: '',
+    restaurant: {},
     showCreateRestaurant: {},
     showEditReastaurant: {},
     hideForm: {}

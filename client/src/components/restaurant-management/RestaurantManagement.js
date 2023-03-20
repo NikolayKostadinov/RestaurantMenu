@@ -23,7 +23,7 @@ const RestaurantManagement = () => {
             })
             .finally(() => alertContext.hideLoading());
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [user]);
+    }, []);
 
     const managementContext = useRestaurantManagementContext();
 
@@ -31,8 +31,8 @@ const RestaurantManagement = () => {
 
     const onCreate = () => {
         managementContext.showCreateRestaurant();
-    } 
-    
+    }
+
     const onEdit = (resteurant) => {
         managementContext.showEditReastaurant(resteurant);
     }
@@ -40,7 +40,8 @@ const RestaurantManagement = () => {
     const createRestaurant = (restaurant) => {
         alertContext.showLoading();
         restaurantService.create(restaurant)
-            .then(() => {
+            .then(newRestaurant => {
+                setRestaurants(stat => [...stat, newRestaurant]);
                 alertContext.showAlert(`Вие създадохте успешно ресторант "${restaurant.title}"!`, 'success', true);
             })
             .catch(err => {
@@ -53,7 +54,8 @@ const RestaurantManagement = () => {
     const editRestaurant = (restaurant) => {
         alertContext.showLoading();
         restaurantService.update(restaurant)
-            .then(() => {
+            .then((res) => {
+                setRestaurants(stat => stat.map(r => r._id === res._id ? res : r));
                 alertContext.showAlert(`Успешно редактирахте ресторант "${restaurant.title}"!`, 'success', true);
             })
             .catch(err => {
@@ -66,7 +68,7 @@ const RestaurantManagement = () => {
     const deleteRestaurant = (restaurantId) => {
         alertContext.showLoading();
         restaurantService.del(restaurantId)
-            .then(()=>{setRestaurants(stat=>stat.filter(r=>r._id !== restaurantId))})
+            .then(() => { setRestaurants(stat => stat.filter(r => r._id !== restaurantId)) })
             .catch(err => {
                 console.log(err);
                 alertContext.showAlert('Неуспешна операция!', 'danger');
@@ -79,15 +81,16 @@ const RestaurantManagement = () => {
             title: restaurant.title,
             imagesUrls: restaurant.imagesUrls,
             workingHours: {
-                businessDays: restaurant["workingHours.businessDays"],
-                fridayAndSaturday: restaurant["workingHours.fridayAndSaturday"],
-                sunday: restaurant["workingHours.sunday"],
+                businessDays: restaurant["workingHours.businessDays"] || restaurant?.workingHours?.businessDays,
+                fridayAndSaturday: restaurant["workingHours.fridayAndSaturday"] || restaurant?.workingHours?.fridayAndSaturday,
+                sunday: restaurant["workingHours.sunday"] || restaurant?.workingHours?.sunday,
             }
         };
 
         if (managementContext.isCreate) {
             createRestaurant(restaurantModel);
         } else if (managementContext.isEdit) {
+            restaurantModel._id = restaurant._id;
             editRestaurant(restaurantModel);
         }
         else {
@@ -99,12 +102,16 @@ const RestaurantManagement = () => {
     return (
         <section id="restaurant-management" className="transparent extended">
             <div className="overlay extended">
-                <div className="restaurant-list-wrapper">
-                    <h1 className="text-center">Управление на ресторантите</h1>
-                    <button className="btn btn-primary create-restaurant" onClick={onCreate}>
-                        <i className="fa-regular fa-file"></i> Създай
-                    </button>
-                    <RestaurantList deleteHandler={deleteRestaurant} restaurants={restaurants} />
+                <div className="restaurant-list-wrapper container">
+                    <header className="row">
+                        <h1 className="text-center offset-md-3 col-md-6">Управление на ресторантите</h1>
+                        <div className="offset-md-1 col-md-2 text-sm-right">
+                            <button className="btn btn-primary btn-sm " onClick={onCreate}>
+                                <i className="fa-regular fa-file"></i> Създай
+                            </button>
+                        </div>
+                    </header>
+                    <RestaurantList deleteHandler={deleteRestaurant} restaurants={restaurants} editHandler={onEdit} />
                 </div>
             </div>
 
