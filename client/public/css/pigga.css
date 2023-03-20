@@ -4974,7 +4974,7 @@ input[type="button"].btn-block {
   .nav-item a,
   .nav-item p {
     margin-left: 0 !important;
-    margin-bottom: .5rem;
+    margin-bottom: 0.5rem;
   }
 }
 
@@ -12087,7 +12087,14 @@ section.has-img-bg:after {
   height: 344px;
 }
 
-.restaurant .img-wrapper img{
+@media screen and (max-width: 850px) {
+  .restaurant .img-wrapper {
+    width: 170px;
+    height: 260px;
+  }
+}
+
+.restaurant .img-wrapper img {
   height: 100%;
   width: 100%;
   object-fit: cover;
