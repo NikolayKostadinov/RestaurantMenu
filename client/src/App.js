@@ -1,23 +1,22 @@
 import { Route, Routes } from 'react-router-dom';
-import Home from './components/home/Home';
+import { AuthProvider } from './contexts/AuthContext';
+import { AlertProvider } from './contexts/AlertContext';
+import { ReataurantManagementContextProvider } from './contexts/RestaurantManagementContext';
 
 import MainNavigation from './components/main-nav/MainNavigation';
-
-import './App.css';
 import Footer from './components/footer/Footer';
-// import Prefooter from './components/prefooter/Prefooter';
-import Menu from './components/menu/Menu';
-import { AuthProvider } from './contexts/AuthContext';
+import Home from './components/home/Home';
 import Login from './components/login/Login';
 import Logout from './components/logout/Logout';
 import Authenticated from './components/common/Authenticated';
 import Register from './components/register/Register';
-import Alert from './components/common/alert/Alert';
-import Reservation from './components/reservation/Reservation';
-import { AlertProvider } from './contexts/AlertContext';
+import Menu from './components/menu/Menu';
 import RestaurantManagement from './components/restaurant-management/RestaurantManagement';
+import Reservation from './components/reservation/Reservation';
+import Alert from './components/common/alert/Alert';
 import Spinner from './components/common/spinner/Spinner';
-import { ReataurantManagementContext, ReataurantManagementContextProvider } from './contexts/RestaurantManagementContext';
+
+import './App.css';
 
 function App() {
   return (
@@ -39,7 +38,6 @@ function App() {
               </Route>
             </Routes>
           </ReataurantManagementContextProvider>
-          {/* <Prefooter /> */}
           <Footer />
         </div>
         <Spinner />

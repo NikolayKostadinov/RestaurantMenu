@@ -52,7 +52,7 @@ const MainNavigation = () => {
                                     {/* </a> */}
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/logout" className="btn btn-primary btn-sm ml-4 ">
+                                    <Link to="/logout" className="btn btn-primary btn-sm ml-4">
                                         <i className="fa-solid fa-arrow-right-to-bracket"></i> Изход
                                     </Link>
                                 </li>.
@@ -65,7 +65,7 @@ const MainNavigation = () => {
                                     </Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/register" className="btn btn-primary btn-sm btn-round ml-4 ml-md-0">
+                                    <Link to="/register" className="btn btn-primary btn-sm btn-round ml-4">
                                         <i className="fa-solid fa-registered"></i> Регистрация
                                     </Link>
                                 </li>

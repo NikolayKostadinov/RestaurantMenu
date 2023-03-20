@@ -24,6 +24,7 @@ const Home = () => {
                 alertContext.hideLoading();
             }
             );
+// eslint-disable-next-line
     }, []);
 
     return (
@@ -36,7 +37,7 @@ const Home = () => {
                         className="logo"
                     />
                     <h2 className="subtitle">Добре дошли в електронното меню</h2>
-                    <h1 className="title">Всичко е Свежо &amp; Вкусно</h1>
+                    <h1 className="title text-center">Всичко е Свежо &amp; Вкусно</h1>
                     <div className="bg-primary delimiter"></div>
                 </div>
             </header>
