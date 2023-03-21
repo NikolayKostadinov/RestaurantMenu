@@ -21,7 +21,6 @@ const CreateMeal = ({
             ...state,
             [fieldName]: value
         }));
-        console.log("NewURL: ", value);
     }
 
     const onChange = (ev) => {

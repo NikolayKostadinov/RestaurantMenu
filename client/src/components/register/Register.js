@@ -5,7 +5,6 @@ import { useAuthContext } from "../../contexts/AuthContext";
 import useValidator from "../../hooks/useValidator";
 
 import * as authService from "../../services/authService";
-import { getFormControlClass, hasError } from "../common/utils.js";
 
 import styles from './Register.module.css';
 
