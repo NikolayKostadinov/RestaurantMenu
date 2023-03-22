@@ -27,6 +27,7 @@ async function request(method, url, data) {
 
         if (response.status === 401 || response.status === 403) {
             clearUserData();
+            window.location.replace('/');
         }
 
         if (!response.ok) {
