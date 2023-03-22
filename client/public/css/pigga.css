@@ -12219,3 +12219,10 @@ section.has-img-bg:after {
   justify-content: flex-end;
   gap: 1rem;
 }
+
+#reservations .pagination{
+  position: absolute;
+  bottom: 4rem;
+  left: 50%;
+  transform: translateX(-50%);
+}

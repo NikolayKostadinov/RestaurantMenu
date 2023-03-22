@@ -23,3 +23,11 @@ export const del = (reservationId) => {
     return fetchApi.del(urls.delete(reservationId));
 }
 
+export const confirm = (reservationId, stat) => {
+    return fetchApi.patch(urls.update(reservationId), { confirmed:  stat});
+}
+
+export const finish = (reservationId, stat) => {
+    return fetchApi.patch(urls.update(reservationId), {finished: stat });
+}
+
