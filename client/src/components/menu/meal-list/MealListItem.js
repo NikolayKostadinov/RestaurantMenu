@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useAuthContext } from "../../../contexts/AuthContext";
-import { getFormControlClass, hasError } from "../../common/utils.js";
 import { storage } from "../../../services/utils/firebase"
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { v4 } from 'uuid';
 import { useAlertContext } from "../../../contexts/AlertContext";
+import useValidator from "../../../hooks/useValidator";
 
 
 const MealListItem = ({
@@ -12,12 +12,12 @@ const MealListItem = ({
     onDeleteHandler,
     onUpdateHandler
 }) => {
-    const [errors, setError] = useState([]);
     const [isEdit, setIsEdit] = useState(false);
     const [formState, setFormState] = useState({ ...meal });
 
     const userContext = useAuthContext();
     const alertContext = useAlertContext();
+    const validator = useValidator();
 
     const onChange = (ev) => {
         setFormState(state =>
@@ -29,32 +29,15 @@ const MealListItem = ({
 
     const onCancel = () => {
         setFormState({ ...meal });
-        setError([]);
+        validator.clearErrors();
         setIsEdit(false);
     }
 
     const onSubmit = () => {
-        if (!hasError(errors)) {
+        if (!validator.hasErrors()) {
             onUpdateHandler(formState);
             setIsEdit(false);
         }
-    }
-
-    function requiredValidator(e) {
-        addErrorState(e.target.name,
-            formState[e.target.name].length < 1);
-    }
-
-    function positivValidator(e) {
-        addErrorState(e.target.name,
-            Number(formState[e.target.name].length) <= 0);
-    }
-
-    function addErrorState(field, errorState) {
-        setError(err => ({
-            ...err,
-            [field]: errorState
-        }));
     }
 
     const prepareFile = (event) => {
@@ -74,7 +57,6 @@ const MealListItem = ({
                             imageUrl: url
                         }));
                     });
-                alertContext.showAlert('Вие качихте  на изображение!', 'success', true);
             })
             .catch(err => {
                 console.log(err);
@@ -83,7 +65,7 @@ const MealListItem = ({
             ;
     };
 
-    return (isEdit 
+    return (isEdit
         ?
         <div className="col-md-6 mb-4">
             <form onSubmit={onSubmit}>
@@ -103,33 +85,30 @@ const MealListItem = ({
                                     <input
                                         type="text"
                                         name="title"
-                                        className={getFormControlClass(errors.title, true)}
+                                        className={validator.getFormControlValidClass("title", true)}
                                         placeholder="Название"
                                         value={formState.title}
                                         onChange={onChange}
-                                        onBlur={requiredValidator}
+                                        onBlur={validator.requiredValidator}
                                     />
-                                    {errors.title &&
-                                        <p className="invalid-feedback">
-                                            Полето название е задължително!
-                                        </p>
-                                    }
+                                    <p className="invalid-feedback">
+                                        Полето название е задължително!
+                                    </p>
                                 </div>
                                 <div className="form-group col-sm-3 mb-0">
                                     <input
                                         type="text"
                                         name="price"
-                                        className={getFormControlClass(errors.price, true)}
+                                        className={validator.getFormControlValidClass("price", true)}
                                         value={formState.price}
                                         onChange={onChange}
-                                        onBlur={positivValidator}
+                                        onBlur={validator.positivValidator}
                                         placeholder="Цена"
                                     />
-                                    {errors.price &&
-                                        <p className="invalid-feedback">
-                                            Полето цена трябва да е полoжително!
-                                        </p>
-                                    }
+                                    <p className="invalid-feedback">
+                                        Полето цена трябва да е полoжително!
+                                    </p>
+
                                 </div>
                             </div>
                         </div>
@@ -137,21 +116,19 @@ const MealListItem = ({
                             <textarea rows="3"
                                 type="text"
                                 name="ingredients"
-                                className={`w-100 ${getFormControlClass(errors.ingredients, true)}`}
+                                className={`w-100 ${validator.getFormControlValidClass("ingredients", true)}`}
                                 value={formState.ingredients}
                                 onChange={onChange}
-                                onBlur={requiredValidator}
+                                onBlur={validator.requiredValidator}
                                 placeholder="Съставки"
                             ></textarea>
-                            {errors.ingredients &&
-                                <p className="invalid-feedback">
-                                    Въвеждането на съставки е задължително!
-                                </p>
-                            }
+                            <p className="invalid-feedback">
+                                Въвеждането на съставки е задължително!
+                            </p>
                         </div>
                         <div className="body pt-0">
                             <div className="meal-management">
-                                <button type="submit" className="btn btn-sm btn-primary" disabled={hasError(errors)}>
+                                <button type="submit" className="btn btn-sm btn-primary" disabled={validator.hasErrors()}>
                                     <i className="fa-solid fa-floppy-disk"></i>
                                 </button>
                                 <button className="btn btn-sm btn-primary" onClick={onCancel}>

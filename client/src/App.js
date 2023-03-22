@@ -17,6 +17,7 @@ import Alert from './components/common/alert/Alert';
 import Spinner from './components/common/spinner/Spinner';
 
 import './App.css';
+import ReservationManagement from './components/reservation/reservation-management/ReservationManagement';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
                 <Route path="/logout" element={<Logout />} />
                 <Route path="/profile" element={<Logout />} />
                 <Route path="/management" element={<RestaurantManagement />} />
+                <Route path="/reservations" element={<ReservationManagement />} />
               </Route>
             </Routes>
           </ReataurantManagementContextProvider>
