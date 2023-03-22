@@ -23,16 +23,14 @@ const ReservationManagement = () => {
 
 
     useEffect(() => {
-        alertContext.showLoading()
+        alertContext.showLoading();
         restaurantService.getAllByUser(user)
             .then(data => setRestaurants(Object.values(data)))
             .catch(err => {
                 console.log(err);
                 alertContext.showAlert('Неуспешна операция!', 'danger');
             })
-            .finally(
-                alertContext.hideLoading()
-            )
+            .finally(() => alertContext.hideLoading());
         // eslint-disable-next-line
     }, [user]);
 
@@ -56,9 +54,8 @@ const ReservationManagement = () => {
                     console.log(err);
                     alertContext.showAlert('Неуспешна операция!', 'danger');
                 })
-                .finally(
-                    alertContext.hideLoading()
-                )
+                .finally(() => alertContext.hideLoading());
+
         }
         // eslint-disable-next-line
     }, [formState.restaurantId, formState.date, pagerContext.offset]);
@@ -80,9 +77,8 @@ const ReservationManagement = () => {
                 console.log(err);
                 alertContext.showAlert('Неуспешна операция!', 'danger');
             })
-            .finally(
-                alertContext.hideLoading()
-            );
+            .finally(() => alertContext.hideLoading());
+
     }
 
     const onFinish = (reservationId) => {
@@ -94,9 +90,7 @@ const ReservationManagement = () => {
                 console.log(err);
                 alertContext.showAlert('Неуспешна операция!', 'danger');
             })
-            .finally(
-                alertContext.hideLoading()
-            );
+            .finally(() => alertContext.hideLoading());
     }
 
     return (
