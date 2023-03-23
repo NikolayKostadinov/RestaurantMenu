@@ -12,7 +12,7 @@ import { usePager } from "../../../hooks/usePager";
 const PAGE_SIZE = 9;
 
 const ReservationManagement = () => {
-    const [formState, setFormState] = useState({ restaurantId: '', date: '' });
+    const [formState, setFormState] = useState({ restaurantId: '', date: moment(new Date()).format('YYYY-MM-DD') });
     const [restaurants, setRestaurants] = useState([]);
     const [reservations, setReservations] = useState([]);
     const pagerContext = usePager(PAGE_SIZE);
