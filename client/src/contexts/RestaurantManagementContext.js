@@ -1,7 +1,7 @@
-import { createContext, useContext, useState } from "react";
+import {createContext, useContext, useState} from "react";
 
 // Initialize create context to have intelisense where you use it
-export const ReataurantManagementContext = createContext({
+export const RestaurantManagementContext = createContext({
     isCreate: false,
     isEdit: false,
     restaurant: {},
@@ -10,12 +10,9 @@ export const ReataurantManagementContext = createContext({
     hideForm: {}
 });
 
-export const useRestaurantManagementContext = () => {
-    const context = useContext(ReataurantManagementContext);
-    return context;
-}
+export const useRestaurantManagementContext = () => useContext(RestaurantManagementContext);
 
-export const ReataurantManagementContextProvider = ({
+export const RestaurantManagementContextProvider = ({
     children
 }) => {
     const [isCreate, setIsCreate] = useState(false);
@@ -38,7 +35,7 @@ export const ReataurantManagementContextProvider = ({
     }
 
     return (
-        <ReataurantManagementContext.Provider
+        <RestaurantManagementContext.Provider
             value={{
                 isCreate,
                 isEdit,
@@ -48,6 +45,6 @@ export const ReataurantManagementContextProvider = ({
                 hideForm
             }} >
                 { children }
-        </ReataurantManagementContext.Provider>
+        </RestaurantManagementContext.Provider>
     )
 }

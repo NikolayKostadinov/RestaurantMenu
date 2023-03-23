@@ -21,8 +21,12 @@ const Register = () => {
             repass: ''
         });
 
-    const { userLogin } = useAuthContext()
+    const authContext = useAuthContext()
     const navigate = useNavigate();
+
+    if (authContext.isAuthenticated){
+        setFormState(authContext.user);
+    }
 
     const onSubmit = (ev) => {
         ev.preventDefault();
@@ -31,7 +35,7 @@ const Register = () => {
             alertContext.showLoading()
             authService.register(formState)
                 .then(authData => {
-                    userLogin(authData);
+                    authContext.userLogin(authData);
                     alertContext.showAlert('Вие се регистрирахте успешно в системата!', 'success', true);
                     navigate('/');
                 })

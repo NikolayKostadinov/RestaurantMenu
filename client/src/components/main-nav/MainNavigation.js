@@ -48,7 +48,7 @@ const MainNavigation = () => {
                             ? <ul className="navbar-nav ml-auto">
                                 <li className="nav-item">
                                     {/* <a href="components.html" className={`btn btn-sm text-primary ${styles.profile}`}> */}
-                                       <p className={`text-primary ${styles.profile}`}><i className="fa-regular fa-circle-user"></i> {user.fullname}</p>
+                                       <Link to={'/profile'} className={`text-primary ${styles.profile}`}><i className="fa-regular fa-circle-user"></i> {user.fullname}</Link>
                                     {/* </a> */}
                                 </li>
                                 <li className="nav-item">

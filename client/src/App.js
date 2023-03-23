@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { AlertProvider } from './contexts/AlertContext';
-import { ReataurantManagementContextProvider } from './contexts/RestaurantManagementContext';
+import { RestaurantManagementContextProvider } from './contexts/RestaurantManagementContext';
 
 import MainNavigation from './components/main-nav/MainNavigation';
 import Footer from './components/footer/Footer';
@@ -25,7 +25,7 @@ function App() {
       <AuthProvider>
         <div className="App">
           <MainNavigation />
-          <ReataurantManagementContextProvider>
+          <RestaurantManagementContextProvider>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
@@ -34,12 +34,12 @@ function App() {
               <Route path="/menu/:restaurantId" element={<Menu />} />
               <Route element={<Authenticated />}>
                 <Route path="/logout" element={<Logout />} />
-                <Route path="/profile" element={<Logout />} />
+                <Route path="/profile" element={<Register />} />
                 <Route path="/management" element={<RestaurantManagement />} />
                 <Route path="/reservations" element={<ReservationManagement />} />
               </Route>
             </Routes>
-          </ReataurantManagementContextProvider>
+          </RestaurantManagementContextProvider>
           <Footer />
         </div>
         <Spinner />
