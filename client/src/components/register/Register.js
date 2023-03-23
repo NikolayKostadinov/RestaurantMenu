@@ -72,7 +72,7 @@ const Register = () => {
                                 className={validator.getFormControlValidClass("username")}
                                 placeholder="Потребител"
                                 onChange={onChange}
-                                onBlur={(e) => { validator.minLenghtValidator(e, 3) }}
+                                onBlur={(e) => { validator.minLengthValidator(e, 3) }}
                                 value={formState.username}
                             />
                             <p className="invalid-feedback">
@@ -88,7 +88,7 @@ const Register = () => {
                                 className={validator.getFormControlValidClass("firstname")}
                                 placeholder="Име"
                                 onChange={onChange}
-                                onBlur={(e) => { validator.minLenghtValidator(e, 2) }}
+                                onBlur={(e) => { validator.minLengthValidator(e, 2) }}
                                 value={formState.firstname}
                             />
                             <p className="invalid-feedback">
@@ -104,7 +104,7 @@ const Register = () => {
                                 className={validator.getFormControlValidClass("lastname")}
                                 placeholder="Фамилия"
                                 onChange={onChange}
-                                onBlur={(e) => { validator.minLenghtValidator(e, 3) }}
+                                onBlur={(e) => { validator.minLengthValidator(e, 3) }}
                                 value={formState.lastname}
                             />
                             <p className="invalid-feedback">

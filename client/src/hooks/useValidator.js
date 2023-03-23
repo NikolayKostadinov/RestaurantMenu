@@ -49,7 +49,7 @@ const useValidator = () => {
         getFormControlValidClass,
         requiredValidator,
         positivValidator,
-        minLenghtValidator,
+        minLengthValidator: minLenghtValidator,
         samePasswordsValidator,
         emailValidator
     })
