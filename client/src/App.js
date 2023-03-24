@@ -18,11 +18,9 @@ import Spinner from './components/common/spinner/Spinner';
 
 import './App.css';
 import ReservationManagement from './components/reservation/reservation-management/ReservationManagement';
-import ErrorBoundary from './components/common/ErrorBoundary';
 
 function App() {
   return (
-    <ErrorBoundary>
       <AlertProvider>
         <AuthProvider>
           <div className="App">
@@ -47,7 +45,6 @@ function App() {
           <Alert />
         </AuthProvider>
       </AlertProvider>
-    </ErrorBoundary>
   );
 }
 
