@@ -25,7 +25,7 @@ async function request(method, url, data) {
             return response;
         }
 
-        if (response.status === 401 || response.status === 403) {
+        if (window.location.pathname !== '/login' && (response.status === 401 || response.status === 403)) {
             clearUserData();
             window.location.replace('/');
         }

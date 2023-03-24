@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useAlertContext } from "../../contexts/AlertContext";
-import { useAuthContext } from "../../contexts/AuthContext";
+import {useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
+import {useAlertContext} from "../../contexts/AlertContext";
+import {useAuthContext} from "../../contexts/AuthContext";
 import useValidator from "../../hooks/useValidator";
 
 import * as authService from "../../services/authService";
@@ -9,24 +9,19 @@ import * as authService from "../../services/authService";
 import styles from './Register.module.css';
 
 const Register = () => {
+    const [formState, setFormState] = useState({
+        username: '',
+        firstname: '',
+        lastname: '',
+        email: '',
+        password: '',
+        repass: ''
+    });
     const alertContext = useAlertContext();
+    const {userLogin} = useAuthContext();
     const validator = useValidator();
-    const [formState, setFormState] = useState(
-        {
-            username: '',
-            firstname: '',
-            lastname: '',
-            email: '',
-            password: '',
-            repass: ''
-        });
 
-    const authContext = useAuthContext()
     const navigate = useNavigate();
-
-    if (authContext.isAuthenticated){
-        setFormState(authContext.user);
-    }
 
     const onSubmit = (ev) => {
         ev.preventDefault();
@@ -35,7 +30,7 @@ const Register = () => {
             alertContext.showLoading()
             authService.register(formState)
                 .then(authData => {
-                    authContext.userLogin(authData);
+                    userLogin(authData);
                     alertContext.showAlert('Вие се регистрирахте успешно в системата!', 'success', true);
                     navigate('/');
                 })
@@ -52,10 +47,10 @@ const Register = () => {
 
     const onChange = (ev) => {
         setFormState(state =>
-        ({
-            ...state,
-            [ev.target.name]: ev.target.value
-        }));
+            ({
+                ...state,
+                [ev.target.name]: ev.target.value
+            }));
     }
 
     return (
@@ -72,7 +67,9 @@ const Register = () => {
                                 className={validator.getFormControlValidClass("username")}
                                 placeholder="Потребител"
                                 onChange={onChange}
-                                onBlur={(e) => { validator.minLengthValidator(e, 3) }}
+                                onBlur={(e) => {
+                                    validator.minLengthValidator(e, 3)
+                                }}
                                 value={formState.username}
                             />
                             <p className="invalid-feedback">
@@ -88,7 +85,9 @@ const Register = () => {
                                 className={validator.getFormControlValidClass("firstname")}
                                 placeholder="Име"
                                 onChange={onChange}
-                                onBlur={(e) => { validator.minLengthValidator(e, 2) }}
+                                onBlur={(e) => {
+                                    validator.minLengthValidator(e, 2)
+                                }}
                                 value={formState.firstname}
                             />
                             <p className="invalid-feedback">
@@ -104,7 +103,9 @@ const Register = () => {
                                 className={validator.getFormControlValidClass("lastname")}
                                 placeholder="Фамилия"
                                 onChange={onChange}
-                                onBlur={(e) => { validator.minLengthValidator(e, 3) }}
+                                onBlur={(e) => {
+                                    validator.minLengthValidator(e, 3)
+                                }}
                                 value={formState.lastname}
                             />
                             <p className="invalid-feedback">
@@ -162,8 +163,8 @@ const Register = () => {
                         </div>
                         <div className="d-flex justify-content-end">
                             <button type="submit"
-                                className="btn btn-primary"
-                                disabled={validator.hasErrors()}
+                                    className="btn btn-primary"
+                                    disabled={validator.hasErrors()}
                             >
                                 Регистрация
                             </button>

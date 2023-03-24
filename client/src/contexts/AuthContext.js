@@ -1,13 +1,10 @@
-import { createContext, useContext } from "react";
+import {createContext, useContext} from "react";
 import useSessionPersister from '../hooks/useSessionPersister';
 
 // Initialize create context to have intelisense where you use it
 export const AuthContext = createContext({ user: {}, userLogin:{}, userLogout:{}, isAuthenticated:false});
 
-export const useAuthContext = () => {
-    const context = useContext(AuthContext);
-    return context;
-}
+export const useAuthContext = () => useContext(AuthContext);
 
 export const AuthProvider = ({
     children

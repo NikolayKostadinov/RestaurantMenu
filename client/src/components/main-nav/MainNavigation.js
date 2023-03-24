@@ -47,16 +47,13 @@ const MainNavigation = () => {
                         {isAuthenticated
                             ? <ul className="navbar-nav ml-auto">
                                 <li className="nav-item">
-                                    {/* <a href="components.html" className={`btn btn-sm text-primary ${styles.profile}`}> */}
-                                       <Link to={'/profile'} className={`text-primary ${styles.profile}`}><i className="fa-regular fa-circle-user"></i> {user.fullname}</Link>
-                                    {/* </a> */}
+                                       <p className={`text-primary ${styles.profile}`}><i className="fa-regular fa-circle-user"></i> {user.fullname}</p>
                                 </li>
                                 <li className="nav-item">
                                     <Link to="/logout" className="btn btn-primary btn-sm ml-4">
                                         <i className="fa-solid fa-arrow-right-to-bracket"></i> Изход
                                     </Link>
                                 </li>.
-
                             </ul>
                             : <ul className="navbar-nav ml-auto">
                                 <li className="nav-item">
