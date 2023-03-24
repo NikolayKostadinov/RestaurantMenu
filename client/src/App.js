@@ -21,30 +21,30 @@ import ReservationManagement from './components/reservation/reservation-manageme
 
 function App() {
   return (
-      <AlertProvider>
-        <AuthProvider>
-          <div className="App">
-            <MainNavigation />
-            <RestaurantManagementContextProvider>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/reservation/:restaurantId/:title" element={<Reservation />} />
-                <Route path="/menu/:restaurantId" element={<Menu />} />
-                <Route element={<Authenticated />}>
-                  <Route path="/logout" element={<Logout />} />
-                  <Route path="/management" element={<RestaurantManagement />} />
-                  <Route path="/reservations" element={<ReservationManagement />} />
-                </Route>
-              </Routes>
-            </RestaurantManagementContextProvider>
-            <Footer />
-          </div>
-          <Spinner />
-          <Alert />
-        </AuthProvider>
-      </AlertProvider>
+    <AlertProvider>
+      <AuthProvider>
+        <div className="App">
+          <MainNavigation />
+          <RestaurantManagementContextProvider>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/reservation/:restaurantId/:title" element={<Reservation />} />
+              <Route path="/menu/:restaurantId" element={<Menu />} />
+              <Route element={<Authenticated />}>
+                <Route path="/logout" element={<Logout />} />
+                <Route path="/management" element={<RestaurantManagement />} />
+                <Route path="/reservations" element={<ReservationManagement />} />
+              </Route>
+            </Routes>
+          </RestaurantManagementContextProvider>
+          <Footer />
+        </div>
+        <Spinner />
+        <Alert />
+      </AuthProvider>
+    </AlertProvider>
   );
 }
 
