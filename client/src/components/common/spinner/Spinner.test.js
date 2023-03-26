@@ -2,7 +2,6 @@ import {render, screen} from "@testing-library/react";
 import {AlertContext} from "../../../contexts/AlertContext.js";
 import Spinner from "./Spinner.js";
 
-const setShowAlert = jest.fn()
 describe('Spinner Component Visible Tests Suit', function () {
 
     test('Spinner must be visible if loading is true', async () => {

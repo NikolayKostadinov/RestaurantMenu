@@ -33,7 +33,7 @@ const Login = () => {
                 })
                 .finally(()=>alertContext.hideLoading())
         }
-    }
+    7}
 
     const onChange = (ev) => {
         setFormState(state =>
@@ -67,7 +67,7 @@ const Login = () => {
                         <div className="form-group">
                             <input
                                 type="password"
-                                id="login-password"
+                                id="password"
                                 name="password"
                                 className={validator.getFormControlValidClass("password")}
                                 placeholder="Парола"

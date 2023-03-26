@@ -1,7 +1,7 @@
 import { useState, createContext, useContext } from "react";
 
 // Initialize create context to have intelisense where you use it
-export const AlertContext = createContext({ show: false, type: 'success', message: '', showAlert: {}, setShowAlert: {}, setAlertMesage: {}, setAlertType: {}, showLoading: {}, hideLoading: {} });
+export const AlertContext = createContext({ show: false, type: 'success', message: '', showAlert: {}, setShowAlert: {}, setAlertMessage: {}, setAlertType: {}, showLoading: {}, hideLoading: {} });
 
 export const useAlertContext = () => {
     const context = useContext(AlertContext);
@@ -19,7 +19,7 @@ export const AlertProvider = ({
     const setShowAlert = (shows) => {
         setShow(shows);
     };
-    const setAlertMesage = (message) => {
+    const setAlertMessage = (message) => {
         setMessage(message);
     };
     const setAlertType = (type) => {
@@ -47,7 +47,7 @@ export const AlertProvider = ({
     }
 
     return (
-        <AlertContext.Provider value={{ show, loading, type, message, showAlert, setShowAlert, setAlertMesage, setAlertType, showLoading, hideLoading}}>
+            <AlertContext.Provider value={{ show, loading, type, message, showAlert, setShowAlert, setAlertMessage, setAlertType, showLoading, hideLoading}}>
             {children}
         </AlertContext.Provider>
     )
