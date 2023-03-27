@@ -3,7 +3,7 @@ import { useAlertContext } from '../../../contexts/AlertContext';
 
 import { usePager } from '../../../hooks/usePager';
 import * as mealService from '../../../services/mealService';
-import { goToTop } from '../../common/utils';
+import { goToTop } from '../../common/utils/utils.js';
 import CreateMeal from './CreateMeal';
 
 import MealListItem from './MealListItem';

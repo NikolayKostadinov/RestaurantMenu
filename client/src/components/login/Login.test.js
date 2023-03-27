@@ -22,12 +22,8 @@ describe('Login component Tests Suit', function () {
     }
 
     beforeEach(() => {
-
-        cleanup();
-
         delete window.location;
         window.location = {pathname: '/login'};
-
 
         render(
             <AuthContext.Provider value={{userLogin}}>
@@ -53,6 +49,7 @@ describe('Login component Tests Suit', function () {
     });
 
     afterEach(() => {
+        cleanup();
         jest.restoreAllMocks();
     });
 

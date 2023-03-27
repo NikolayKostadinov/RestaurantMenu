@@ -8,7 +8,7 @@ import Footer from './components/footer/Footer';
 import Home from './components/home/Home';
 import Login from './components/login/Login';
 import Logout from './components/logout/Logout';
-import Authenticated from './components/common/Authenticated';
+import Authenticated from './components/common/route-guards/Authenticated.js';
 import Register from './components/register/Register';
 import Menu from './components/menu/Menu';
 import RestaurantManagement from './components/restaurant-management/RestaurantManagement';
@@ -32,7 +32,7 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/reservation/:restaurantId/:title" element={<Reservation />} />
               <Route path="/menu/:restaurantId" element={<Menu />} />
-              <Route element={<Authenticated />}>
+              <Route element={<Authenticated/>}>
                 <Route path="/logout" element={<Logout />} />
                 <Route path="/management" element={<RestaurantManagement />} />
                 <Route path="/reservations" element={<ReservationManagement />} />
