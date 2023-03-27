@@ -58,7 +58,7 @@ const Register = () => {
             <div className="overlay">
                 <div className="container">
                     <form className={styles.register} onSubmit={onSubmit}>
-                        <h1 className="mb-4">Регистрация</h1>
+                        <h1 className="mb-4 text-center">Регистрация</h1>
                         <div className="form-group">
                             <input
                                 type="text"
@@ -133,7 +133,7 @@ const Register = () => {
                             <input
                                 type="password"
                                 name="password"
-                                id="register-password"
+                                id="password"
                                 className={validator.getFormControlValidClass("password")}
                                 placeholder="Парола"
                                 onChange={onChange}
@@ -166,7 +166,7 @@ const Register = () => {
                                     className="btn btn-primary"
                                     disabled={validator.hasErrors()}
                             >
-                                Регистрация
+                                Изпращане
                             </button>
                         </div>
                         <p className="mt-2 mb-0">
