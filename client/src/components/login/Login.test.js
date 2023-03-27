@@ -6,9 +6,8 @@ import {AuthContext} from "../../contexts/AuthContext.js";
 import Login from "./Login.js";
 
 describe('Login component Tests Suit', function () {
-
-
     const userLogin = jest.fn();
+
     beforeEach(() => {
             cleanup();
             render(
