@@ -221,7 +221,7 @@ describe('Login component Tests Suit', function () {
         });
 
         //assert
-        expect(showAlert).toHaveBeenCalledWith('Невалидно потребителско име или парола', 'danger');
+        expect(showAlert).toHaveBeenCalledWith("Възникна грешка при рагистрация!", "danger");
 
     });
 
@@ -256,7 +256,7 @@ describe('Login component Tests Suit', function () {
         });
 
         //assert
-        expect(showAlert).toHaveBeenCalledWith('Неуспешна операция', 'danger');
+        expect(showAlert).toHaveBeenCalledWith("Възникна грешка при рагистрация!", "danger");
 
     })
 });
