@@ -35,9 +35,9 @@ const Register = () => {
                     navigate('/');
                 })
                 .catch(err => {
-                    let message = "Възникна грешка при рагистрация!";
+                    let message = "Възникна грешка при регистрация!";
                     if (err.message) {
-                        message = (<><strong>Възникна грешка при рагистрация!</strong> "{err.message || ''}"</>);
+                        message = (<><strong>Възникна грешка при регистрация!</strong> "{err.message || ''}"</>);
                     }
                     alertContext.showAlert(message, 'danger');
                 })

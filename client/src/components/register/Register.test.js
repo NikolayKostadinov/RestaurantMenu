@@ -27,7 +27,7 @@ describe('Login component Tests Suit', function () {
     beforeEach(() => {
         cleanup();
 
-         render(
+        render(
             <AuthContext.Provider value={{userLogin}}>
                 <AlertContext.Provider
                     value={{
@@ -91,6 +91,45 @@ describe('Login component Tests Suit', function () {
         expect(userNameInput.value).toBe('user');
     });
 
+    test('OnChange correct firstname', async () => {
+        const firstName = document.getElementById('firstname')
+
+        // act
+        fireEvent.change(firstName,
+            createEvent('input', firstName, {
+                target: {value: 'firstname'},
+            }));
+
+        // assert
+        expect(firstName.value).toBe('firstname');
+    });
+
+    test('OnChange correct lastname', async () => {
+        const lastNameInput = document.getElementById('lastname')
+
+        // act
+        fireEvent.change(lastNameInput,
+            createEvent('input', lastNameInput, {
+                target: {value: 'lastname'},
+            }));
+
+        // assert
+        expect(lastNameInput.value).toBe('lastname');
+    });
+
+    test('OnChange correct email', async () => {
+        const emailInput = document.getElementById('email')
+
+        // act
+        fireEvent.change(emailInput,
+            createEvent('input', emailInput, {
+                target: {value: 'email'},
+            }));
+
+        // assert
+        expect(emailInput.value).toBe('email');
+    });
+
     test('OnChange correct password', async () => {
         const passwordNameInput = document.getElementById('password')
 
@@ -104,7 +143,7 @@ describe('Login component Tests Suit', function () {
         expect(passwordNameInput.value).toBe('password');
     });
 
-    test('OnBlur not empty username password no error message', async () => {
+    test('OnBlur not empty username no error message', async () => {
         const userNameInput = document.getElementById('username')
 
         // act
@@ -117,7 +156,7 @@ describe('Login component Tests Suit', function () {
         expect(userNameInput).not.toHaveClass('is-invalid');
     });
 
-    test('OnBlur not empty username password show error message', async () => {
+    test('OnBlur not empty username show error message', async () => {
         const userNameInput = document.getElementById('username')
 
         // act
@@ -130,8 +169,85 @@ describe('Login component Tests Suit', function () {
         expect(userNameInput).toHaveClass('is-invalid');
     });
 
+    test('OnBlur not empty firstname no error message', async () => {
+        const firstName = document.getElementById('username')
 
-    test('OnBlur not empty password password no error message', async () => {
+        // act
+        fireEvent.blur(firstName,
+            createEvent('input', firstName, {
+                target: {value: 'firstname'},
+            }));
+
+        // assert
+        expect(firstName).not.toHaveClass('is-invalid');
+    });
+
+    test('OnBlur not empty firstname show error message', async () => {
+        const firstNameInput = document.getElementById('firstname')
+
+        // act
+        fireEvent.blur(firstNameInput,
+            createEvent('input', firstNameInput, {
+                target: {value: ''},
+            }));
+
+        // assert
+        expect(firstNameInput).toHaveClass('is-invalid');
+    });
+
+    test('OnBlur not empty lastname no error message', async () => {
+        const lastNameInput = document.getElementById('username')
+
+        // act
+        fireEvent.blur(lastNameInput,
+            createEvent('input', lastNameInput, {
+                target: {value: 'lastname'},
+            }));
+
+        // assert
+        expect(lastNameInput).not.toHaveClass('is-invalid');
+    });
+
+    test('OnBlur not empty lastname show error message', async () => {
+        const lastNameInput = document.getElementById('lastname')
+
+        // act
+        fireEvent.blur(lastNameInput,
+            createEvent('input', lastNameInput, {
+                target: {value: ''},
+            }));
+
+        // assert
+        expect(lastNameInput).toHaveClass('is-invalid');
+    });
+
+    test('OnBlur not empty email no error message', async () => {
+        const emailInput = document.getElementById('username')
+
+        // act
+        fireEvent.blur(emailInput,
+            createEvent('input', emailInput, {
+                target: {value: 'email'},
+            }));
+
+        // assert
+        expect(emailInput).not.toHaveClass('is-invalid');
+    });
+
+    test('OnBlur not empty email show error message', async () => {
+        const emailInput = document.getElementById('email')
+
+        // act
+        fireEvent.blur(emailInput,
+            createEvent('input', emailInput, {
+                target: {value: ''},
+            }));
+
+        // assert
+        expect(emailInput).toHaveClass('is-invalid');
+    });
+
+    test('OnBlur not empty password no error message', async () => {
         const passwordInput = document.getElementById('password')
 
         // act
@@ -144,7 +260,7 @@ describe('Login component Tests Suit', function () {
         expect(passwordInput).not.toHaveClass('is-invalid');
     });
 
-    test('OnBlur empty password password show error message', async () => {
+    test('OnBlur empty password show error message', async () => {
         const passwordInput = document.getElementById('username')
 
         // act
@@ -155,6 +271,33 @@ describe('Login component Tests Suit', function () {
 
         // assert
         expect(passwordInput).toHaveClass('is-invalid');
+    });
+
+    test('OnBlur not empty confirm-password no error message', async () => {
+        const passwordInput = document.getElementById('password')
+        const repassInput = document.getElementById('confirm-password')
+
+        // act
+        fireEvent.blur(repassInput,
+            createEvent('input', repassInput, {
+                target: {value: ''},
+            }));
+
+        // assert
+        expect(repassInput).not.toHaveClass('is-invalid');
+    });
+
+    test('OnBlur empty confirm-password show error message', async () => {
+        const repassInput = document.getElementById('confirm-password')
+
+        // act
+        fireEvent.blur(repassInput,
+            createEvent('input', repassInput, {
+                target: {value: 'P@ssw0rd'},
+            }));
+
+        // assert
+        expect(repassInput).toHaveClass('is-invalid');
     });
 
     test('Onsubmit correct username and pass show full name', async () => {
@@ -221,7 +364,7 @@ describe('Login component Tests Suit', function () {
         });
 
         //assert
-        expect(showAlert).toHaveBeenCalledWith("Възникна грешка при рагистрация!", "danger");
+        expect(showAlert).toHaveBeenCalledWith("Възникна грешка при регистрация!", "danger");
 
     });
 
@@ -256,7 +399,45 @@ describe('Login component Tests Suit', function () {
         });
 
         //assert
-        expect(showAlert).toHaveBeenCalledWith("Възникна грешка при рагистрация!", "danger");
+        expect(showAlert).toHaveBeenCalledWith("Възникна грешка при регистрация!", "danger");
+
+    });
+
+    test('Onsubmit if has error мессааге status show Error with message', async () => {
+        // arrange
+
+        const mockMessage = "Mock message";
+        jest.spyOn(global, "fetch").mockImplementation(() =>
+            Promise.resolve({
+                status: 400,
+                ok: false,
+                message: mockMessage,
+                json: () => Promise.resolve(mockUser)
+            })
+        );
+
+        const userNameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const form = document.querySelector('form');
+
+        // act
+        await act(() => {
+            fireEvent.change(userNameInput,
+                createEvent('input', userNameInput, {
+                    target: {value: 'user'},
+                }));
+
+            fireEvent.change(passwordInput,
+                createEvent('input', passwordInput, {
+                    target: {value: 'password'},
+                }));
+
+            fireEvent.submit(form);
+        });
+
+        //assert
+        const message = (<><strong>Възникна грешка при регистрация!</strong> "{mockMessage}"</>);
+        expect(showAlert).toHaveBeenCalledWith(message, "danger");
 
     })
 });
