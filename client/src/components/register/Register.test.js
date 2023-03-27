@@ -3,7 +3,7 @@ import React from 'react';
 import {MemoryRouter, Route, Routes} from 'react-router-dom';
 import {AlertContext} from "../../contexts/AlertContext.js";
 import {AuthContext} from "../../contexts/AuthContext.js";
-import Login from "./Login.js";
+import Register from "./Register.js";
 
 describe('Login component Tests Suit', function () {
 
@@ -18,14 +18,16 @@ describe('Login component Tests Suit', function () {
     const mockUser = {
         username: 'username',
         firstname: 'Fname',
-        lastname: 'Lname'
+        lastname: 'Lname',
+        email: 'email@test.com',
+        password: 'P@ssw0rd',
+        repass: 'P@ssw0rd'
     }
 
     beforeEach(() => {
-        delete window.location;
-        window.location = {pathname: '/login'};
+        cleanup();
 
-        render(
+         render(
             <AuthContext.Provider value={{userLogin}}>
                 <AlertContext.Provider
                     value={{
@@ -40,7 +42,7 @@ describe('Login component Tests Suit', function () {
                     <MemoryRouter initialEntries={["/currentUri"]}>
                         <Routes>
                             // dummy route
-                            <Route path="/*" element={<Login/>}/>
+                            <Route path="/*" element={<Register/>}/>
                         </Routes>
                     </MemoryRouter>
                 </AlertContext.Provider>
@@ -54,17 +56,26 @@ describe('Login component Tests Suit', function () {
     });
 
 
-    test('Login form shows', async () => {
+    test('Register form got all the inputs', async () => {
         // act
-        const heading = await screen.findByText('Вход в системата');
-        const userNameInput = document.getElementById('username')
-        const passWordInput = document.getElementById('password');
+        const heading = await screen.findByText('Регистрация');
+        const userNameInput = document.getElementById('username');
+        const firstNameInput = document.getElementById('firstname');
+        const lastNameInput = document.getElementById('lastname');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const repassInput = document.getElementById('confirm-password');
 
         // assert
         expect(heading).toBeInTheDocument();
         expect(userNameInput).toBeInTheDocument();
-        expect(passWordInput).toBeInTheDocument();
-        expect(passWordInput).toHaveAttribute('type', 'password');
+        expect(firstNameInput).toBeInTheDocument();
+        expect(lastNameInput).toBeInTheDocument();
+        expect(emailInput).toBeInTheDocument();
+        expect(passwordInput).toBeInTheDocument();
+        expect(passwordInput).toHaveAttribute('type', 'password');
+        expect(repassInput).toBeInTheDocument();
+        expect(repassInput).toHaveAttribute('type', 'password');
     });
 
     test('OnChange correct username', async () => {
@@ -210,7 +221,7 @@ describe('Login component Tests Suit', function () {
         });
 
         //assert
-        expect(showAlert).toHaveBeenCalledWith('Невалидно потребителско име или парола', 'danger');
+        expect(showAlert).toHaveBeenCalledWith("Възникна грешка при рагистрация!", "danger");
 
     });
 
@@ -245,7 +256,7 @@ describe('Login component Tests Suit', function () {
         });
 
         //assert
-        expect(showAlert).toHaveBeenCalledWith('Неуспешна операция', 'danger');
+        expect(showAlert).toHaveBeenCalledWith("Възникна грешка при рагистрация!", "danger");
 
     })
 });
