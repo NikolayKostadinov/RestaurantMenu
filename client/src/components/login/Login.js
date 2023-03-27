@@ -33,7 +33,7 @@ const Login = () => {
                 })
                 .finally(()=>alertContext.hideLoading())
         }
-    7}
+    }
 
     const onChange = (ev) => {
         setFormState(state =>

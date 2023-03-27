@@ -1,38 +1,61 @@
-import {BrowserRouter, MemoryRouter, Route, Routes} from 'react-router-dom';
-import React, {useState as useStateMock} from 'react';
-import {cleanup, createEvent, fireEvent, render, screen} from "@testing-library/react";
+import {act, cleanup, createEvent, fireEvent, render, screen} from "@testing-library/react";
+import React from 'react';
+import {MemoryRouter, Route, Routes} from 'react-router-dom';
 import {AlertContext} from "../../contexts/AlertContext.js";
 import {AuthContext} from "../../contexts/AuthContext.js";
 import Login from "./Login.js";
 
 describe('Login component Tests Suit', function () {
 
+    const userLogin = jest.fn((authData) => {
+        console.log(authData)
+    });
 
-    const userLogin = jest.fn();
+    const showAlert = jest.fn((authData) => {
+        console.log(authData)
+    });
+
+    const mockUser = {
+        username: 'username',
+        firstname: 'Fname',
+        lastname: 'Lname'
+    }
+
     beforeEach(() => {
-            cleanup();
-            render(
-                <AuthContext.Provider value={{userLogin}}>
-                    <AlertContext.Provider
-                        value={{
-                            showAlert: jest.fn(),
-                            setShowAlert: jest.fn(),
-                            setAlertMessage: jest.fn(),
-                            setAlertType: jest.fn(),
-                            showLoading: jest.fn(),
-                            hideLoading: jest.fn()}}
-                    >
+
+        cleanup();
+
+        delete window.location;
+        window.location = {pathname: '/login'};
+
+
+        render(
+            <AuthContext.Provider value={{userLogin}}>
+                <AlertContext.Provider
+                    value={{
+                        showAlert: showAlert,
+                        setShowAlert: jest.fn(),
+                        setAlertMessage: jest.fn(),
+                        setAlertType: jest.fn(),
+                        showLoading: jest.fn(),
+                        hideLoading: jest.fn()
+                    }}
+                >
                     <MemoryRouter initialEntries={["/currentUri"]}>
                         <Routes>
                             // dummy route
                             <Route path="/*" element={<Login/>}/>
                         </Routes>
                     </MemoryRouter>
-                    </AlertContext.Provider>
-                </AuthContext.Provider>
-            )
-        }
-    );
+                </AlertContext.Provider>
+            </AuthContext.Provider>
+        )
+    });
+
+    afterEach(() => {
+        jest.restoreAllMocks();
+    });
+
 
     test('Login form shows', async () => {
         // act
@@ -116,7 +139,6 @@ describe('Login component Tests Suit', function () {
     test('OnBlur empty password password show error message', async () => {
         const passwordInput = document.getElementById('username')
 
-
         // act
         fireEvent.blur(passwordInput,
             createEvent('input', passwordInput, {
@@ -130,38 +152,103 @@ describe('Login component Tests Suit', function () {
     test('Onsubmit correct username and pass show full name', async () => {
 
         // arrange
-
         jest.spyOn(global, "fetch").mockImplementation(() =>
             Promise.resolve({
-                json: () => Promise.resolve({
-                    username: 'username',
-                    firstname: 'Fname',
-                    lastname: 'Lname'
-                })
+                ok: true,
+                json: () => Promise.resolve(mockUser)
             })
         );
 
         const userNameInput = document.getElementById('username');
         const passwordInput = document.getElementById('password');
-
-        fireEvent.change(userNameInput,
-            createEvent('input', userNameInput, {
-                target: {value: 'user'},
-            }));
-        fireEvent.change(passwordInput,
-            createEvent('input', passwordInput, {
-                target: {value: 'password'},
-            }));
-
         const form = document.querySelector('form');
 
         // act
-        fireEvent.submit(form);
+        await act(() => {
+            fireEvent.change(userNameInput,
+                createEvent('input', userNameInput, {
+                    target: {value: 'user'},
+                }));
 
-        const name = await screen.findByText('Fname Lname');
+            fireEvent.change(passwordInput,
+                createEvent('input', passwordInput, {
+                    target: {value: 'password'},
+                }));
+
+            fireEvent.submit(form);
+        });
 
         //assert
-        expect(name).toBeInTheDocument();
+        expect(userLogin).toHaveBeenCalledWith(mockUser);
+    })
+
+    test('Onsubmit not correct username or pass show Error', async () => {
+
+        // arrange
+        jest.spyOn(global, "fetch").mockImplementation(() =>
+            Promise.resolve({
+                status: 403,
+                ok: false,
+                json: () => Promise.resolve(mockUser)
+            })
+        );
+
+        const userNameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const form = document.querySelector('form');
+
+        // act
+        await act(() => {
+            fireEvent.change(userNameInput,
+                createEvent('input', userNameInput, {
+                    target: {value: 'user'},
+                }));
+
+            fireEvent.change(passwordInput,
+                createEvent('input', passwordInput, {
+                    target: {value: 'password'},
+                }));
+
+            fireEvent.submit(form);
+        });
+
+        //assert
+        expect(showAlert).toHaveBeenCalledWith('Невалидно потребителско име или парола', 'danger');
+
+    });
+
+    test('Onsubmit if has error status show Error', async () => {
+        // arrange
+
+        jest.spyOn(global, "fetch").mockImplementation(() =>
+            Promise.resolve({
+                status: 400,
+                ok: false,
+                json: () => Promise.resolve(mockUser)
+            })
+        );
+
+        const userNameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const form = document.querySelector('form');
+
+        // act
+        await act(() => {
+            fireEvent.change(userNameInput,
+                createEvent('input', userNameInput, {
+                    target: {value: 'user'},
+                }));
+
+            fireEvent.change(passwordInput,
+                createEvent('input', passwordInput, {
+                    target: {value: 'password'},
+                }));
+
+            fireEvent.submit(form);
+        });
+
+        //assert
+        expect(showAlert).toHaveBeenCalledWith('Неуспешна операция', 'danger');
 
     })
 });
