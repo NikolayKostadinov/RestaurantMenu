@@ -1929,9 +1929,8 @@ pre code {
   background-color: transparent;
 }
 
-
 .table thead tr,
-.table tr:not(:last-child){
+.table tr:not(:last-child) {
   border-bottom: 1px solid #ededed;
 }
 
@@ -2222,6 +2221,13 @@ pre code {
   }
   .table-responsive-sm > .table-bordered {
     border: 0;
+  }
+
+  .menu .create-meal {
+    position: relative !important;
+    display: block;
+    margin-inline: auto;
+    margin-bottom: 2rem;
   }
 }
 
@@ -12264,7 +12270,7 @@ section.has-img-bg:after {
   gap: 1rem;
 }
 
-#reservations .pagination{
+#reservations .pagination {
   position: absolute;
   bottom: 4rem;
   left: 50%;
