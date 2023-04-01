@@ -12107,7 +12107,6 @@ section.has-img-bg:after {
 }
 
 /* Restaurant management form */
-
 .restaurant-list-wrapper {
   max-width: 1440px;
   position: relative;
@@ -12172,6 +12171,51 @@ section.has-img-bg:after {
   margin-top: 1rem;
   gap: 1rem;
   padding-left: 0;
+}
+
+@media screen and (max-width: 576px) {
+  #restaurant-management .overlay.extended{
+    padding: 0;
+  }
+
+  #restaurant-management h1{
+    font-size: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  #restaurant-management .btn-create{
+    display: block;
+    margin: 1rem auto;
+  }
+
+  #restaurant-management .restaurant-list{
+    margin-top: 1rem;
+    padding: 0;
+  }
+
+  #restaurant-management .restaurant-list-item{
+    margin-top: 1rem;
+    padding: 0;
+    max-height: 22vh;
+  }
+
+  #restaurant-management .restaurant-content {
+    flex-basis: 70%;
+    padding-inline: 0.75rem;
+  }
+
+  #restaurant-management .restaurant-content p {
+    font-size: 0.75rem;
+  }
+  .alert{
+    width: 100%;
+  }
+
+  .menu .create-meal {
+    position: relative;
+    display: block;
+    margin: 1rem auto;
+  }
 }
 
 /* Restaurant modify form */

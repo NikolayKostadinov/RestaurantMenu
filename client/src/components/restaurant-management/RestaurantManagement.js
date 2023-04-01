@@ -33,8 +33,8 @@ const RestaurantManagement = () => {
         managementContext.showCreateRestaurant();
     }
 
-    const onEdit = (resteurant) => {
-        managementContext.showEditReastaurant(resteurant);
+    const onEdit = (restaurant) => {
+        managementContext.showEditRestaurant(restaurant);
     }
 
     const createRestaurant = (restaurant) => {
@@ -106,7 +106,7 @@ const RestaurantManagement = () => {
                     <header className="row">
                         <h1 className="text-center offset-md-3 col-md-6">Управление на ресторантите</h1>
                         <div className="offset-md-1 col-md-2 text-sm-right">
-                            <button className="btn btn-primary btn-sm " onClick={onCreate}>
+                            <button className="btn btn-primary btn-sm btn-create" onClick={onCreate}>
                                 <i className="fa-regular fa-file"></i> Създай
                             </button>
                         </div>

@@ -10,21 +10,21 @@ const RestaurantForm = ({
     const [formState, setFormState] = useState({});
     const [formTitle, setFormTitle] = useState('');
 
-    const managementContex = useRestaurantManagementContext();
-    const formVisible = managementContex.isCreate || managementContex.isEdit;
+    const managementContext = useRestaurantManagementContext();
+    const formVisible = managementContext.isCreate || managementContext.isEdit;
     const validator = useValidator();
     const alertContext = useAlertContext();
     const { uploadImage } = useUploadImg();
 
     useEffect(() => {
-        if (managementContex.isCreate) {
+        if (managementContext.isCreate) {
             setFormTitle('Регистрация на ресторант');
-        } else if (managementContex.isEdit) {
+        } else if (managementContext.isEdit) {
             setFormTitle('Редакция на ресторант');
-            const restaurantModel = mapToEditModel(managementContex);
+            const restaurantModel = mapToEditModel(managementContext);
             setFormState(restaurantModel);
         }
-    }, [managementContex]);
+    }, [managementContext]);
 
 
     const setResult = (fieldName, value, index = null) => {
@@ -50,7 +50,7 @@ const RestaurantForm = ({
         ev.preventDefault();
         setFormState({});
         validator.clearErrors();
-        managementContex.hideForm();
+        managementContext.hideForm();
     }
 
     const onSubmit = (ev) => {

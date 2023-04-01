@@ -6,7 +6,7 @@ export const RestaurantManagementContext = createContext({
     isEdit: false,
     restaurant: {},
     showCreateRestaurant: {},
-    showEditReastaurant: {},
+    showEditRestaurant: {},
     hideForm: {}
 });
 
@@ -23,7 +23,7 @@ export const RestaurantManagementContextProvider = ({
         setIsCreate(true);
     }
 
-    const showEditReastaurant = (restaurant) => {
+    const showEditRestaurant = (restaurant) => {
         setRestaurant(restaurant);
         setIsEdit(true);
     }
@@ -41,7 +41,7 @@ export const RestaurantManagementContextProvider = ({
                 isEdit,
                 restaurant,
                 showCreateRestaurant,
-                showEditReastaurant,
+                showEditRestaurant,
                 hideForm
             }} >
                 { children }
