@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAlertContext } from "../../contexts/AlertContext";
+import {useState, useEffect} from "react";
+import {useNavigate} from "react-router-dom";
+import {useAlertContext} from "../../contexts/AlertContext";
 
 import * as restaurantService from '../../services/restaurantService';
 import Restaurant from "../restaurant/Restaurant";
@@ -11,18 +11,18 @@ const Home = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-    alertContext.showLoading();
+        alertContext.showLoading();
         restaurantService.getAll()
             .then(result => {
                 setRestaurants(Object.values(result));
             })
             .catch(err => {
                 alertContext.showAlert('Неуспешна операция!', 'danger');
-                navigate('/', { replace: true })
+                navigate('/', {replace: true})
             })
             .finally(() => {
-                alertContext.hideLoading();
-            }
+                    alertContext.hideLoading();
+                }
             );
 // eslint-disable-next-line
     }, []);
@@ -41,7 +41,7 @@ const Home = () => {
                     <div className="bg-primary delimiter"></div>
                 </div>
             </header>
-            {restaurants.map(restaurant => <Restaurant key={restaurant._id} restaurant={restaurant} />)}
+            {restaurants.map(restaurant => <Restaurant key={restaurant._id} restaurant={restaurant}/>)}
         </>)
 }
 export default Home;

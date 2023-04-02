@@ -1,8 +1,8 @@
 import {render, screen} from "@testing-library/react";
 import Footer from "./Footer.js";
 
-describe('Footer Component Visible Tests Suit', function () {
-    test('Footer show correct text', ()=>{
+describe('Footer Component Tests Suit', function () {
+    test('Footer shows correct text', ()=>{
        // arrange
         render(<Footer/>);
 

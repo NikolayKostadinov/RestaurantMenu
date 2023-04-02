@@ -2,7 +2,8 @@ import {render, screen} from "@testing-library/react";
 import {MemoryRouter, Route, Routes} from "react-router-dom";
 import FirstNavigation from "./FirstNavigation.js";
 
-describe('FirstNavigation component tests', () => {
+describe('FirstNavigation component Test Suit' +
+    '', () => {
     beforeEach(()=>{
         // arrange
         render(
