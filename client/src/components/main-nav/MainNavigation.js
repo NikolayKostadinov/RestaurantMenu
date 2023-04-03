@@ -7,23 +7,27 @@ import FirstNavigation from "./FirstNavigation";
 import styles from "./MainNavigation.module.css";
 
 const MainNavigation = () => {
-    const[search, setSearch] = useState('');
+    const [search, setSearch] = useState('');
     const {user, isAuthenticated} = useAuthContext();
     const location = useLocation();
     const menuContext = useMenuFilteringContext();
 
-    useEffect(()=>{
+    useEffect(() => {
         setSearch('');
     }, [location.pathname])
 
-    const onSubmitFilter = (ev) =>{
+    const onSubmitFilter = (ev) => {
         ev.preventDefault();
         menuContext.setFilter(search);
     }
-    const onClearHandler = (ev) =>{
+    const onClearHandler = (ev) => {
         ev.preventDefault();
         setSearch('');
         menuContext.clearFilter();
+    }
+
+    const onChangeHandler = (ev) => {
+        setSearch(ev.target.value);
     }
 
     return (
@@ -67,17 +71,21 @@ const MainNavigation = () => {
                         </ul>
                         {location.pathname.startsWith('/menu') &&
                             <ul className="navbar-nav mx-auto">
-                                <form className="form-inline form-search" onSubmit = {onSubmitFilter}>
+                                <form
+                                    className="form-inline form-search"
+                                    onSubmit={onSubmitFilter}
+                                    data-testid="form">
                                     <input className="form-control form-control-sm form-control-search"
                                            type="text"
                                            placeholder="Търсене..."
                                            aria-label="Search"
                                            value={search}
-                                           onChange={(ev)=>setSearch(ev.target.value)} />
+                                           onChange={onChangeHandler}
+                                           data-testid='search-input'/>
                                     <button className="btn btn-search" type="submit">
                                         <i className="fa-solid fa-magnifying-glass text-primary"></i>
                                     </button>
-                                    <button className="btn btn-clear" onClick={onClearHandler}>
+                                    <button className="btn btn-clear" onClick={onClearHandler} data-testid='clear'>
                                         <i className="fa-solid fa-xmark text-primary"></i>
                                     </button>
                                 </form>
@@ -114,6 +122,6 @@ const MainNavigation = () => {
                 </div>
             </nav>
         </>
-)
+    )
 }
 export default MainNavigation;

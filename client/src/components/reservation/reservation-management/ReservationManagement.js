@@ -5,6 +5,7 @@ import { useAlertContext } from "../../../contexts/AlertContext";
 
 import * as restaurantService from "../../../services/restaurantService";
 import * as reservationService from "../../../services/reservationService";
+import Pager from "../../common/pager/Pager.js";
 import ReservationRow from "./ReservationRow";
 import moment from "moment";
 import { usePager } from "../../../hooks/usePager";
@@ -136,23 +137,7 @@ const ReservationManagement = () => {
                         {reservations.map((r, ix) => <ReservationRow key={r._id} index={ix + pagerContext.offset} reservation={r} confirmHandler={() => onConfirm(r._id)} finishHandler={() => onFinish((r._id))} />)}
                     </tbody>
                 </table>
-                {pagerContext.pages > 0 &&
-                    <ul className="pagination pagination-lg mb-4 justify-content-center">
-                        <li className={`page-item ${pagerContext.prevEnabled ? 'active' : 'disabled'} `}>
-                            <button className="page-link page-link-borderless" disabled={!pagerContext.prevEnabled} onClick={pagerContext.prevClickHandler} >
-                                <i className="ti-angle-double-left"></i>
-                            </button>
-                        </li>
-                        <li className="page-item d-flex">
-                            <h6 className="section-subtitle text-center align-self-center">Страница {pagerContext.page + 1} от {pagerContext.pages}</h6>
-                        </li>
-                        <li className={`page-item ${pagerContext.nextEnabled ? 'active' : 'disabled'} `} >
-                            <button className="page-link page-link-borderless" onClick={pagerContext.nextClickHandler} disabled={!pagerContext.nextEnabled}>
-                                <i className="ti-angle-double-right"></i>
-                            </button>
-                        </li>
-                    </ul>
-                }
+               <Pager pagerContext={pagerContext}/>
             </div>
         </section>
 

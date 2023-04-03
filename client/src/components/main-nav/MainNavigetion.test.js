@@ -1,12 +1,18 @@
-import {cleanup, render, screen} from "@testing-library/react";
-import {clear} from "@testing-library/user-event/dist/clear.js";
+import {act, cleanup, fireEvent, render, screen} from "@testing-library/react";
 import {MemoryRouter, Route, Routes} from "react-router-dom";
 import {AuthContext} from "../../contexts/AuthContext.js";
+import {MenuFilteringContext} from "../../contexts/MenuFilteringContext.js";
 import MainNavigation from "./MainNavigation.js";
+import React, { useState as useStateMock } from 'react';
+jest.mock('react', () => ({
+    ...jest.requireActual('react'),
+    useState: jest.fn(),
+}));
 
 describe('MainNavigation component tests', () => {
     beforeEach(() => {
         cleanup();
+        useStateMock.mockImplementation(init=>[init, jest.fn(()=>jest.requireActual('react').useState)]);
     });
 
     test('MainNavigation show login and register if user not authenticated', async () => {
@@ -73,5 +79,136 @@ describe('MainNavigation component tests', () => {
         expect(login).toBeNull();
         expect(register).toBeNull();
         expect(logout).toBeInTheDocument();
+    });
+
+    test('MainNavigation "menu" in pathname will show search form', async () => {
+        render(
+            <AuthContext.Provider value={{
+                isAuthenticated: false
+            }}
+            >
+                <MemoryRouter initialEntries={["/menu/someId"]}>
+                    <MainNavigation/>
+                    <Routes>
+                        // dummy route
+                        <Route path="/*" element={<p>User is authenticated</p>}/>
+                    </Routes>
+                </MemoryRouter>
+            </AuthContext.Provider>
+        );
+
+        // act
+        let searchForm = screen.getByTestId("form");
+
+        // assert
+        expect(searchForm).toBeInTheDocument();
+    });
+
+    test('Submit search will set menu filter context search form', async () => {
+        const mockSetFilter = jest.fn();
+        const mockClearFilter = jest.fn();
+        render(
+            <AuthContext.Provider value={{
+                isAuthenticated: false
+            }}>
+                <MemoryRouter initialEntries={["/menu/someId"]}>
+                    <MenuFilteringContext.Provider value={{
+                        product: '',
+                        setFilter: mockSetFilter,
+                        clearFilter: mockClearFilter
+                    }}>
+                        <MainNavigation/>
+                        <Routes>
+                            // dummy route
+                            <Route path="/*" element={<p>User is authenticated</p>}/>
+                        </Routes>
+                    </MenuFilteringContext.Provider>
+                </MemoryRouter>
+            </AuthContext.Provider>
+        );
+
+        // act
+        let searchForm = screen.getByTestId("form");
+
+        act(()=>{
+            fireEvent.submit(searchForm);
+        });
+
+        // assert
+        expect(mockSetFilter).toHaveBeenCalledTimes(1);
+    });
+
+    test('Clear search will clear menu filter context search form', async () => {
+        const mockSetFilter = jest.fn();
+        const mockClearFilter = jest.fn();
+        render(
+            <AuthContext.Provider value={{
+                isAuthenticated: false
+            }}>
+                <MemoryRouter initialEntries={["/menu/someId"]}>
+                    <MenuFilteringContext.Provider value={{
+                        product: '',
+                        setFilter: mockSetFilter,
+                        clearFilter: mockClearFilter
+                    }}>
+                        <MainNavigation/>
+                        <Routes>
+                            // dummy route
+                            <Route path="/*" element={<p>User is authenticated</p>}/>
+                        </Routes>
+                    </MenuFilteringContext.Provider>
+                </MemoryRouter>
+            </AuthContext.Provider>
+        );
+
+        // act
+        let clearButton = screen.getByTestId("clear");
+
+        act(()=>{
+            fireEvent.click(clearButton);
+        });
+
+        // assert
+        expect(mockClearFilter).toHaveBeenCalledTimes(1);
+    });
+
+
+    test('Change input will change search state', async () => {
+        cleanup();
+        // arrange
+        const mockSetFilter = jest.fn();
+        const mockClearFilter = jest.fn();
+        const mockSetSearch= jest.fn(()=>jest.requireActual('react').useState);
+        useStateMock.mockImplementation(init=>[init, mockSetSearch]);
+
+        render(
+            <AuthContext.Provider value={{
+                isAuthenticated: false
+            }}>
+                <MemoryRouter initialEntries={["/menu/someId"]}>
+                    <MenuFilteringContext.Provider value={{
+                        product: '',
+                        setFilter: mockSetFilter,
+                        clearFilter: mockClearFilter
+                    }}>
+                        <MainNavigation/>
+                        <Routes>
+                            // dummy route
+                            <Route path="/*" element={<p>User is authenticated</p>}/>
+                        </Routes>
+                    </MenuFilteringContext.Provider>
+                </MemoryRouter>
+            </AuthContext.Provider>
+        );
+
+        // act
+        let inputSearch = screen.getByTestId("search-input");
+
+        act(()=>{
+            fireEvent.change(inputSearch, {target: {value: 'a'}});
+        });
+
+        // assert
+        expect(mockSetSearch).toHaveBeenLastCalledWith('a');
     });
 });

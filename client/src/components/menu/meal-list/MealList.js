@@ -1,9 +1,9 @@
 import {useEffect, useState} from 'react';
 import {useAlertContext} from '../../../contexts/AlertContext';
 import {useMenuFilteringContext} from "../../../contexts/MenuFilteringContext.js";
-
-import {usePager} from '../../../hooks/usePager';
+import {usePager} from "../../../hooks/usePager.js";
 import * as mealService from '../../../services/mealService';
+import Pager from "../../common/pager/Pager.js";
 import {goToTop} from '../../common/utils/utils.js';
 import CreateMeal from './CreateMeal';
 
@@ -21,13 +21,13 @@ const MealList = ({
                   }) => {
     const [meals, setMeals] = useState([]);
     const [isCreate, setIsCreate] = useState(false);
-    const pagerContext = usePager(PAGE_SIZE);
     const alertContext = useAlertContext();
     const {product} = useMenuFilteringContext();
+    const pagerContext = usePager(PAGE_SIZE);
+
 
     useEffect(() => {
         alertContext.showLoading();
-
         const getMealsCount = mealService.getAllByRestaurantIdAndMealTypeCount(restaurantId, mealType, product);
         const getMealsPage = mealService.getAllByRestaurantIdAndMealTypePaged(restaurantId, mealType, product, pagerContext.offset, PAGE_SIZE);
 
@@ -114,26 +114,7 @@ const MealList = ({
                                 <i className="fa-regular fa-file"></i> Създай
                             </button>
                         }
-
-                        { pagerContext.pages > 1 &&
-                        <ul className="pagination pagination-lg mb-4 justify-content-center">
-                            <li className={`page-item ${pagerContext.prevEnabled ? 'active' : 'disabled'} `}>
-                                <button className="page-link page-link-borderless" disabled={!pagerContext.prevEnabled}
-                                        onClick={pagerContext.prevClickHandler}>
-                                    <i className="ti-angle-double-left"></i>
-                                </button>
-                            </li>
-                            <li className="page-item d-flex">
-                                <h6 className="section-subtitle text-center align-self-center">Страница {pagerContext.page + 1} от {pagerContext.pages}</h6>
-                            </li>
-                            <li className={`page-item ${pagerContext.nextEnabled ? 'active' : 'disabled'} `}>
-                                <button className="page-link page-link-borderless"
-                                        onClick={pagerContext.nextClickHandler} disabled={!pagerContext.nextEnabled}>
-                                    <i className="ti-angle-double-right"></i>
-                                </button>
-                            </li>
-                        </ul>
-                        }
+                        <Pager pagerContext={pagerContext}/>
                         {meals.length ?
                             <div className='row'>
                                 {meals.map(m =>

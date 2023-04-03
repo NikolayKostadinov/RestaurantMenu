@@ -66,6 +66,9 @@ const RestaurantManagement = () => {
     }
 
     const deleteRestaurant = (restaurantId) => {
+        if (!window.confirm("Сигурни ли сте, че желаете да изтриете ресторанта?")) {
+            return;
+        }
         alertContext.showLoading();
         restaurantService.del(restaurantId)
             .then(() => { setRestaurants(stat => stat.filter(r => r._id !== restaurantId)) })
