@@ -1,4 +1,5 @@
 import {Route, Routes} from 'react-router-dom';
+import NotFound from "./components/notfound/NotFound.js";
 import {AuthProvider} from './contexts/AuthContext';
 import {AlertProvider} from './contexts/AlertContext';
 import {RestaurantManagementContextProvider} from './contexts/RestaurantManagementContext';
@@ -37,6 +38,7 @@ function App() {
                                 <Route path="/management" element={<RestaurantManagement/>}/>
                                 <Route path="/reservations" element={<ReservationManagement/>}/>
                             </Route>
+                            <Route path="*" element={<NotFound/>}/>
                         </Routes>
                     </RestaurantManagementContextProvider>
                     <Footer/>
