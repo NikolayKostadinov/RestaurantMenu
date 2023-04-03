@@ -1,32 +1,35 @@
-import { useState, useEffect } from 'react';
-import { useAlertContext } from '../../../contexts/AlertContext';
+import {useEffect, useState} from 'react';
+import {useAlertContext} from '../../../contexts/AlertContext';
+import {useMenuFilteringContext} from "../../../contexts/MenuFilteringContext.js";
 
-import { usePager } from '../../../hooks/usePager';
+import {usePager} from '../../../hooks/usePager';
 import * as mealService from '../../../services/mealService';
-import { goToTop } from '../../common/utils/utils.js';
+import {goToTop} from '../../common/utils/utils.js';
 import CreateMeal from './CreateMeal';
 
 import MealListItem from './MealListItem';
+
 const PAGE_SIZE = 6;
 
 const MealList = ({
-    restaurantId,
-    isOwner,
-    mealType,
-    transparent,
-    title,
-    subtitle
-}) => {
+                      restaurantId,
+                      isOwner,
+                      mealType,
+                      transparent,
+                      title,
+                      subtitle
+                  }) => {
     const [meals, setMeals] = useState([]);
     const [isCreate, setIsCreate] = useState(false);
     const pagerContext = usePager(PAGE_SIZE);
     const alertContext = useAlertContext();
+    const {product} = useMenuFilteringContext();
 
     useEffect(() => {
         alertContext.showLoading();
 
-        const getMealsCount = mealService.getAllByRestaurantIdAndMealTypeCount(restaurantId, mealType);
-        const getMealsPage = mealService.getAllByRestaurantIdAndMealTypePaged(restaurantId, mealType, pagerContext.offset, PAGE_SIZE);
+        const getMealsCount = mealService.getAllByRestaurantIdAndMealTypeCount(restaurantId, mealType, product);
+        const getMealsPage = mealService.getAllByRestaurantIdAndMealTypePaged(restaurantId, mealType, product, pagerContext.offset, PAGE_SIZE);
 
         Promise.all([getMealsCount, getMealsPage])
             .then(([count, res]) => {
@@ -42,13 +45,16 @@ const MealList = ({
             });
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [restaurantId, mealType, pagerContext.offset]);
+    }, [restaurantId, mealType, product, pagerContext.offset]);
 
     useEffect(() => {
         goToTop();
     }, [])
 
     const onDelete = (mealId) => {
+        if (!window.confirm("Сигурни ли сте, че желаете да изтриете ястието?")) {
+            return;
+        }
         alertContext.showLoading();
         mealService.del(mealId)
             .then(() => setMeals(meals.filter(m => m._id !== mealId)))
@@ -108,28 +114,44 @@ const MealList = ({
                                 <i className="fa-regular fa-file"></i> Създай
                             </button>
                         }
+
+                        { pagerContext.pages > 1 &&
                         <ul className="pagination pagination-lg mb-4 justify-content-center">
                             <li className={`page-item ${pagerContext.prevEnabled ? 'active' : 'disabled'} `}>
-                                <button className="page-link page-link-borderless" disabled={!pagerContext.prevEnabled} onClick={pagerContext.prevClickHandler} >
+                                <button className="page-link page-link-borderless" disabled={!pagerContext.prevEnabled}
+                                        onClick={pagerContext.prevClickHandler}>
                                     <i className="ti-angle-double-left"></i>
                                 </button>
                             </li>
                             <li className="page-item d-flex">
                                 <h6 className="section-subtitle text-center align-self-center">Страница {pagerContext.page + 1} от {pagerContext.pages}</h6>
                             </li>
-                            <li className={`page-item ${pagerContext.nextEnabled ? 'active' : 'disabled'} `} >
-                                <button className="page-link page-link-borderless" onClick={pagerContext.nextClickHandler} disabled={!pagerContext.nextEnabled}>
+                            <li className={`page-item ${pagerContext.nextEnabled ? 'active' : 'disabled'} `}>
+                                <button className="page-link page-link-borderless"
+                                        onClick={pagerContext.nextClickHandler} disabled={!pagerContext.nextEnabled}>
                                     <i className="ti-angle-double-right"></i>
                                 </button>
                             </li>
                         </ul>
-                        <div className='row'>
-                            {meals.map(m => <MealListItem key={m._id} meal={m} onDeleteHandler={onDelete} onUpdateHandler={onUpdate} />)}
-                        </div>
+                        }
+                        {meals.length ?
+                            <div className='row'>
+                                {meals.map(m =>
+                                    <MealListItem
+                                        key={m._id}
+                                        meal={m}
+                                        onDeleteHandler={onDelete}
+                                        onUpdateHandler={onUpdate}
+                                    />)}
+                            </div>
+                            :
+                            <p className="text-center">Няма ястия в тази категория</p>
+                        }
                     </div>
                 </div>
             </section>
-            <CreateMeal isCreate={isCreate} restaurantId={restaurantId} mealType={mealType} onCreateHandler={onCreate} unloadCreate={() => setIsCreate(false)} />
+            <CreateMeal isCreate={isCreate} restaurantId={restaurantId} mealType={mealType} onCreateHandler={onCreate}
+                        unloadCreate={() => setIsCreate(false)}/>
         </>
     )
 }

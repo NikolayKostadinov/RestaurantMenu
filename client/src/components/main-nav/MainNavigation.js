@@ -1,14 +1,34 @@
-import { Link, NavLink } from "react-router-dom";
-import { useAuthContext } from "../../contexts/AuthContext";
+import {useEffect, useState} from "react";
+import {Link, NavLink, useLocation} from "react-router-dom";
+import {useAuthContext} from "../../contexts/AuthContext";
+import {useMenuFilteringContext} from "../../contexts/MenuFilteringContext.js";
 import FirstNavigation from "./FirstNavigation";
 
 import styles from "./MainNavigation.module.css";
 
 const MainNavigation = () => {
+    const[search, setSearch] = useState('');
     const {user, isAuthenticated} = useAuthContext();
+    const location = useLocation();
+    const menuContext = useMenuFilteringContext();
+
+    useEffect(()=>{
+        setSearch('');
+    }, [location.pathname])
+
+    const onSubmitFilter = (ev) =>{
+        ev.preventDefault();
+        menuContext.setFilter(search);
+    }
+    const onClearHandler = (ev) =>{
+        ev.preventDefault();
+        setSearch('');
+        menuContext.clearFilter();
+    }
+
     return (
         <>
-            <FirstNavigation />
+            <FirstNavigation/>
             <nav className="nav-second navbar custom-navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
                 <div className="container">
                     <button
@@ -20,7 +40,7 @@ const MainNavigation = () => {
                         aria-expanded="false"
                         aria-label="Toggle navigation"
                     >
-                        <span className="navbar-toggler-icon" />
+                        <span className="navbar-toggler-icon"/>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav mr-auto">
@@ -30,11 +50,12 @@ const MainNavigation = () => {
                                 </NavLink>
                             </li>
                             {isAuthenticated
-                                ? <> <li className="nav-item">
-                                    <NavLink className="nav-link" to="/management">
-                                        Управление
-                                    </NavLink>
-                                </li>
+                                ? <>
+                                    <li className="nav-item">
+                                        <NavLink className="nav-link" to="/management">
+                                            Управление
+                                        </NavLink>
+                                    </li>
                                     <li className="nav-item">
                                         <NavLink className="nav-link" to="/reservations">
                                             Резервации
@@ -44,16 +65,36 @@ const MainNavigation = () => {
                                 : null
                             }
                         </ul>
+                        {location.pathname.startsWith('/menu') &&
+                            <ul className="navbar-nav mx-auto">
+                                <form className="form-inline form-search" onSubmit = {onSubmitFilter}>
+                                    <input className="form-control form-control-sm form-control-search"
+                                           type="text"
+                                           placeholder="Търсене..."
+                                           aria-label="Search"
+                                           value={search}
+                                           onChange={(ev)=>setSearch(ev.target.value)} />
+                                    <button className="btn btn-search" type="submit">
+                                        <i className="fa-solid fa-magnifying-glass text-primary"></i>
+                                    </button>
+                                    <button className="btn btn-clear" onClick={onClearHandler}>
+                                        <i className="fa-solid fa-xmark text-primary"></i>
+                                    </button>
+                                </form>
+                            </ul>
+                        }
                         {isAuthenticated
                             ? <ul className="navbar-nav ml-auto">
                                 <li className="nav-item">
-                                       <p className={`text-primary ${styles.profile}`}><i className="fa-regular fa-circle-user"></i> {user.fullname}</p>
+                                    <p className={`text-primary ${styles.profile}`}><i
+                                        className="fa-regular fa-circle-user"></i> {user.fullname}</p>
                                 </li>
                                 <li className="nav-item">
                                     <Link to="/logout" className="btn btn-primary btn-sm ml-4">
                                         <i className="fa-solid fa-arrow-right-to-bracket"></i> Изход
                                     </Link>
-                                </li>.
+                                </li>
+                                .
                             </ul>
                             : <ul className="navbar-nav ml-auto">
                                 <li className="nav-item">
@@ -73,6 +114,6 @@ const MainNavigation = () => {
                 </div>
             </nav>
         </>
-    )
+)
 }
 export default MainNavigation;

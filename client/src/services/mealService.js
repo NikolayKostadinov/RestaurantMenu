@@ -2,8 +2,8 @@ import * as fetchApi from './utils/fetchApi';
 
 const urls = {
     getAll: '/data/meals',
-    getAllByRestaurantIdAndMealType: (restaurantId, mealType, offset, pageSize)=>`${urls.getAll}?${createQueryString(restaurantId, mealType)}&offset=${offset}&pageSize=${pageSize}`,
-    countByRestaurantIdAndMealType: (restaurantId, mealType)=>`${urls.getAll}?${createQueryString(restaurantId, mealType)}&count`,
+    getAllByRestaurantIdAndMealType: (restaurantId, mealType, product, offset, pageSize) => `${urls.getAll}?${createQueryString(restaurantId, mealType, product)}&offset=${offset}&pageSize=${pageSize}`,
+    countByRestaurantIdAndMealType: (restaurantId, mealType, product) => `${urls.getAll}?${createQueryString(restaurantId, mealType, product)}&count`,
     create: '/data/meals',
     delete: (mealId) => `/data/meals/${mealId}`,
     update: (mealId) => `/data/meals/${mealId}`,
@@ -13,12 +13,14 @@ export const getAll = () => {
     return fetchApi.get(urls.getAll);
 }
 
-export const getAllByRestaurantIdAndMealTypePaged = (restaurantId, mealType, offset, pageSize) => {
-    return fetchApi.get(urls.getAllByRestaurantIdAndMealType(restaurantId, mealType, offset, pageSize));
+export const getAllByRestaurantIdAndMealTypePaged = (restaurantId, mealType, product, offset, pageSize) => {
+    console.log("product to all:", product);
+    return fetchApi.get(urls.getAllByRestaurantIdAndMealType(restaurantId, mealType, product, offset, pageSize));
 }
 
-export const getAllByRestaurantIdAndMealTypeCount = (restaurantId, mealType) => {
-       return fetchApi.get(urls.countByRestaurantIdAndMealType(restaurantId, mealType));
+export const getAllByRestaurantIdAndMealTypeCount = (restaurantId, mealType, product) => {
+    console.log("product to count:", product);
+    return fetchApi.get(urls.countByRestaurantIdAndMealType(restaurantId, mealType, product));
 }
 
 export const create = (meal) => {
@@ -33,8 +35,7 @@ export const del = (mealId) => {
     return fetchApi.del(urls.delete(mealId));
 }
 
-const createQueryString = (restaurantId, mealType) => {
-    const queryString = encodeURIComponent(`restaurantId="${restaurantId}" and mealType="${mealType}"`);
+const createQueryString = (restaurantId, mealType, product) => {
+    const queryString = encodeURIComponent(`restaurantId="${restaurantId}" and mealType="${mealType}"${product ? ` and ingredients LIKE "${product}"` : ''}`);
     return `where=${queryString}`
 }
-

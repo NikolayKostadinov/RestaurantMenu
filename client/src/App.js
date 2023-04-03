@@ -2,6 +2,7 @@ import {Route, Routes} from 'react-router-dom';
 import NotFound from "./components/notfound/NotFound.js";
 import {AuthProvider} from './contexts/AuthContext';
 import {AlertProvider} from './contexts/AlertContext';
+import {MenuFilteringContextProvider} from "./contexts/MenuFilteringContext.js";
 import {RestaurantManagementContextProvider} from './contexts/RestaurantManagementContext';
 
 import MainNavigation from './components/main-nav/MainNavigation';
@@ -25,6 +26,7 @@ function App() {
         <AlertProvider>
             <AuthProvider>
                 <div className="App">
+                    <MenuFilteringContextProvider>
                     <MainNavigation/>
                     <RestaurantManagementContextProvider>
                         <Routes>
@@ -42,6 +44,7 @@ function App() {
                         </Routes>
                     </RestaurantManagementContextProvider>
                     <Footer/>
+                    </MenuFilteringContextProvider>
                 </div>
                 <Spinner/>
                 <Alert/>
