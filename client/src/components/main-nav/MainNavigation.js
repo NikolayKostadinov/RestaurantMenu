@@ -1,34 +1,12 @@
-import {useEffect, useState} from "react";
-import {Link, NavLink, useLocation} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import {useAuthContext} from "../../contexts/AuthContext";
-import {useMenuFilteringContext} from "../../contexts/MenuFilteringContext.js";
 import FirstNavigation from "./FirstNavigation";
 
 import styles from "./MainNavigation.module.css";
+import MenuSearchForm from "./MenuSearchForm.js";
 
 const MainNavigation = () => {
-    const [search, setSearch] = useState('');
     const {user, isAuthenticated} = useAuthContext();
-    const location = useLocation();
-    const menuContext = useMenuFilteringContext();
-
-    useEffect(() => {
-        setSearch('');
-    }, [location.pathname])
-
-    const onSubmitFilter = (ev) => {
-        ev.preventDefault();
-        menuContext.setFilter(search);
-    }
-    const onClearHandler = (ev) => {
-        ev.preventDefault();
-        setSearch('');
-        menuContext.clearFilter();
-    }
-
-    const onChangeHandler = (ev) => {
-        setSearch(ev.target.value);
-    }
 
     return (
         <>
@@ -69,28 +47,11 @@ const MainNavigation = () => {
                                 : null
                             }
                         </ul>
-                        {location.pathname.startsWith('/menu') &&
-                            <ul className="navbar-nav mx-auto">
-                                <form
-                                    className="form-inline form-search"
-                                    onSubmit={onSubmitFilter}
-                                    data-testid="form">
-                                    <input className="form-control form-control-sm form-control-search"
-                                           type="text"
-                                           placeholder="Търсене..."
-                                           aria-label="Search"
-                                           value={search}
-                                           onChange={onChangeHandler}
-                                           data-testid='search-input'/>
-                                    <button className="btn btn-search" type="submit">
-                                        <i className="fa-solid fa-magnifying-glass text-primary"></i>
-                                    </button>
-                                    <button className="btn btn-clear" onClick={onClearHandler} data-testid='clear'>
-                                        <i className="fa-solid fa-xmark text-primary"></i>
-                                    </button>
-                                </form>
-                            </ul>
-                        }
+
+                        <ul className="navbar-nav mx-auto">
+                            <MenuSearchForm/>
+                        </ul>
+
                         {isAuthenticated
                             ? <ul className="navbar-nav ml-auto">
                                 <li className="nav-item">

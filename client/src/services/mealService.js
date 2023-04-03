@@ -14,12 +14,10 @@ export const getAll = () => {
 }
 
 export const getAllByRestaurantIdAndMealTypePaged = (restaurantId, mealType, product, offset, pageSize) => {
-    console.log("product to all:", product);
     return fetchApi.get(urls.getAllByRestaurantIdAndMealType(restaurantId, mealType, product, offset, pageSize));
 }
 
 export const getAllByRestaurantIdAndMealTypeCount = (restaurantId, mealType, product) => {
-    console.log("product to count:", product);
     return fetchApi.get(urls.countByRestaurantIdAndMealType(restaurantId, mealType, product));
 }
 
