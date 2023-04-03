@@ -63,7 +63,6 @@ const MainNavigation = () => {
                                         <i className="fa-solid fa-arrow-right-to-bracket"></i> Изход
                                     </Link>
                                 </li>
-                                .
                             </ul>
                             : <ul className="navbar-nav ml-auto">
                                 <li className="nav-item">
