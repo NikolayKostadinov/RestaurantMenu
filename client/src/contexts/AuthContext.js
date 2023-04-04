@@ -9,17 +9,17 @@ export const useAuthContext = () => useContext(AuthContext);
 export const AuthProvider = ({
     children
 }) => {
-    const [user, setUsert] = useSessionPersister({});
+    const [user, setUser] = useSessionPersister({});
 
     const userLogin = (authData) => {
         if(!authData.fullname){
             authData.fullname = `${authData.firstname} ${authData.lastname}`;
         }
-        setUsert(authData);
+        setUser(authData);
     }
 
     const userLogout = () => {
-        setUsert({});
+        setUser({});
     }
 
     return (
