@@ -1,16 +1,23 @@
-import { useState, createContext, useContext } from "react";
+import {createContext, useContext, useState} from "react";
 
 // Initialize create context to have intelisense where you use it
-export const AlertContext = createContext({ show: false, type: 'success', message: '', showAlert: {}, setShowAlert: {}, setAlertMessage: {}, setAlertType: {}, showLoading: {}, hideLoading: {} });
+export const AlertContext = createContext({
+    show: false,
+    type: 'success',
+    message: '',
+    showAlert: {},
+    setShowAlert: {},
+    setAlertMessage: {},
+    setAlertType: {},
+    showLoading: {},
+    hideLoading: {}
+});
 
-export const useAlertContext = () => {
-    const context = useContext(AlertContext);
-    return context;
-}
+export const useAlertContext = () => useContext(AlertContext);
 
 export const AlertProvider = ({
-    children
-}) => {
+                                  children
+                              }) => {
     const [loading, setLoading] = useState(false);
     const [show, setShow] = useState(false);
     const [type, setType] = useState('success');
@@ -34,20 +41,31 @@ export const AlertProvider = ({
             setTimeout(() => {
                 setShow(false);
             }, 3000);
-        };
+        }
+        ;
     }
 
-    const showLoading = ()=>
-    {
+    const showLoading = () => {
         setLoading(true);
     }
 
-    const hideLoading=()=>{
+    const hideLoading = () => {
         setLoading(false);
     }
 
     return (
-            <AlertContext.Provider value={{ show, loading, type, message, showAlert, setShowAlert, setAlertMessage, setAlertType, showLoading, hideLoading}}>
+        <AlertContext.Provider value={{
+            show,
+            loading,
+            type,
+            message,
+            showAlert,
+            setShowAlert,
+            setAlertMessage,
+            setAlertType,
+            showLoading,
+            hideLoading
+        }}>
             {children}
         </AlertContext.Provider>
     )
