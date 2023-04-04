@@ -1,6 +1,6 @@
-import {useEffect, useState} from "react";
-import {useLocation} from "react-router-dom";
-import {useMenuFilteringContext} from "../../contexts/MenuFilteringContext.js";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { useMenuFilteringContext } from "../../contexts/MenuFilteringContext.js";
 
 const MenuSearchForm = () => {
     const [search, setSearch] = useState('');
@@ -9,6 +9,8 @@ const MenuSearchForm = () => {
 
     useEffect(() => {
         setSearch('');
+        menuContext.clearFilter();
+        // eslint-disable-next-line
     }, [location.pathname])
 
     const onSubmitFilter = (ev) => {
@@ -25,27 +27,28 @@ const MenuSearchForm = () => {
         setSearch(ev.target.value);
     }
 
-    if(location.pathname.startsWith('/menu')){
-    return(
-        <form
-            className="form-inline form-search"
-            onSubmit={onSubmitFilter}
-            data-testid="form">
-            <input className="form-control form-control-sm form-control-search"
-                   type="text"
-                   placeholder="Търсене..."
-                   aria-label="Search"
-                   value={search}
-                   onChange={onChangeHandler}
-                   data-testid='search-input'/>
-            <button className="btn btn-search" type="submit">
-                <i className="fa-solid fa-magnifying-glass text-primary"></i>
-            </button>
-            <button className="btn btn-clear" onClick={onClearHandler} data-testid='clear'>
-                <i className="fa-solid fa-xmark text-primary"></i>
-            </button>
-        </form>
-    )}
+    if (location.pathname.startsWith('/menu')) {
+        return (
+            <form
+                className="form-inline form-search"
+                onSubmit={onSubmitFilter}
+                data-testid="form">
+                <input className="form-control form-control-sm form-control-search"
+                    type="text"
+                    placeholder="Търсене..."
+                    aria-label="Search"
+                    value={search}
+                    onChange={onChangeHandler}
+                    data-testid='search-input' />
+                <button className="btn btn-search" type="submit">
+                    <i className="fa-solid fa-magnifying-glass text-primary"></i>
+                </button>
+                <button className="btn btn-clear" onClick={onClearHandler} data-testid='clear'>
+                    <i className="fa-solid fa-xmark text-primary"></i>
+                </button>
+            </form>
+        )
+    }
 
     return null;
 }
