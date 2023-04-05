@@ -33,7 +33,8 @@ const MealListItem = ({
         setIsEdit(false);
     }
 
-    const onSubmit = () => {
+    const onSubmit = (ev) => {
+        ev.preventDefault();
         if (!validator.hasErrors()) {
             onUpdateHandler(formState);
             setIsEdit(false);
@@ -106,15 +107,13 @@ const MealListItem = ({
                                         placeholder="Цена"
                                     />
                                     <p className="invalid-feedback">
-                                        Полето цена трябва да е полoжително!
+                                        Полето цена трябва да е полужително!
                                     </p>
-
                                 </div>
                             </div>
                         </div>
                         <div className="form-group my-2">
                             <textarea rows="3"
-                                type="text"
                                 name="ingredients"
                                 className={`w-100 ${validator.getFormControlValidClass("ingredients", true)}`}
                                 value={formState.ingredients}
@@ -131,7 +130,7 @@ const MealListItem = ({
                                 <button type="submit" className="btn btn-sm btn-primary" disabled={validator.hasErrors()}>
                                     <i className="fa-solid fa-floppy-disk"></i>
                                 </button>
-                                <button className="btn btn-sm btn-primary" onClick={onCancel}>
+                                <button type="button" className="btn btn-sm btn-primary" onClick={onCancel}>
                                     <i className="fa-solid fa-xmark"></i>
                                 </button>
                             </div>
@@ -158,10 +157,10 @@ const MealListItem = ({
                         <p>{meal.ingredients}</p>
                         {userContext.isAuthenticated && userContext.user._id === meal._ownerId &&
                             <div className="meal-management">
-                                <button className="btn btn-sm btn-primary" onClick={() => setIsEdit(true)}>
+                                <button type="button" className="btn btn-sm btn-primary" onClick={() => setIsEdit(true)}>
                                     <i className="fa-regular fa-pen-to-square"></i>
                                 </button>
-                                <button className="btn btn-sm btn-primary" onClick={() => onDeleteHandler(meal._id)}>
+                                <button type="button" className="btn btn-sm btn-primary" onClick={() => onDeleteHandler(meal._id)}>
                                     <i className="fa-regular fa-trash-can"></i>
                                 </button>
                             </div>

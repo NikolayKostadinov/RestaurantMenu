@@ -14,8 +14,8 @@ const MainNavigation = () => {
             <nav className="nav-second navbar custom-navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
                 <div className="container">
                     <button
-                        className="navbar-toggler ml-auto"
                         type="button"
+                        className="navbar-toggler ml-auto"
                         data-toggle="collapse"
                         data-target="#navbarSupportedContent"
                         aria-controls="navbarSupportedContent"

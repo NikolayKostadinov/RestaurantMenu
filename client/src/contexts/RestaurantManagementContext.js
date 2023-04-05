@@ -1,6 +1,6 @@
 import {createContext, useContext, useState} from "react";
 
-// Initialize create context to have intelisense where you use it
+// Initialize create context to have intellisense where you use it
 export const RestaurantManagementContext = createContext({
     isCreate: false,
     isEdit: false,

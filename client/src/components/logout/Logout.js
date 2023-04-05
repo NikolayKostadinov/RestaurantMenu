@@ -10,7 +10,7 @@ const Logout = () => {
     authService.logout(user)
     .then(()=>{
         userLogout();
-        navigate('/', {replace:true});
+        navigate('/', {replace:true})
     })
     .catch(()=>{
         navigate('/', {replace:true});

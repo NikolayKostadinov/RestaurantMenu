@@ -27,8 +27,7 @@ function App() {
             <AuthProvider>
                 <div className="App">
                     <MenuFilteringContextProvider>
-                    <MainNavigation/>
-                    <RestaurantManagementContextProvider>
+                        <MainNavigation/>
                         <Routes>
                             <Route path="/" element={<Home/>}/>
                             <Route path="/login" element={<Login/>}/>
@@ -37,13 +36,16 @@ function App() {
                             <Route path="/menu/:restaurantId" element={<Menu/>}/>
                             <Route element={<Authenticated/>}>
                                 <Route path="/logout" element={<Logout/>}/>
-                                <Route path="/management" element={<RestaurantManagement/>}/>
+                                <Route path="/management" element={
+                                    <RestaurantManagementContextProvider>
+                                        <RestaurantManagement/>
+                                    </RestaurantManagementContextProvider>
+                                }/>
                                 <Route path="/reservations" element={<ReservationManagement/>}/>
                             </Route>
                             <Route path="*" element={<NotFound/>}/>
                         </Routes>
-                    </RestaurantManagementContextProvider>
-                    <Footer/>
+                        <Footer/>
                     </MenuFilteringContextProvider>
                 </div>
                 <Spinner/>

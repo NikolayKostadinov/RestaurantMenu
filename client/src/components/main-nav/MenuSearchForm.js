@@ -45,7 +45,7 @@ const MenuSearchForm = () => {
                     <button className="btn btn-search" type="submit">
                         <i className="fa-solid fa-magnifying-glass text-primary"></i>
                     </button>
-                    <button className="btn btn-clear" onClick={onClearHandler} data-testid='clear'>
+                    <button type="button" className="btn btn-clear" onClick={onClearHandler} data-testid='clear' >
                         <i className="fa-solid fa-xmark text-primary"></i>
                     </button>
                 </form>

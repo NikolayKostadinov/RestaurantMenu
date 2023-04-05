@@ -110,7 +110,7 @@ const MealList = ({
                         <h6 className="section-subtitle text-center">{subtitle}</h6>
                         <h3 className="section-title mb-2 pb-3 text-center">{title}</h3>
                         {isOwner &&
-                            <button className="btn btn-primary create-meal" onClick={() => setIsCreate(true)}>
+                            <button type="button" className="btn btn-primary create-meal" onClick={() => setIsCreate(true)}>
                                 <i className="fa-regular fa-file"></i> Създай
                             </button>
                         }

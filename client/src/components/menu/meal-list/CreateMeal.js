@@ -124,7 +124,7 @@ const CreateMeal = ({
                                 <button type="submit" className="btn btn-sm btn-primary" disabled={validator.hasErrors()}>
                                     <i className="fa-solid fa-floppy-disk"></i>
                                 </button>
-                                <button className="btn btn-sm btn-primary" onClick={onCancel}>
+                                <button type="button" className="btn btn-sm btn-primary" onClick={onCancel}>
                                     <i className="fa-solid fa-xmark"></i>
                                 </button>
                             </div>
