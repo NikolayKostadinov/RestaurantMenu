@@ -1,10 +1,11 @@
-import {cleanup, createEvent, fireEvent, render, screen, waitFor} from "@testing-library/react";
+import {cleanup, fireEvent, render, screen, waitFor} from "@testing-library/react";
 import {act} from "react-dom/test-utils";
 import {MemoryRouter, Route, Routes} from "react-router-dom";
 import {AlertContext} from "../../contexts/AlertContext.js";
 import {AuthContext} from "../../contexts/AuthContext.js";
 import * as authService from "../../services/authService.js";
 import MainNavigation from "../main-nav/MainNavigation.js";
+import {MenuFilteringContext} from "../../contexts/MenuFilteringContext.js";
 import Logout from "./Logout.js";
 
 describe('Logout Component Tests Suit', function () {
@@ -15,6 +16,9 @@ describe('Logout Component Tests Suit', function () {
         lastname: 'Lname',
         fullname: 'Full Name'
     }
+
+    const mockSetFilter = jest.fn();
+    const mockClearFilter = jest.fn();
 
     beforeEach(() => {
         cleanup();
@@ -49,11 +53,17 @@ describe('Logout Component Tests Suit', function () {
                         }}
                     >
                         <MemoryRouter initialEntries={["/currentUri"]}>
-                            <Routes>
-                                // dummy route
-                                <Route path="/logout" element={<Logout/>}/>
-                                <Route path="/*" element={<MainNavigation/>}/>
-                            </Routes>
+                            <MenuFilteringContext.Provider value={{
+                                product: '',
+                                setFilter: mockSetFilter,
+                                clearFilter: mockClearFilter
+                            }}>
+                                <Routes>
+                                    // dummy route
+                                    <Route path="/logout" element={<Logout/>}/>
+                                    <Route path="/*" element={<MainNavigation/>}/>
+                                </Routes>
+                            </MenuFilteringContext.Provider>
                         </MemoryRouter>
                     </AlertContext.Provider>
                 </AuthContext.Provider>
@@ -106,12 +116,18 @@ describe('Logout Component Tests Suit', function () {
                         }}
                     >
                         <MemoryRouter initialEntries={["/currentUri"]}>
-                            <Routes>
-                                // dummy route
-                                <Route path="/" element={<>Home</>}/>
-                                <Route path="/logout" element={<Logout/>}/>
-                                <Route path="/*" element={<MainNavigation/>}/>
-                            </Routes>
+                            <MenuFilteringContext.Provider value={{
+                                product: '',
+                                setFilter: mockSetFilter,
+                                clearFilter: mockClearFilter
+                            }}>
+                                <Routes>
+                                    // dummy route
+                                    <Route path="/" element={<>Home</>}/>
+                                    <Route path="/logout" element={<Logout/>}/>
+                                    <Route path="/*" element={<MainNavigation/>}/>
+                                </Routes>
+                            </MenuFilteringContext.Provider>
                         </MemoryRouter>
                     </AlertContext.Provider>
                 </AuthContext.Provider>

@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
+import brand from '../../assets/imgs/navbar-brand.png';
 const FirstNavigation = () => {
     return (
         <nav className="navbar nav-first navbar-dark bg-dark">
             <div className="container">
                 <Link className="navbar-brand" to="/">
-                    <img src="/imgs/navbar-brand.svg" alt="Our brand" />
+                    <img src={brand} alt="Our brand" />
                 </Link>
                 <ul className="navbar-nav ml-auto">
                     <li className="nav-item">

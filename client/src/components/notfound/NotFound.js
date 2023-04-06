@@ -1,9 +1,11 @@
+import brand from '../../assets/imgs/navbar-brand.png';
+
 const NotFound = () => {
     return(
         <section className="transparent">
             <div className="overlay extended">
                 <img
-                    src="/imgs/navbar-brand.svg"
+                    src={brand}
                     alt="Logo"
                     className="logo"
                 />

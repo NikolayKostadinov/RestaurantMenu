@@ -7,7 +7,11 @@ const Alert = () => {
     const [isShown, setState] = useState(true);
 
     const removeItFromDOM = () => {
-        setState(isShown);
+        if (show){
+            setState(true);
+        } else {
+            setState(false);
+        }
     }
 
     const onClickHandler = () => {

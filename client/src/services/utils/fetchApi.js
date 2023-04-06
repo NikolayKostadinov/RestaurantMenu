@@ -47,7 +47,6 @@ async function request(method, url, data) {
 
         return responseData;
     } catch (err) {
-        console.log(err);
         throw err;
     }
 }

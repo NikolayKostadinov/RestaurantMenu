@@ -71,9 +71,7 @@ describe('Home component Test Suit', () => {
             return Promise.reject("Some error");
         });
 
-        const showAlert = jest.fn((data) => {
-            console.log(data);
-        });
+        const showAlert = jest.fn((data) => { });
 
         await act(() => {
             render(

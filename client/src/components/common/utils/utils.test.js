@@ -6,12 +6,9 @@ describe('Utils Tests Suit', function () {
     test('Test if goToTop scrolls', () => {
 
         // arrange
-        const mockScroll = jest.fn(params => {
-                console.log(params);
-            }
-        );
+        const mockScroll = jest.fn();
 
-        Object.defineProperty(global.window, 'scrollTo', { value: mockScroll });
+        Object.defineProperty(global.window, 'scrollTo', {value: mockScroll});
 
         act(() => {
             goToTop();

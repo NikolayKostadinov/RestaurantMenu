@@ -107,7 +107,7 @@ const MealListItem = ({
                                         placeholder="Цена"
                                     />
                                     <p className="invalid-feedback">
-                                        Полето цена трябва да е полужително!
+                                        Полето цена трябва да е положително!
                                     </p>
                                 </div>
                             </div>

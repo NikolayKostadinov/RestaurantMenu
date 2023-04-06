@@ -9,6 +9,9 @@ jest.mock('react', () => ({
     useState: jest.fn(),
 }));
 
+const mockSetFilter = jest.fn();
+const mockClearFilter = jest.fn();
+
 describe('MainNavigation component tests', () => {
     beforeEach(() => {
         cleanup();
@@ -23,11 +26,17 @@ describe('MainNavigation component tests', () => {
             }}
             >
                 <MemoryRouter initialEntries={["/currentUri"]}>
+                    <MenuFilteringContext.Provider value={{
+                        product: '',
+                        setFilter: mockSetFilter,
+                        clearFilter: mockClearFilter
+                    }}>
                     <MainNavigation/>
                     <Routes>
                         // dummy route
                         <Route path="/*" element={<p>User is authenticated</p>}/>
                     </Routes>
+                    </MenuFilteringContext.Provider>
                 </MemoryRouter>
             </AuthContext.Provider>
         );
@@ -53,11 +62,17 @@ describe('MainNavigation component tests', () => {
             }}
             >
                 <MemoryRouter initialEntries={["/currentUri"]}>
+                    <MenuFilteringContext.Provider value={{
+                        product: '',
+                        setFilter: mockSetFilter,
+                        clearFilter: mockClearFilter
+                    }}>
                     <MainNavigation/>
                     <Routes>
                         // dummy route
                         <Route path="/*" element={<p>User is authenticated</p>}/>
                     </Routes>
+                    </MenuFilteringContext.Provider>
                 </MemoryRouter>
             </AuthContext.Provider>
         );
@@ -88,11 +103,17 @@ describe('MainNavigation component tests', () => {
             }}
             >
                 <MemoryRouter initialEntries={["/menu/someId"]}>
+                    <MenuFilteringContext.Provider value={{
+                        product: '',
+                        setFilter: mockSetFilter,
+                        clearFilter: mockClearFilter
+                    }}>
                     <MainNavigation/>
                     <Routes>
                         // dummy route
                         <Route path="/*" element={<p>User is authenticated</p>}/>
                     </Routes>
+                    </MenuFilteringContext.Provider>
                 </MemoryRouter>
             </AuthContext.Provider>
         );
@@ -139,8 +160,6 @@ describe('MainNavigation component tests', () => {
     });
 
     test('Clear search will clear menu filter context search form', async () => {
-        const mockSetFilter = jest.fn();
-        const mockClearFilter = jest.fn();
         render(
             <AuthContext.Provider value={{
                 isAuthenticated: false
