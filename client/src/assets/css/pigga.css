@@ -3452,9 +3452,9 @@ fieldset:disabled a.btn {
   border-color: #bc8c4c;
 }
 
-.btn-outline-primary:focus-visible {  
+.btn-outline-primary:focus-visible {
   color: #fff;
-  background-color: #bc8c4c ;
+  background-color: #bc8c4c;
   border-color: #bc8c4c;
 }
 
