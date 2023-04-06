@@ -1,10 +1,10 @@
-import {useEffect, useState} from 'react';
-import {useAlertContext} from '../../../contexts/AlertContext';
-import {useMenuFilteringContext} from "../../../contexts/MenuFilteringContext.js";
-import {usePager} from "../../../hooks/usePager.js";
+import { useEffect, useState } from 'react';
+import { useAlertContext } from '../../../contexts/AlertContext';
+import { useMenuFilteringContext } from "../../../contexts/MenuFilteringContext.js";
+import { usePager } from "../../../hooks/usePager.js";
 import * as mealService from '../../../services/mealService';
 import Pager from "../../common/pager/Pager.js";
-import {goToTop} from '../../common/utils/utils.js';
+import { goToTop } from '../../common/utils/utils.js';
 import CreateMeal from './CreateMeal';
 
 import MealListItem from './MealListItem';
@@ -12,28 +12,28 @@ import MealListItem from './MealListItem';
 const PAGE_SIZE = 6;
 
 const MealList = ({
-                      restaurantId,
-                      isOwner,
-                      mealType,
-                      transparent,
-                      title,
-                      subtitle
-                  }) => {
+    restaurantId,
+    isOwner,
+    mealType,
+    transparent,
+    title,
+    subtitle
+}) => {
     const [meals, setMeals] = useState([]);
     const [isCreate, setIsCreate] = useState(false);
     const alertContext = useAlertContext();
-    const {product} = useMenuFilteringContext();
-    const pagerContext = usePager(PAGE_SIZE);
+    const { product } = useMenuFilteringContext();
+    const pager = usePager(PAGE_SIZE);
 
 
     useEffect(() => {
         alertContext.showLoading();
         const getMealsCount = mealService.getAllByRestaurantIdAndMealTypeCount(restaurantId, mealType, product);
-        const getMealsPage = mealService.getAllByRestaurantIdAndMealTypePaged(restaurantId, mealType, product, pagerContext.offset, PAGE_SIZE);
+        const getMealsPage = mealService.getAllByRestaurantIdAndMealTypePaged(restaurantId, mealType, product, pager.offset, PAGE_SIZE);
 
         Promise.all([getMealsCount, getMealsPage])
             .then(([count, res]) => {
-                pagerContext.setRecordsCount(count);
+                pager.setRecordsCount(count);
                 setMeals(Object.values(res));
             })
             .catch(err => {
@@ -45,7 +45,7 @@ const MealList = ({
             });
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [restaurantId, mealType, product, pagerContext.offset]);
+    }, [restaurantId, mealType, product, pager.offset]);
 
     useEffect(() => {
         goToTop();
@@ -110,11 +110,11 @@ const MealList = ({
                         <h6 className="section-subtitle text-center">{subtitle}</h6>
                         <h3 className="section-title mb-2 pb-3 text-center">{title}</h3>
                         {isOwner &&
-                            <button type="button" className="btn btn-primary create-meal" onClick={() => setIsCreate(true)}>
+                            <button type="button" className={`btn btn-primary ${pager.pages > 1 ? 'create-meal' : 'create-meal-alone'}`} onClick={() => setIsCreate(true)}>
                                 <i className="fa-regular fa-file"></i> Създай
                             </button>
                         }
-                        <Pager pagerContext={pagerContext}/>
+                        <Pager pagerHook={pager} />
                         {meals.length ?
                             <div className='row'>
                                 {meals.map(m =>
@@ -132,7 +132,7 @@ const MealList = ({
                 </div>
             </section>
             <CreateMeal isCreate={isCreate} restaurantId={restaurantId} mealType={mealType} onCreateHandler={onCreate}
-                        unloadCreate={() => setIsCreate(false)}/>
+                unloadCreate={() => setIsCreate(false)} />
         </>
     )
 }

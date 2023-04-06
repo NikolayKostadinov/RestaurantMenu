@@ -16,7 +16,7 @@ const ReservationManagement = () => {
     const [formState, setFormState] = useState({ restaurantId: '', date: moment(new Date()).format('YYYY-MM-DD') });
     const [restaurants, setRestaurants] = useState([]);
     const [reservations, setReservations] = useState([]);
-    const pagerContext = usePager(PAGE_SIZE);
+    const pager = usePager(PAGE_SIZE);
 
 
     const { user } = useAuthContext();
@@ -48,8 +48,8 @@ const ReservationManagement = () => {
                                 moment(formState.date + "T23:59")))
                         )
                         .sort((o1, o2) => moment(o1.datetime).diff(moment(o2.datetime)));
-                    pagerContext.setRecordsCount(reservations.length);
-                    setReservations(reservations.slice(pagerContext.offset, pagerContext.offset + PAGE_SIZE));
+                    pager.setRecordsCount(reservations.length);
+                    setReservations(reservations.slice(pager.offset, pager.offset + PAGE_SIZE));
                 })
                 .catch(err => {
                     console.log(err);
@@ -59,7 +59,7 @@ const ReservationManagement = () => {
 
         }
         // eslint-disable-next-line
-    }, [formState.restaurantId, formState.date, pagerContext.offset]);
+    }, [formState.restaurantId, formState.date, pager.offset]);
 
     const onChange = (ev) => {
         setFormState(state =>
@@ -134,10 +134,10 @@ const ReservationManagement = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {reservations.map((r, ix) => <ReservationRow key={r._id} index={ix + pagerContext.offset} reservation={r} confirmHandler={() => onConfirm(r._id)} finishHandler={() => onFinish((r._id))} />)}
+                        {reservations.map((r, ix) => <ReservationRow key={r._id} index={ix + pager.offset} reservation={r} confirmHandler={() => onConfirm(r._id)} finishHandler={() => onFinish((r._id))} />)}
                     </tbody>
                 </table>
-               <Pager pagerContext={pagerContext}/>
+                <Pager pagerHook={pager} />
             </div>
         </section>
 
