@@ -9,6 +9,6 @@ const useSessionPersister = (defaultValue) => {
         setUser(newUser);
     }
 
-    return [user, persistUser]
+    return [user, persistUser, userStore.isAuthenticated()]
 }
 export default useSessionPersister;

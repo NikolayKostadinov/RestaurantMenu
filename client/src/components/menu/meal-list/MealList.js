@@ -68,7 +68,7 @@ const MealList = ({
     const onUpdate = (meal) => {
         alertContext.showLoading();
 
-        meal.price = Number(meal.price);
+        meal.price = Number(parseFloat(meal.price.toString().replace(',', '.')));
         mealService.update(meal)
             .then(changed => setMeals(meals.map(m => m._id !== meal._id ? m : changed)))
             .catch(err => {
@@ -80,7 +80,7 @@ const MealList = ({
 
     const onCreate = (meal) => {
         alertContext.showLoading();
-        meal.price = Number(meal.price.replace(',', '.'));
+        meal.price = Number(parseFloat(meal.price.toString().replace(',', '.')));
 
         mealService.create(meal)
             .then(newMeal => setMeals(stat => [...stat, newMeal]))

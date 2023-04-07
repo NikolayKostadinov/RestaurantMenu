@@ -5,11 +5,11 @@ import useSessionPersister from '../hooks/useSessionPersister';
 export const AuthContext = createContext(
     {
         user: {},
+        isAuthenticated: false,
         userLogin: () => {
         },
         userLogout: () => {
-        },
-        isAuthenticated: false
+        }
     });
 
 export const useAuthContext = () => useContext(AuthContext);
@@ -18,7 +18,7 @@ export const AuthProvider =
     ({
          children
      }) => {
-        const [user, setUser] = useSessionPersister({});
+        const [user, setUser, isAuthenticated] = useSessionPersister({});
 
         const userLogin = (authData) => {
             if (!authData.fullname) {
@@ -34,9 +34,9 @@ export const AuthProvider =
         return (
             <AuthContext.Provider value={{
                 user,
+                isAuthenticated,
                 userLogin,
-                userLogout,
-                isAuthenticated: !!user.username
+                userLogout
             }}>
                 {children}
             </AuthContext.Provider>
