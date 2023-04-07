@@ -15,9 +15,10 @@ export const AlertContext = createContext({
 
 export const useAlertContext = () => useContext(AlertContext);
 
-export const AlertProvider = ({
-                                  children
-                              }) => {
+export const AlertProvider = (
+    {
+        children
+    }) => {
     const [loading, setLoading] = useState(false);
     const [show, setShow] = useState(false);
     const [type, setType] = useState('success');
