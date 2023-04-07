@@ -19,6 +19,7 @@ const ReservationRow = ({
         <tr className={decoration}>
             <td>{index + 1}</td>
             <td>{moment(reservation.datetime).format('LLL')}</td>
+            <td>{reservation.seats}</td>
             <td>{reservation.name}</td>
             <td>{reservation.phone}</td>
             <td>{reservation.email}</td>

@@ -122,11 +122,14 @@ const ReservationManagement = () => {
                         </div>
                     </div>
                 </div>
-                <table className="table table-striped table-sm">
+                <Pager pagerHook={pager} />
+                <div className="d-flex justify-content-center">
+                <table id="reservations" className="table table-striped table-sm table-responsive-sm">
                     <thead>
                         <tr>
                             <th>№</th>
                             <th>Време</th>
+                            <th>Места</th>
                             <th>Имена</th>
                             <th>Телефон</th>
                             <th>Електронна поща</th>
@@ -137,7 +140,7 @@ const ReservationManagement = () => {
                         {reservations.map((r, ix) => <ReservationRow key={r._id} index={ix + pager.offset} reservation={r} confirmHandler={() => onConfirm(r._id)} finishHandler={() => onFinish((r._id))} />)}
                     </tbody>
                 </table>
-                <Pager pagerHook={pager} />
+                </div>
             </div>
         </section>
 
