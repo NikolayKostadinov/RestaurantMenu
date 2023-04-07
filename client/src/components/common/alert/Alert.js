@@ -1,10 +1,14 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import { useAlertContext } from "../../../contexts/AlertContext";
 
 import styles from './Alert.module.css';
 const Alert = () => {
     const { show, type, message, setShowAlert } = useAlertContext();
     const [isShown, setState] = useState(true);
+
+    useEffect(()=>{
+        setState(show);
+    },[show]);
 
     const removeItFromDOM = () => {
         if (show){
@@ -16,6 +20,7 @@ const Alert = () => {
 
     const onClickHandler = () => {
         setShowAlert(false);
+        setState(false);
     }
 
     if (!isShown) return null;

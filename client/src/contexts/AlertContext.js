@@ -42,7 +42,6 @@ export const AlertProvider = ({
                 setShow(false);
             }, 3000);
         }
-        ;
     }
 
     const showLoading = () => {
