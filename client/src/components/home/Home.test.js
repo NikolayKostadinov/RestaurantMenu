@@ -37,7 +37,7 @@ describe('Home component Test Suit', () => {
                 <AlertContext.Provider
                     value={{
                         showAlert: jest.fn(),
-                        setShowAlert: jest.fn(),
+                        hideAlert: jest.fn(),
                         setAlertMessage: jest.fn(),
                         setAlertType: jest.fn(),
                         showLoading: jest.fn(),
@@ -79,7 +79,7 @@ describe('Home component Test Suit', () => {
                     <AlertContext.Provider
                         value={{
                             showAlert: showAlert,
-                            setShowAlert: jest.fn(),
+                            hideAlert: jest.fn(),
                             setAlertMessage: jest.fn(),
                             setAlertType: jest.fn(),
                             showLoading: jest.fn(),

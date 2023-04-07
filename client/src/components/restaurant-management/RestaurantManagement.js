@@ -97,7 +97,7 @@ const RestaurantManagement = () => {
             editRestaurant(restaurantModel);
         }
         else {
-            alertContext.setShowAlert('Невалидна операция', 'дангер');
+            alertContext.showAlert('Невалидна операция', 'дангер');
         }
         managementContext.hideForm();
     }

@@ -25,7 +25,7 @@ const Register = () => {
 
     const onSubmit = (ev) => {
         ev.preventDefault();
-        alertContext.setShowAlert(false);
+        alertContext.hideAlert(false);
         if (!validator.hasErrors()) {
             alertContext.showLoading()
             authService.register(formState)

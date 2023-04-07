@@ -3,7 +3,7 @@ import {act} from "react-dom/test-utils";
 import {AlertContext} from "../../../contexts/AlertContext.js";
 import Alert from "./Alert.js";
 
-const setShowAlert = jest.fn()
+const hideAlert = jest.fn()
 describe('Alert Component Visible Tests Suit', function () {
     beforeEach(() => {
             render(
@@ -11,7 +11,7 @@ describe('Alert Component Visible Tests Suit', function () {
                     show: true,
                     type: 'danger',
                     message: 'Mock Message',
-                    setShowAlert
+                    hideAlert: hideAlert
                 }}>
                     <Alert/>
                 </AlertContext.Provider>
@@ -42,7 +42,7 @@ describe('Alert Component Visible Tests Suit', function () {
         expect(alert).toHaveClass('alert-danger');
     })
 
-    test('Alert will invoke setShowAlert on close click', async () => {
+    test('Alert will invoke hideAlert on close click', async () => {
         const button = document.querySelector("button.close");
         expect(button.innerHTML).toBe('<span aria-hidden="true">×</span>');
 
@@ -50,7 +50,7 @@ describe('Alert Component Visible Tests Suit', function () {
             button.dispatchEvent(new MouseEvent("click", {bubbles: true}));
         });
 
-        expect(setShowAlert).toHaveBeenCalledTimes(1);
+        expect(hideAlert).toHaveBeenCalledTimes(1);
     })
 
     test('Alert will invoke removeItFromDOM', async () => {
@@ -70,14 +70,14 @@ describe('Alert Component Visible Tests Suit', function () {
                 show: false,
                 type: 'danger',
                 message: 'Mock Message',
-                setShowAlert,
+                hideAlert: hideAlert,
             }}>
                 <Alert/>
             </AlertContext.Provider>
         );
 
-        const alert = await screen.findByRole('alert');
+        const alert = await screen.queryByRole('alert');
 
-        expect(alert).not.toHaveClass('show');
+        expect(alert).toBeNull();
     })
 });

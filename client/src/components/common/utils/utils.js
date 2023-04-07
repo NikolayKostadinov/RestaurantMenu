@@ -7,3 +7,9 @@ export const goToTop = () => {
         behavior: 'smooth',
     });
 };
+
+export const delay = (duration)=> {
+    return new Promise((resolve) => {
+        setTimeout(resolve, duration);
+    });
+}

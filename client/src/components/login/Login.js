@@ -16,7 +16,7 @@ const Login = () => {
 
     const onSubmit = (ev) => {
         ev.preventDefault();
-        alertContext.setShowAlert(false);
+        alertContext.hideAlert();
         if (!validator.hasErrors()) {
             alertContext.showLoading();
             authService.login(formState.username, formState.password)

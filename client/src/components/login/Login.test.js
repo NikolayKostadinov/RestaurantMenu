@@ -30,7 +30,7 @@ describe('Login component Tests Suit', function () {
                 <AlertContext.Provider
                     value={{
                         showAlert: showAlert,
-                        setShowAlert: jest.fn(),
+                        hideAlert: jest.fn(),
                         setAlertMessage: jest.fn(),
                         setAlertType: jest.fn(),
                         showLoading: jest.fn(),

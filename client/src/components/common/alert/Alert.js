@@ -3,7 +3,7 @@ import { useAlertContext } from "../../../contexts/AlertContext";
 
 import styles from './Alert.module.css';
 const Alert = () => {
-    const { show, type, message, setShowAlert } = useAlertContext();
+    const { show, fade, type, message, hideAlert } = useAlertContext();
     const [isShown, setState] = useState(true);
 
     useEffect(()=>{
@@ -19,14 +19,14 @@ const Alert = () => {
     }
 
     const onClickHandler = () => {
-        setShowAlert(false);
+        hideAlert(false);
         setState(false);
     }
 
     if (!isShown) return null;
     return (
         <div
-            className={`alert alert-${type || "success"} alert-dismissible fade ${show ? 'show' : ''} ${styles.over}`}
+            className={`alert alert-${type || "success"} alert-dismissible fade ${show && !fade ? 'show' : ''} ${styles.over}`}
             role="alert"
             onTransitionEnd={removeItFromDOM}>
             {message}
