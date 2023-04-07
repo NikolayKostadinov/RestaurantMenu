@@ -1,6 +1,6 @@
 import { clearUserData, getUserData } from "./users_store.js";
 
-const host = 'http://192.168.0.2:3030';
+const host = 'http://localhost:3030';
 
 async function request(method, url, data) {
     const userData = getUserData();
