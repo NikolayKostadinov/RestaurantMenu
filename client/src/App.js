@@ -1,5 +1,5 @@
+import React from "react";
 import {Route, Routes} from 'react-router-dom';
-import NotFound from "./components/notfound/NotFound.js";
 import {AuthProvider} from './contexts/AuthContext';
 import {AlertProvider} from './contexts/AlertContext';
 import {MenuFilteringContextProvider} from "./contexts/MenuFilteringContext.js";
@@ -18,6 +18,7 @@ import Reservation from './components/reservation/Reservation';
 import Alert from './components/common/alert/Alert';
 import Spinner from './components/common/spinner/Spinner';
 import ReservationManagement from './components/reservation/reservation-management/ReservationManagement';
+import Error from "./components/error/Error.js";
 
 import './App.css';
 
@@ -43,7 +44,7 @@ function App() {
                                 }/>
                                 <Route path="/reservations" element={<ReservationManagement/>}/>
                             </Route>
-                            <Route path="*" element={<NotFound/>}/>
+                            <Route path="*" element={<Error code="400" message="Желания от вас ресурс не е открит!"/>}/>
                         </Routes>
                         <Footer/>
                     </MenuFilteringContextProvider>

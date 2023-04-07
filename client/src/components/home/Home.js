@@ -24,7 +24,7 @@ const Home = () => {
             .finally(() => {
                 alertContext.hideLoading();
             });
-// eslint-disable-next-line
+    // eslint-disable-next-line
     }, []);
 
     return (<>

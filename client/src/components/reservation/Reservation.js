@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router-dom";
 
 import * as moment from 'moment';
 import 'moment/locale/bg';
 
 import useValidator from "../../hooks/useValidator";
 import { useAlertContext } from "../../contexts/AlertContext";
-import * as reservetionService from "../../services/reservationService";
+import * as reservationService from "../../services/reservationService";
+import contacts from '../../assets/imgs/contact.jpg';
 
 const Reservation = () => {
   moment.locale('bg');
@@ -39,7 +40,7 @@ const Reservation = () => {
     ev.preventDefault();
     if (!validator.hasErrors()) {
       alertContext.showLoading();
-      reservetionService.create(formState)
+      reservationService.create(formState)
         .then(res => {
           alertContext.showAlert(`Успешно резервирахте маса в ресторант "${title}" за ${moment(res.datetime).format('LLL')}`, 'success', true);
           setFormState({});
@@ -60,7 +61,7 @@ const Reservation = () => {
         <div className="row align-items-center">
           <div className="col-md-6 d-none d-md-block">
             <img
-              src="/imgs/contact.jpg"
+              src={contacts}
               alt="Форма за резервация"
               className="w-100 rounded shadow"
             />
