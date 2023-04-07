@@ -103,7 +103,7 @@ const MealListItem = ({
                                         className={validator.getFormControlValidClass("price", true)}
                                         value={formState.price}
                                         onChange={onChange}
-                                        onBlur={validator.positivValidator}
+                                        onBlur={validator.positiveValidator}
                                         placeholder="Цена"
                                     />
                                     <p className="invalid-feedback">

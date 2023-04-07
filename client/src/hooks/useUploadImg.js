@@ -1,5 +1,5 @@
-import { storage } from "../services/utils/firebase"
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+import { storage } from '../services/utils/firebase';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { v4 } from 'uuid';
 
 const useUploadImg = () => {

@@ -4,32 +4,33 @@ import {createContext, useContext, useState} from "react";
 export const MenuFilteringContext = createContext({
     product: '',
     setFilter: {},
-    clearFilter:{}
+    clearFilter: {}
 });
 
 export const useMenuFilteringContext = () => useContext(MenuFilteringContext);
 
-export const MenuFilteringContextProvider = ({
-    children
-}) => {
-    const [product, setProduct] = useState('');
+export const MenuFilteringContextProvider =
+    ({
+         children
+     }) => {
+        const [product, setProduct] = useState('');
 
-    const setFilter = (filter) => {
-        setProduct(filter);
+        const setFilter = (filter) => {
+            setProduct(filter);
+        }
+        const clearFilter = () => {
+            setProduct('');
+        }
+
+
+        return (
+            <MenuFilteringContext.Provider
+                value={{
+                    product,
+                    setFilter,
+                    clearFilter
+                }}>
+                {children}
+            </MenuFilteringContext.Provider>
+        )
     }
-    const clearFilter = () => {
-        setProduct('');
-    }
-
-
-    return (
-        <MenuFilteringContext.Provider
-            value={{
-                product,
-                setFilter,
-                clearFilter
-            }} >
-                { children }
-        </MenuFilteringContext.Provider>
-    )
-}

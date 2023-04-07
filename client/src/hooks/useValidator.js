@@ -12,12 +12,12 @@ const useValidator = () => {
             e.target.value?.length < 1);
     }
 
-    const positivValidator = (e) => {
+    const positiveValidator = (e) => {
         addErrorState(e.target.name,
             Number(e.target?.value) <= 0);
     }
 
-    const minLenghtValidator = (e, minLenght) => {
+    const minLengthValidator = (e, minLenght) => {
         addErrorState(e.target.name,
             e.target.value.length < minLenght);
     }
@@ -27,8 +27,8 @@ const useValidator = () => {
     }
 
     const emailValidator = (e) => {
-        var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-        let isValid = e.target.value.match(validRegex);
+        const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        const isValid = e.target.value.match(validRegex);
         addErrorState(e.target.name, !isValid);
     }
 
@@ -48,8 +48,8 @@ const useValidator = () => {
         hasErrors,
         getFormControlValidClass,
         requiredValidator,
-        positivValidator,
-        minLengthValidator: minLenghtValidator,
+        positiveValidator,
+        minLengthValidator,
         samePasswordsValidator,
         emailValidator
     })
