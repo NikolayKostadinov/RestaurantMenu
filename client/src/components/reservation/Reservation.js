@@ -131,7 +131,7 @@ const Reservation = () => {
                   type="number"
                   name="seats"
                   placeholder="Брой места"
-                  className={validator.getFormControlValidClass("name")}
+                  className={validator.getFormControlValidClass("seats")}
                   value={formState.seats}
                   onChange={onChange}
                   onBlur={validator.requiredValidator}
